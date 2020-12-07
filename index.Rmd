@@ -1,9 +1,9 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAME HERE"
+title: "Education Attainment in the US"
+author: "Yifei Chen and Zujun Peng"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
-# Down the rabbit-hole
+# 
 
