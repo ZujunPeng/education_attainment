@@ -5,3 +5,7 @@ section
 data-cleaning
 data-sources
 introduction
+missing-values
+results
+interactive-component
+conclustion
