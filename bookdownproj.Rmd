@@ -1,3 +1,26 @@
+--- 
+title: "Education Attainment in the US"
+author: "Yifei Chen and Zujun Peng"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+--- 
+title: "Education Attainment in the US"
+author: "Yifei Chen and Zujun Peng"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+
+# Introduction
+
+
+<!--chapter:end:index.Rmd-->
+
+# Data Sources
+
+
+<!--chapter:end:02-data.Rmd-->
+
 # Data Cleaning
 
 ```{r}
@@ -44,4 +67,23 @@ race<- race %>% pivot_longer(cols = !Gender ,names_to = c("Race","education"),
 race
 ```
 
+
+
+<!--chapter:end:03-cleaning.Rmd-->
+
+# Missing values
+
+<!--chapter:end:04-missing.Rmd-->
+
+# Results
+
+<!--chapter:end:05-results.Rmd-->
+
+# Interactive component
+
+<!--chapter:end:06-interactive.Rmd-->
+
+# Conclustion
+
+<!--chapter:end:07-conclusion.Rmd-->
 
