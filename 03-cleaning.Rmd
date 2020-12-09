@@ -25,15 +25,46 @@ race<- race %>% pivot_longer(cols = !Gender ,names_to = c("Race","Education"),
     names_sep = "_",
     values_to = "Estimate")
 race$Estimate <- as.integer(gsub(",", "", race$Estimate))
-```
 
-```{r}
-#error since read number as char
-#race$Other_High.school.graduate.or.higher<-race$American.Indian.or.Alaska.Native.alone_High.school.graduate.or.higher+race$Native.Hawaiian.and.Other.Pacific.Islander.alone_High.school.graduate.or.higher+race$Some.other.race.alone_High.school.graduate.or.higher + race$Two.or.more.races_High.school.graduate.or.higher
+other_race_list = list("Native.Hawaiian.and.Other.Pacific.Islander.alone", "American.Indian.or.Alaska.Native.alone", "Some.other.race.alone", "Two.or.more.races")
+race_male_highschool <- race %>% 
+    filter(Gender == "Male") %>%
+    filter(Education == "High.school.graduate.or.higher") %>% 
+    filter(Race %in% other_race_list) %>%
+    summarise(Estimate = sum(Estimate))
+race_male_highschool <- race_male_highschool$Estimate
 
-#race$Other_Bachelors.s.degree.or.higher <- race$American.Indian.or.Alaska.Native.alone_Bachelor.s.degree.or.higher + race$Native.Hawaiian.and.Other.Pacific.Islander.alone_Bachelor.s.degree.or.higher + race$Some.other.race.alone_Bachelor.s.degree.or.higher + race$Two.or.more.races_Bachelor.s.degree.or.higher
+race_female_highschool <- race %>% 
+    filter(Gender == "Female") %>%
+    filter(Education == "High.school.graduate.or.higher") %>% 
+    filter(Race %in% other_race_list) %>%
+    summarise(Estimate = sum(Estimate))
+race_female_highschool <- race_female_highschool$Estimate
 
-#Then drop columns!
+race_male_bachelor <- race %>% 
+    filter(Gender == "Male") %>%
+    filter(Education == "Bachelor.s.degree.or.higher") %>% 
+    filter(Race %in% other_race_list) %>%
+    summarise(Estimate = sum(Estimate))
+race_male_bachelor <- race_male_bachelor$Estimate
+
+race_female_bachelor <- race %>% 
+    filter(Gender == "Female") %>%
+    filter(Education == "Bachelor.s.degree.or.higher") %>% 
+    filter(Race %in% other_race_list) %>%
+    summarise(Estimate = sum(Estimate))
+race_female_bachelor <- race_female_bachelor$Estimate
+
+race <- race %>%
+    add_row(Gender = "Male", Education = "High.school.graduate.or.higher", 
+            Race = "Other.race", Estimate = race_male_highschool) %>%
+    add_row(Gender = "Female", Education = "High.school.graduate.or.higher", 
+            Race = "Other.race", Estimate = race_female_highschool) %>%
+    add_row(Gender = "Male", Education = "Bachelor.s.degree.or.higher", 
+            Race = "Other.race", Estimate = race_male_bachelor) %>%
+    add_row(Gender = "Female", Education = "Bachelor.s.degree.or.higher", 
+            Race = "Other.race", Estimate = race_female_bachelor)
+race <- race[!race$Race %in% other_race_list, ]
 ```
 
 ```{r}
