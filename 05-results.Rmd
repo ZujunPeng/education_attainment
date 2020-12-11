@@ -1,1 +1,28 @@
 # Results
+```{r}
+library(ggplot2)
+```
+
+
+```{r}
+birth
+```
+```{r}
+ggplot(birth) +
+  geom_col(aes(x = as.factor(Marriage), y = Estimate, fill = Education), position = "fill")+
+  coord_flip() +
+  theme(legend.position = "bottom") +
+  #guides(fill = guide_legend(reverse = TRUE)) +
+  facet_wrap(~Give_birth, ncol = 1)+
+  ylab("proportion") +
+  xlab("Marriage Status")+
+  ggtitle("Proportional breakdown of Class for each level of UsuallyDrink,
+  faceted on Gender")
+
+
+
+```
+
+
+
+

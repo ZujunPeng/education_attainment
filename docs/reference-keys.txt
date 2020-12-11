@@ -1,10 +1,6 @@
-down-the-rabbit-hole
-the-pool-of-tears
-a-caucus-race-and-a-long-tale
-section
-data-cleaning
-data-sources
 introduction
+data-sources
+data-cleaning
 missing-values
 results
 interactive-component
