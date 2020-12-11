@@ -1,6 +1,6 @@
 # Data Cleaning
 
-```{r}
+```{r, include = FALSE}
 library(tidyverse)
 library(dplyr)
 ```
@@ -8,14 +8,19 @@ library(dplyr)
 
 ```{r}
 birth <- read.csv("./data/births.csv", na.strings = "N/A")
-```
 
-```{r}
 birth <- birth %>% pivot_longer(cols =1:20 ,names_to = c("Give_birth","Marriage","Education"),
     names_sep = "_",
     values_to = "Estimate")
 birth$Estimate <- as.integer(gsub(",", "", birth$Estimate))
-
+# Make character values more descriptive and succinct as possible
+# Need a note about the inclusion of each group specifically: 
+# For example, high school = high school (including equivalency), advanced degree = graduate or professional degree
+birth$Education[which(birth$Education == "Less.than.high.school.graduate")] <- "Less Than High School"
+birth$Education[which(birth$Education == "High.school.graduate..includes.equivalency.")] <- "High School or Equivalent"
+birth$Education[which(birth$Education == "Some.college.or.associate.s.degree")] <- "Some Colleges or Associoate Degree"
+birth$Education[which(birth$Education == "Bachelor.s.degree")] <- "Bachelor Degree"
+birth$Education[which(birth$Education == "Graduate.or.professional.degree")] <- "Advanced Degree"
 ```
 
 
@@ -65,6 +70,17 @@ race <- race %>%
     add_row(Gender = "Female", Education = "Bachelor.s.degree.or.higher", 
             Race = "Other.race", Estimate = race_female_bachelor)
 race <- race[!race$Race %in% other_race_list, ]
+
+# Make character values more descriptive and succinct as possible
+# Need a note that: white means white alone does not count Hispanic or Latino
+# Other races include: xxx
+race$Education[which(race$Education == "High.school.graduate.or.higher")] <- ">= High School"
+race$Education[which(race$Education == "Bachelor.s.degree.or.high")] <- ">= Bachelor Degree"
+race$Race[which(race$Race == "White.alone..not.Hispanic.or.Latino")] <- "White Alone"
+race$Race[which(race$Race == "Hispanic.or.Latino.Origin")] <- "Hispanic or Latino Origin"
+race$Race[which(race$Race == "Black.alone")] <- "Black Alone"
+race$Race[which(race$Race == "Asian.alone")] <- "Asian Alone"
+race$Race[which(race$Race == "Other.race")] <- "Other Races"
 ```
 
 ```{r}
@@ -73,6 +89,15 @@ education<-education %>% pivot_longer(cols = !Gender ,names_to = c("Year","Educa
     names_sep = "_",
     values_to = "Estimate")
 education$Estimate <- as.integer(gsub(",","",education$Estimate))
+
+# Make character values more descriptive and succinct as possible
+education$Education[which(education$Education == "Less.than.9th.grade")] <- "< 9th Grade"
+education$Education[which(education$Education == "9th.to.12th.grade..no.diploma")] <- "9th-12th Grade with No Diploma"
+education$Education[which(education$Education == "High.school.graduate..includes.equivalency.")] <- "High School or Equivalent"
+education$Education[which(education$Education == "Some.college..no.degree")] <- "Some Colleges with No Degree"
+education$Education[which(education$Education == "Associate.s.degree")] <- "Associate Degree"
+education$Education[which(education$Education == "Bachelor.s.degree")] <- "Bachelor Degree"
+education$Education[which(education$Education == "Graduate.or.professional.degree")] <- "Advanced Degree"
 ```
 
 ```{r}
@@ -81,6 +106,13 @@ earning<-earning %>% pivot_longer(cols = !Gender ,names_to = c("Year","Education
     names_sep = "_",
     values_to = "Earning")
 earning$Earning <- as.integer(gsub(",","",earning$Earning))
+earning$Year <- as.integer(gsub("X", "", earning$Year))
+earning$Education[which(earning$Education == "Total.Population")] <- "Total Population"
+earning$Education[which(earning$Education == "Less.than.high.school.graduate")] <- "< High School"
+earning$Education[which(earning$Education == "High.school.graduate..includes.equivalency.")] <- "High School or Equivalent"
+earning$Education[which(earning$Education == "Some.college.or.associate.s.degree")] <- "Some Colleges or Associate Degree"
+earning$Education[which(earning$Education == "Bachelor.s.degree")] <- "Bachelor Degree"
+    earning$Education[which(earning$Education == "Graduate.or.professional.degree")] <- "Advanced Degree"
 ```
 
 
