@@ -5,6 +5,29 @@ library(tidyverse)
 library(dplyr)
 ```
 
+```{r}
+# Abbreviate character values in the dataset 
+abbreviate <- function(ds, educ = TRUE, race = FALSE){
+    if (educ){
+        ds$Education[which(ds$Education == "Less.than.high.school.graduate")] <- "< High School"
+        ds$Education[which(ds$Education == "High.school.graduate..includes.equivalency.")] <- "High School"
+        ds$Education[which(ds$Education == "Some.college.or.associate.s.degree")] <- "Some Colleges"
+        ds$Education[which(ds$Education == "Bachelor.s.degree")] <- "Bachelor Degree"
+        ds$Education[which(ds$Education == "Graduate.or.professional.degree")] <- "Advanced Degree"
+    }
+    
+    if (race){
+        ds$Education[which(ds$Education == "High.school.graduate.or.higher")] <- ">= High School"
+        ds$Education[which(ds$Education == "Bachelor.s.degree.or.higher")] <- ">= Bachelor Degree"
+        ds$Race[which(ds$Race == "White.alone..not.Hispanic.or.Latino" | ds$Race == "White.alone.not.Hispanic.or.Latino")] <- "White Alone"
+        ds$Race[which(ds$Race == "Hispanic.or.Latino.Origin")] <- "Hispanic or Latino Origin"
+        ds$Race[which(ds$Race == "Black.alone")] <- "Black Alone"
+        ds$Race[which(ds$Race == "Asian.alone")] <- "Asian Alone"
+    }
+    ds$Education <- as.factor(ds$Education)
+    return(ds)
+}
+```
 
 ```{r}
 states <- read.csv("./data/states.csv", na.strings = "N/A")
@@ -12,12 +35,14 @@ states <- read.csv("./data/states.csv", na.strings = "N/A")
 #extract columns for education attainment
 states_education <- states[,1:7]
 states_education <- states_education %>% pivot_longer(cols =!State ,names_to = "Education",values_to = "Population")
-#extract columns for medain earning
+
+#extract columns for median earning
 states_earning <- states[,c(1,8,9,10,11,12,13)]
 states_earning <- states_earning %>% pivot_longer(cols =!State ,names_to = "Education",values_to = "Earning")
+
 #combine data
 states <- cbind(states_education,states_earning[,3])
-
+states <- abbreviate(states)
 ```
 
 ```{r}
@@ -33,15 +58,26 @@ birth <- birth %>% pivot_longer(cols =1:20 ,names_to = c("Give_birth","Marriage"
 # Make character values more descriptive and succinct as possible
 # Need a note about the inclusion of each group specifically: 
 # For example, high school = high school (including equivalency), advanced degree = graduate or professional degree
-birth$Education[which(birth$Education == "Less.than.high.school.graduate")] <- "Less Than High School"
-birth$Education[which(birth$Education == "High.school.graduate..includes.equivalency.")] <- "High School or Equivalent"
-birth$Education[which(birth$Education == "Some.college.or.associate.s.degree")] <- "Some Colleges or Associoate Degree"
-birth$Education[which(birth$Education == "Bachelor.s.degree")] <- "Bachelor Degree"
-birth$Education[which(birth$Education == "Graduate.or.professional.degree")] <- "Advanced Degree"
+birth <- abbreviate(birth)
 ```
 
 ```{r}
 birth
+```
+
+```{r}
+# Function of combining some races into 'Other Races' category
+combine_races <- function(race, combine_list){
+    race[race$Race %in% combine_list, "Race"] <- "Other"
+    combine_race <- race %>% 
+        filter(Race == "Other") %>% 
+        group_by(Gender, Education) %>% 
+        summarise(Estimate = sum(Estimate), .groups = "drop") %>% 
+        mutate(Race = "Other")
+    race <- race[!race$Race == "Other", ]
+    race <- rbind(race, combine_race)
+    return(race)
+}
 ```
 
 
@@ -51,58 +87,14 @@ race<- race %>% pivot_longer(cols = !Gender ,names_to = c("Race","Education"),
     names_sep = "_",
     values_to = "Estimate")
 
-##change to function!! In the column gender, add one level "Total"
-
 other_race_list = list("Native.Hawaiian.and.Other.Pacific.Islander.alone", "American.Indian.or.Alaska.Native.alone", "Some.other.race.alone", "Two.or.more.races")
-race_male_highschool <- race %>% 
-    filter(Gender == "Male") %>%
-    filter(Education == "High.school.graduate.or.higher") %>% 
-    filter(Race %in% other_race_list) %>%
-    summarise(Estimate = sum(Estimate))
-race_male_highschool <- race_male_highschool$Estimate
-
-race_female_highschool <- race %>% 
-    filter(Gender == "Female") %>%
-    filter(Education == "High.school.graduate.or.higher") %>% 
-    filter(Race %in% other_race_list) %>%
-    summarise(Estimate = sum(Estimate))
-race_female_highschool <- race_female_highschool$Estimate
-
-race_male_bachelor <- race %>% 
-    filter(Gender == "Male") %>%
-    filter(Education == "Bachelor.s.degree.or.higher") %>% 
-    filter(Race %in% other_race_list) %>%
-    summarise(Estimate = sum(Estimate))
-race_male_bachelor <- race_male_bachelor$Estimate
-
-race_female_bachelor <- race %>% 
-    filter(Gender == "Female") %>%
-    filter(Education == "Bachelor.s.degree.or.higher") %>% 
-    filter(Race %in% other_race_list) %>%
-    summarise(Estimate = sum(Estimate))
-race_female_bachelor <- race_female_bachelor$Estimate
-
-race <- race %>%
-    add_row(Gender = "Male", Education = "High.school.graduate.or.higher", 
-            Race = "Other.race", Estimate = race_male_highschool) %>%
-    add_row(Gender = "Female", Education = "High.school.graduate.or.higher", 
-            Race = "Other.race", Estimate = race_female_highschool) %>%
-    add_row(Gender = "Male", Education = "Bachelor.s.degree.or.higher", 
-            Race = "Other.race", Estimate = race_male_bachelor) %>%
-    add_row(Gender = "Female", Education = "Bachelor.s.degree.or.higher", 
-            Race = "Other.race", Estimate = race_female_bachelor)
-race <- race[!race$Race %in% other_race_list, ]
+race <- combine_races(race, other_race_list)
 
 # Make character values more descriptive and succinct as possible
 # Need a note that: white means white alone does not count Hispanic or Latino
 # Other races include: xxx
-race$Education[which(race$Education == "High.school.graduate.or.higher")] <- ">= High School"
-race$Education[which(race$Education == "Bachelor.s.degree.or.high")] <- ">= Bachelor Degree"
-race$Race[which(race$Race == "White.alone..not.Hispanic.or.Latino")] <- "White Alone"
-race$Race[which(race$Race == "Hispanic.or.Latino.Origin")] <- "Hispanic or Latino Origin"
-race$Race[which(race$Race == "Black.alone")] <- "Black Alone"
-race$Race[which(race$Race == "Asian.alone")] <- "Asian Alone"
-race$Race[which(race$Race == "Other.race")] <- "Other Races"
+race <- abbreviate(race, race = TRUE)
+
 ```
 
 ```{r}
@@ -118,11 +110,7 @@ education<-education %>% pivot_longer(cols = !Gender ,names_to = c("Year","Educa
 education$Year <- as.integer(gsub("X", "", education$Year))
 
 # Make character values more descriptive and succinct as possible
-education$Education[which(education$Education == "Less.than.high.school.graduate")] <- "Less than High School"
-education$Education[which(education$Education == "High.school.graduate..includes.equivalency.")] <- "High School or Equivalent"
-education$Education[which(education$Education == "Some.college.or.associate.s.degree")] <- "Some Colleges or Associate  Degree"
-education$Education[which(education$Education == "Bachelor.s.degree")] <- "Bachelor Degree"
-education$Education[which(education$Education == "Graduate.or.professional.degree")] <- "Advanced Degree"
+education <- abbreviate(education)
 ```
 
 ```{r}
