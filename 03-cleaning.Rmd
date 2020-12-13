@@ -7,24 +7,37 @@ library(dplyr)
 
 ```{r}
 # Abbreviate character values in the dataset 
-abbreviate <- function(ds, educ = TRUE, race = FALSE){
-    if (educ){
-        ds$Education[which(ds$Education == "Less.than.high.school.graduate")] <- "< High School"
-        ds$Education[which(ds$Education == "High.school.graduate..includes.equivalency.")] <- "High School"
+abbreviate <- function(ds, total = FALSE, race = FALSE){
+    if (!race){
+        ds$Education[which(ds$Education == "Less.than.high.school.graduate")] <- "Less Than High School"
+        ds$Education[which(ds$Education == "High.school.graduate..includes.equivalency.")] <- "High School Graduate"
         ds$Education[which(ds$Education == "Some.college.or.associate.s.degree")] <- "Some Colleges"
         ds$Education[which(ds$Education == "Bachelor.s.degree")] <- "Bachelor Degree"
         ds$Education[which(ds$Education == "Graduate.or.professional.degree")] <- "Advanced Degree"
     }
     
     if (race){
-        ds$Education[which(ds$Education == "High.school.graduate.or.higher")] <- ">= High School"
-        ds$Education[which(ds$Education == "Bachelor.s.degree.or.higher")] <- ">= Bachelor Degree"
+        ds$Education[which(ds$Education == "High.school.graduate.or.higher")] <- "High School or higher"
+        ds$Education[which(ds$Education == "Bachelor.s.degree.or.higher")] <- ">= Bachelor Degree or higher"
         ds$Race[which(ds$Race == "White.alone..not.Hispanic.or.Latino" | ds$Race == "White.alone.not.Hispanic.or.Latino")] <- "White Alone"
         ds$Race[which(ds$Race == "Hispanic.or.Latino.Origin")] <- "Hispanic or Latino Origin"
         ds$Race[which(ds$Race == "Black.alone")] <- "Black Alone"
         ds$Race[which(ds$Race == "Asian.alone")] <- "Asian Alone"
+        ds$Race<- as.factor(ds$Race)
+        ds$Race<-fct_relevel(ds$Race,"White Alone","Hispanic or Latino Origin","Black Alone", "Asian Alone","Other")
+
     }
     ds$Education <- as.factor(ds$Education)
+    if(total){
+      ds$Education <- fct_relevel(ds$Education,"< High School","High School Graduate","Some Colleges","Bachelor Degree", "Advanced Degree","Total")
+    }
+    if(!total&&!race){
+      ds$Education<-fct_relevel(ds$Education,"< High School","High School Graduate","Some Colleges","Bachelor Degree", "Advanced Degree")
+
+    }
+    if(race){
+      ds$Education<-fct_relevel(ds$Education,"Total",">= High School",">= Bachelor Degree")
+    }
     return(ds)
 }
 ```
@@ -42,8 +55,9 @@ states_earning <- states_earning %>% pivot_longer(cols =!State ,names_to = "Educ
 
 #combine data
 states <- cbind(states_education,states_earning[,3])
-states <- abbreviate(states)
+states <- abbreviate(states,total = TRUE)
 ```
+
 
 ```{r}
 states
@@ -93,7 +107,7 @@ race <- combine_races(race, other_race_list)
 # Make character values more descriptive and succinct as possible
 # Need a note that: white means white alone does not count Hispanic or Latino
 # Other races include: xxx
-race <- abbreviate(race, race = TRUE)
+race <- abbreviate(race, race = TRUE,)
 
 ```
 
@@ -124,12 +138,9 @@ earning<-earning %>% pivot_longer(cols = !Gender ,names_to = c("Year","Education
     names_sep = "_",
     values_to = "Earning")
 earning$Year <- as.integer(gsub("X", "", earning$Year))
-earning$Education[which(earning$Education == "Total.Population")] <- "Total Population"
-earning$Education[which(earning$Education == "Less.than.high.school.graduate")] <- "Less than High School"
-earning$Education[which(earning$Education == "High.school.graduate..includes.equivalency.")] <- "High School or Equivalent"
-earning$Education[which(earning$Education == "Some.college.or.associate.s.degree")] <- "Some Colleges or Associate Degree"
-earning$Education[which(earning$Education == "Bachelor.s.degree")] <- "Bachelor Degree"
-    earning$Education[which(earning$Education == "Graduate.or.professional.degree")] <- "Advanced Degree"
+earning <- abbreviate(earning,total=TRUE)
+
+
 ```
 
 ```{r}

@@ -24,7 +24,7 @@
 <meta name="author" content="Yifei Chen and Zujun Peng" />
 
 
-<meta name="date" content="2020-12-11" />
+<meta name="date" content="2020-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -165,26 +165,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-cleaning" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Data Cleaning</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-cleaning.html#cb1-1"></a><span class="co"># Abbreviate character values in the dataset </span></span>
-<span id="cb1-2"><a href="data-cleaning.html#cb1-2"></a>abbreviate &lt;-<span class="st"> </span><span class="cf">function</span>(ds, <span class="dt">educ =</span> <span class="ot">TRUE</span>, <span class="dt">race =</span> <span class="ot">FALSE</span>){</span>
-<span id="cb1-3"><a href="data-cleaning.html#cb1-3"></a>    <span class="cf">if</span> (educ){</span>
-<span id="cb1-4"><a href="data-cleaning.html#cb1-4"></a>        ds<span class="op">$</span>Education[<span class="kw">which</span>(ds<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Less.than.high.school.graduate&quot;</span>)] &lt;-<span class="st"> &quot;&lt; High School&quot;</span></span>
-<span id="cb1-5"><a href="data-cleaning.html#cb1-5"></a>        ds<span class="op">$</span>Education[<span class="kw">which</span>(ds<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;High.school.graduate..includes.equivalency.&quot;</span>)] &lt;-<span class="st"> &quot;High School&quot;</span></span>
+<span id="cb1-2"><a href="data-cleaning.html#cb1-2"></a>abbreviate &lt;-<span class="st"> </span><span class="cf">function</span>(ds, <span class="dt">total =</span> <span class="ot">FALSE</span>, <span class="dt">race =</span> <span class="ot">FALSE</span>){</span>
+<span id="cb1-3"><a href="data-cleaning.html#cb1-3"></a>    <span class="cf">if</span> (<span class="op">!</span>race){</span>
+<span id="cb1-4"><a href="data-cleaning.html#cb1-4"></a>        ds<span class="op">$</span>Education[<span class="kw">which</span>(ds<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Less.than.high.school.graduate&quot;</span>)] &lt;-<span class="st"> &quot;Less Than High School&quot;</span></span>
+<span id="cb1-5"><a href="data-cleaning.html#cb1-5"></a>        ds<span class="op">$</span>Education[<span class="kw">which</span>(ds<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;High.school.graduate..includes.equivalency.&quot;</span>)] &lt;-<span class="st"> &quot;High School Graduate&quot;</span></span>
 <span id="cb1-6"><a href="data-cleaning.html#cb1-6"></a>        ds<span class="op">$</span>Education[<span class="kw">which</span>(ds<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Some.college.or.associate.s.degree&quot;</span>)] &lt;-<span class="st"> &quot;Some Colleges&quot;</span></span>
 <span id="cb1-7"><a href="data-cleaning.html#cb1-7"></a>        ds<span class="op">$</span>Education[<span class="kw">which</span>(ds<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Bachelor.s.degree&quot;</span>)] &lt;-<span class="st"> &quot;Bachelor Degree&quot;</span></span>
 <span id="cb1-8"><a href="data-cleaning.html#cb1-8"></a>        ds<span class="op">$</span>Education[<span class="kw">which</span>(ds<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Graduate.or.professional.degree&quot;</span>)] &lt;-<span class="st"> &quot;Advanced Degree&quot;</span></span>
 <span id="cb1-9"><a href="data-cleaning.html#cb1-9"></a>    }</span>
 <span id="cb1-10"><a href="data-cleaning.html#cb1-10"></a>    </span>
 <span id="cb1-11"><a href="data-cleaning.html#cb1-11"></a>    <span class="cf">if</span> (race){</span>
-<span id="cb1-12"><a href="data-cleaning.html#cb1-12"></a>        ds<span class="op">$</span>Education[<span class="kw">which</span>(ds<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;High.school.graduate.or.higher&quot;</span>)] &lt;-<span class="st"> &quot;&gt;= High School&quot;</span></span>
-<span id="cb1-13"><a href="data-cleaning.html#cb1-13"></a>        ds<span class="op">$</span>Education[<span class="kw">which</span>(ds<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Bachelor.s.degree.or.higher&quot;</span>)] &lt;-<span class="st"> &quot;&gt;= Bachelor Degree&quot;</span></span>
+<span id="cb1-12"><a href="data-cleaning.html#cb1-12"></a>        ds<span class="op">$</span>Education[<span class="kw">which</span>(ds<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;High.school.graduate.or.higher&quot;</span>)] &lt;-<span class="st"> &quot;High School or higher&quot;</span></span>
+<span id="cb1-13"><a href="data-cleaning.html#cb1-13"></a>        ds<span class="op">$</span>Education[<span class="kw">which</span>(ds<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Bachelor.s.degree.or.higher&quot;</span>)] &lt;-<span class="st"> &quot;&gt;= Bachelor Degree or higher&quot;</span></span>
 <span id="cb1-14"><a href="data-cleaning.html#cb1-14"></a>        ds<span class="op">$</span>Race[<span class="kw">which</span>(ds<span class="op">$</span>Race <span class="op">==</span><span class="st"> &quot;White.alone..not.Hispanic.or.Latino&quot;</span> <span class="op">|</span><span class="st"> </span>ds<span class="op">$</span>Race <span class="op">==</span><span class="st"> &quot;White.alone.not.Hispanic.or.Latino&quot;</span>)] &lt;-<span class="st"> &quot;White Alone&quot;</span></span>
 <span id="cb1-15"><a href="data-cleaning.html#cb1-15"></a>        ds<span class="op">$</span>Race[<span class="kw">which</span>(ds<span class="op">$</span>Race <span class="op">==</span><span class="st"> &quot;Hispanic.or.Latino.Origin&quot;</span>)] &lt;-<span class="st"> &quot;Hispanic or Latino Origin&quot;</span></span>
 <span id="cb1-16"><a href="data-cleaning.html#cb1-16"></a>        ds<span class="op">$</span>Race[<span class="kw">which</span>(ds<span class="op">$</span>Race <span class="op">==</span><span class="st"> &quot;Black.alone&quot;</span>)] &lt;-<span class="st"> &quot;Black Alone&quot;</span></span>
 <span id="cb1-17"><a href="data-cleaning.html#cb1-17"></a>        ds<span class="op">$</span>Race[<span class="kw">which</span>(ds<span class="op">$</span>Race <span class="op">==</span><span class="st"> &quot;Asian.alone&quot;</span>)] &lt;-<span class="st"> &quot;Asian Alone&quot;</span></span>
-<span id="cb1-18"><a href="data-cleaning.html#cb1-18"></a>    }</span>
-<span id="cb1-19"><a href="data-cleaning.html#cb1-19"></a>    ds<span class="op">$</span>Education &lt;-<span class="st"> </span><span class="kw">as.factor</span>(ds<span class="op">$</span>Education)</span>
-<span id="cb1-20"><a href="data-cleaning.html#cb1-20"></a>    <span class="kw">return</span>(ds)</span>
-<span id="cb1-21"><a href="data-cleaning.html#cb1-21"></a>}</span></code></pre></div>
+<span id="cb1-18"><a href="data-cleaning.html#cb1-18"></a>        ds<span class="op">$</span>Race&lt;-<span class="st"> </span><span class="kw">as.factor</span>(ds<span class="op">$</span>Race)</span>
+<span id="cb1-19"><a href="data-cleaning.html#cb1-19"></a>        ds<span class="op">$</span>Race&lt;-<span class="kw">fct_relevel</span>(ds<span class="op">$</span>Race,<span class="st">&quot;White Alone&quot;</span>,<span class="st">&quot;Hispanic or Latino Origin&quot;</span>,<span class="st">&quot;Black Alone&quot;</span>, <span class="st">&quot;Asian Alone&quot;</span>,<span class="st">&quot;Other&quot;</span>)</span>
+<span id="cb1-20"><a href="data-cleaning.html#cb1-20"></a></span>
+<span id="cb1-21"><a href="data-cleaning.html#cb1-21"></a>    }</span>
+<span id="cb1-22"><a href="data-cleaning.html#cb1-22"></a>    ds<span class="op">$</span>Education &lt;-<span class="st"> </span><span class="kw">as.factor</span>(ds<span class="op">$</span>Education)</span>
+<span id="cb1-23"><a href="data-cleaning.html#cb1-23"></a>    <span class="cf">if</span>(total){</span>
+<span id="cb1-24"><a href="data-cleaning.html#cb1-24"></a>      ds<span class="op">$</span>Education &lt;-<span class="st"> </span><span class="kw">fct_relevel</span>(ds<span class="op">$</span>Education,<span class="st">&quot;&lt; High School&quot;</span>,<span class="st">&quot;High School Graduate&quot;</span>,<span class="st">&quot;Some Colleges&quot;</span>,<span class="st">&quot;Bachelor Degree&quot;</span>, <span class="st">&quot;Advanced Degree&quot;</span>,<span class="st">&quot;Total&quot;</span>)</span>
+<span id="cb1-25"><a href="data-cleaning.html#cb1-25"></a>    }</span>
+<span id="cb1-26"><a href="data-cleaning.html#cb1-26"></a>    <span class="cf">if</span>(<span class="op">!</span>total<span class="op">&amp;&amp;!</span>race){</span>
+<span id="cb1-27"><a href="data-cleaning.html#cb1-27"></a>      ds<span class="op">$</span>Education&lt;-<span class="kw">fct_relevel</span>(ds<span class="op">$</span>Education,<span class="st">&quot;&lt; High School&quot;</span>,<span class="st">&quot;High School Graduate&quot;</span>,<span class="st">&quot;Some Colleges&quot;</span>,<span class="st">&quot;Bachelor Degree&quot;</span>, <span class="st">&quot;Advanced Degree&quot;</span>)</span>
+<span id="cb1-28"><a href="data-cleaning.html#cb1-28"></a></span>
+<span id="cb1-29"><a href="data-cleaning.html#cb1-29"></a>    }</span>
+<span id="cb1-30"><a href="data-cleaning.html#cb1-30"></a>    <span class="cf">if</span>(race){</span>
+<span id="cb1-31"><a href="data-cleaning.html#cb1-31"></a>      ds<span class="op">$</span>Education&lt;-<span class="kw">fct_relevel</span>(ds<span class="op">$</span>Education,<span class="st">&quot;Total&quot;</span>,<span class="st">&quot;&gt;= High School&quot;</span>,<span class="st">&quot;&gt;= Bachelor Degree&quot;</span>)</span>
+<span id="cb1-32"><a href="data-cleaning.html#cb1-32"></a>    }</span>
+<span id="cb1-33"><a href="data-cleaning.html#cb1-33"></a>    <span class="kw">return</span>(ds)</span>
+<span id="cb1-34"><a href="data-cleaning.html#cb1-34"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="data-cleaning.html#cb2-1"></a>states &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/states.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;N/A&quot;</span>)</span>
 <span id="cb2-2"><a href="data-cleaning.html#cb2-2"></a></span>
 <span id="cb2-3"><a href="data-cleaning.html#cb2-3"></a><span class="co">#extract columns for education attainment</span></span>
@@ -197,447 +210,441 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-10"><a href="data-cleaning.html#cb2-10"></a></span>
 <span id="cb2-11"><a href="data-cleaning.html#cb2-11"></a><span class="co">#combine data</span></span>
 <span id="cb2-12"><a href="data-cleaning.html#cb2-12"></a>states &lt;-<span class="st"> </span><span class="kw">cbind</span>(states_education,states_earning[,<span class="dv">3</span>])</span>
-<span id="cb2-13"><a href="data-cleaning.html#cb2-13"></a>states &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(states)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-cleaning.html#cb3-1"></a>states</span></code></pre></div>
-<pre><code>##                    State       Education Population Earning
-## 1                Alabama           Total    3360058   37217
-## 2                Alabama   &lt; High School     433073   22395
-## 3                Alabama     High School    1039241   30845
-## 4                Alabama   Some Colleges    1002387   35107
-## 5                Alabama Bachelor Degree     547975   50643
-## 6                Alabama Advanced Degree     337382   60922
-## 7                 Alaska           Total     484058   47809
-## 8                 Alaska   &lt; High School      31090   23264
-## 9                 Alaska     High School     139156   36522
-## 10                Alaska   Some Colleges     167655   47878
-## 11                Alaska Bachelor Degree      89583   53033
-## 12                Alaska Advanced Degree      56574   71947
-## 13               Arizona           Total    4944540   39956
-## 14               Arizona   &lt; High School     612998   25701
-## 15               Arizona     High School    1170685   31371
-## 16               Arizona   Some Colleges    1668699   37016
-## 17               Arizona Bachelor Degree     931038   52077
-## 18               Arizona Advanced Degree     561120   69902
-## 19              Arkansas           Total    2036456   35215
-## 20              Arkansas   &lt; High School     254993   25695
-## 21              Arkansas     High School     710306   30057
-## 22              Arkansas   Some Colleges     595790   31778
-## 23              Arkansas Bachelor Degree     307185   46964
-## 24              Arkansas Advanced Degree     168182   62027
-## 25            California           Total   26937872   45095
-## 26            California   &lt; High School    4301513   25949
-## 27            California     High School    5546711   33494
-## 28            California   Some Colleges    7661164   41090
-## 29            California Bachelor Degree    5889724   65078
-## 30            California Advanced Degree    3538760   92334
-## 31              Colorado           Total    3974943   46887
-## 32              Colorado   &lt; High School     302220   30968
-## 33              Colorado     High School     836590   35537
-## 34              Colorado   Some Colleges    1140531   40819
-## 35              Colorado Bachelor Degree    1057825   58229
-## 36              Colorado Advanced Degree     637777   71616
-## 37           Connecticut           Total    2496420   50788
-## 38           Connecticut   &lt; High School     231839   24426
-## 39           Connecticut     High School     668361   37017
-## 40           Connecticut   Some Colleges     601672   42884
-## 41           Connecticut Bachelor Degree     549166   64143
-## 42           Connecticut Advanced Degree     445382   85175
-## 43              Delaware           Total     687311   43164
-## 44              Delaware   &lt; High School      66522   31024
-## 45              Delaware     High School     207642   33671
-## 46              Delaware   Some Colleges     184948   38048
-## 47              Delaware Bachelor Degree     134287   56603
-## 48              Delaware Advanced Degree      93912   70579
-## 49  District of Columbia           Total     505145   71361
-## 50  District of Columbia   &lt; High School      41168   30883
-## 51  District of Columbia     High School      79881   31768
-## 52  District of Columbia   Some Colleges      82667   44248
-## 53  District of Columbia Bachelor Degree     129825   75222
-## 54  District of Columbia Advanced Degree     171604  101956
-## 55               Florida           Total   15484502   36021
-## 56               Florida   &lt; High School    1794635   23292
-## 57               Florida     High School    4396122   30064
-## 58               Florida   Some Colleges    4540108   34752
-## 59               Florida Bachelor Degree    2982643   47810
-## 60               Florida Advanced Degree    1770994   62425
-## 61               Georgia           Total    7080222   40312
-## 62               Georgia   &lt; High School     856025   25479
-## 63               Georgia     High School    1939945   31184
-## 64               Georgia   Some Colleges    1982684   35846
-## 65               Georgia Bachelor Degree    1410395   53662
-## 66               Georgia Advanced Degree     891173   70027
-## 67                Hawaii           Total     996668   44557
-## 68                Hawaii   &lt; High School      75978   31620
-## 69                Hawaii     High School     273421   35573
-## 70                Hawaii   Some Colleges     312060   41842
-## 71                Hawaii Bachelor Degree     219979   52183
-## 72                Hawaii Advanced Degree     115230   72035
-## 73                 Idaho           Total    1170997   36445
-## 74                 Idaho   &lt; High School      99906   27667
-## 75                 Idaho     High School     305274   31395
-## 76                 Idaho   Some Colleges     429162   33984
-## 77                 Idaho Bachelor Degree     220189   46364
-## 78                 Idaho Advanced Degree     116466   60816
-## 79              Illinois           Total    8694694   45015
-## 80              Illinois   &lt; High School     882637   27186
-## 81              Illinois     High School    2255611   32304
-## 82              Illinois   Some Colleges    2447474   39400
-## 83              Illinois Bachelor Degree    1886240   60357
-## 84              Illinois Advanced Degree    1222732   76363
-## 85               Indiana           Total    4502015   39833
-## 86               Indiana   &lt; High School     468083   27765
-## 87               Indiana     High School    1526825   32101
-## 88               Indiana   Some Colleges    1294281   37154
-## 89               Indiana Bachelor Degree     777771   50630
-## 90               Indiana Advanced Degree     435055   65941
-## 91                  Iowa           Total    2123004   41268
-## 92                  Iowa   &lt; High School     156481   30381
-## 93                  Iowa     High School     658822   33066
-## 94                  Iowa   Some Colleges     685448   39073
-## 95                  Iowa Bachelor Degree     420199   51751
-## 96                  Iowa Advanced Degree     202054   66887
-## 97                Kansas           Total    1918081   41181
-## 98                Kansas   &lt; High School     157757   26549
-## 99                Kansas     High School     504035   32106
-## 100               Kansas   Some Colleges     603800   36994
-## 101               Kansas Bachelor Degree     414851   51678
-## 102               Kansas Advanced Degree     237638   62008
-## 103             Kentucky           Total    3048442   37674
-## 104             Kentucky   &lt; High School     390653   24631
-## 105             Kentucky     High School    1012643   31313
-## 106             Kentucky   Some Colleges     879223   35326
-## 107             Kentucky Bachelor Degree     453040   50711
-## 108             Kentucky Advanced Degree     312883   60270
-## 109            Louisiana           Total    3140201   37599
-## 110            Louisiana   &lt; High School     440844   22913
-## 111            Louisiana     High School    1066026   30786
-## 112            Louisiana   Some Colleges     849056   35064
-## 113            Louisiana Bachelor Degree     503947   50699
-## 114            Louisiana Advanced Degree     280328   60992
-## 115                Maine           Total     991152   39550
-## 116                Maine   &lt; High School      67314   25504
-## 117                Maine     High School     311108   31798
-## 118                Maine   Some Colleges     283731   36274
-## 119                Maine Bachelor Degree     205722   47375
-## 120                Maine Advanced Degree     123277   60347
-## 121             Maryland           Total    4183858   52011
-## 122             Maryland   &lt; High School     402152   30300
-## 123             Maryland     High School    1030636   36700
-## 124             Maryland   Some Colleges    1040840   44022
-## 125             Maryland Bachelor Degree     911781   65193
-## 126             Maryland Advanced Degree     798449   89066
-## 127        Massachusetts           Total    4850576   52470
-## 128        Massachusetts   &lt; High School     420941   30693
-## 129        Massachusetts     High School    1158066   39463
-## 130        Massachusetts   Some Colleges    1089826   42066
-## 131        Massachusetts Bachelor Degree    1197208   65373
-## 132        Massachusetts Advanced Degree     984535   85717
-## 133             Michigan           Total    6894627   40450
-## 134             Michigan   &lt; High School     596287   23192
-## 135             Michigan     High School    2005981   31028
-## 136             Michigan   Some Colleges    2221564   36272
-## 137             Michigan Bachelor Degree    1252685   54634
-## 138             Michigan Advanced Degree     818110   71623
-## 139            Minnesota           Total    3847212   47050
-## 140            Minnesota   &lt; High School     245690   28327
-## 141            Minnesota     High School     939997   35337
-## 142            Minnesota   Some Colleges    1228299   41858
-## 143            Minnesota Bachelor Degree     942830   60316
-## 144            Minnesota Advanced Degree     490396   75925
-## 145          Mississippi           Total    1979664   32574
-## 146          Mississippi   &lt; High School     290917   20764
-## 147          Mississippi     High School     598609   27158
-## 148          Mississippi   Some Colleges     648387   31459
-## 149          Mississippi Bachelor Degree     270712   44148
-## 150          Mississippi Advanced Degree     171039   56208
-## 151             Missouri           Total    4206162   40078
-## 152             Missouri   &lt; High School     391815   24831
-## 153             Missouri     High School    1308859   31297
-## 154             Missouri   Some Colleges    1234207   36127
-## 155             Missouri Bachelor Degree     775808   51217
-## 156             Missouri Advanced Degree     495473   63368
-## 157              Montana           Total     741950   36953
-## 158              Montana   &lt; High School      42682   27804
-## 159              Montana     High School     211079   30843
-## 160              Montana   Some Colleges     239041   33040
-## 161              Montana Bachelor Degree     171309   42150
-## 162              Montana Advanced Degree      77839   58287
-## 163             Nebraska           Total    1271770   41488
-## 164             Nebraska   &lt; High School     101272   30298
-## 165             Nebraska     High School     326389   32174
-## 166             Nebraska   Some Colleges     421522   38209
-## 167             Nebraska Bachelor Degree     277159   50779
-## 168             Nebraska Advanced Degree     145428   61853
-## 169               Nevada           Total    2136466   39505
-## 170               Nevada   &lt; High School     280915   29609
-## 171               Nevada     High School     593417   32879
-## 172               Nevada   Some Colleges     713215   40057
-## 173               Nevada Bachelor Degree     355837   50293
-## 174               Nevada Advanced Degree     193082   66105
-## 175        New Hampshire           Total     979750   47392
-## 176        New Hampshire   &lt; High School      65672   30119
-## 177        New Hampshire     High School     275105   37820
-## 178        New Hampshire   Some Colleges     270736   42368
-## 179        New Hampshire Bachelor Degree     224636   60544
-## 180        New Hampshire Advanced Degree     143601   71884
-## 181           New Jersey           Total    6191229   51786
-## 182           New Jersey   &lt; High School     599619   28427
-## 183           New Jersey     High School    1666321   35048
-## 184           New Jersey   Some Colleges    1373524   44983
-## 185           New Jersey Bachelor Degree    1555781   67038
-## 186           New Jersey Advanced Degree     995984   92098
-## 187           New Mexico           Total    1425988   35284
-## 188           New Mexico   &lt; High School     201328   21016
-## 189           New Mexico     High School     376390   29002
-## 190           New Mexico   Some Colleges     453672   32187
-## 191           New Mexico Bachelor Degree     221281   45109
-## 192           New Mexico Advanced Degree     173317   62501
-## 193             New York           Total   13664734   47645
-## 194             New York   &lt; High School    1694230   26036
-## 195             New York     High School    3524192   33491
-## 196             New York   Some Colleges    3280094   41421
-## 197             New York Bachelor Degree    2898440   62699
-## 198             New York Advanced Degree    2267778   81041
-## 199       North Carolina           Total    7187077   38534
-## 200       North Carolina   &lt; High School     818924   23976
-## 201       North Carolina     High School    1839042   30369
-## 202       North Carolina   Some Colleges    2207926   34861
-## 203       North Carolina Bachelor Degree    1471420   50977
-## 204       North Carolina Advanced Degree     849765   65620
-## 205         North Dakota           Total     504375   43865
-## 206         North Dakota   &lt; High School      33019   28756
-## 207         North Dakota     High School     134432   34343
-## 208         North Dakota   Some Colleges     183527   41818
-## 209         North Dakota Bachelor Degree     108527   51854
-## 210         North Dakota Advanced Degree      44870   61288
-## 211                 Ohio           Total    8049805   40586
-## 212                 Ohio   &lt; High School     740847   24836
-## 213                 Ohio     High School    2627758   31514
-## 214                 Ohio   Some Colleges    2324615   36821
-## 215                 Ohio Bachelor Degree    1464945   53680
-## 216                 Ohio Advanced Degree     891640   71180
-## 217             Oklahoma           Total    2619244   38088
-## 218             Oklahoma   &lt; High School     303266   24760
-## 219             Oklahoma     High School     825284   31766
-## 220             Oklahoma   Some Colleges     804185   35955
-## 221             Oklahoma Bachelor Degree     447888   47828
-## 222             Oklahoma Advanced Degree     238621   61092
-## 223               Oregon           Total    2988118   40774
-## 224               Oregon   &lt; High School     258399   27408
-## 225               Oregon     High School     687243   31451
-## 226               Oregon   Some Colleges    1010160   36817
-## 227               Oregon Bachelor Degree     627911   52498
-## 228               Oregon Advanced Degree     404405   70854
-## 229         Pennsylvania           Total    9028036   42229
-## 230         Pennsylvania   &lt; High School     811832   26343
-## 231         Pennsylvania     High School    3103046   32567
-## 232         Pennsylvania   Some Colleges    2195756   39075
-## 233         Pennsylvania Bachelor Degree    1761627   55326
-## 234         Pennsylvania Advanced Degree    1155775   73805
-## 235         Rhode Island           Total     746952   46060
-## 236         Rhode Island   &lt; High School      80207   31893
-## 237         Rhode Island     High School     212282   36883
-## 238         Rhode Island   Some Colleges     194188   40363
-## 239         Rhode Island Bachelor Degree     156087   57398
-## 240         Rhode Island Advanced Degree     104188   76827
-## 241       South Carolina           Total    3563204   37727
-## 242       South Carolina   &lt; High School     415678   23085
-## 243       South Carolina     High School    1015260   30592
-## 244       South Carolina   Some Colleges    1077707   35994
-## 245       South Carolina Bachelor Degree     656496   50734
-## 246       South Carolina Advanced Degree     398063   60788
-## 247         South Dakota           Total     588029   38646
-## 248         South Dakota   &lt; High School      46294   22131
-## 249         South Dakota     High School     176644   31306
-## 250         South Dakota   Some Colleges     190307   36732
-## 251         South Dakota Bachelor Degree     121231   47630
-## 252         South Dakota Advanced Degree      53553   57244
-## 253            Tennessee           Total    4693962   37610
-## 254            Tennessee   &lt; High School     562817   25365
-## 255            Tennessee     High School    1480753   30596
-## 256            Tennessee   Some Colleges    1302168   35518
-## 257            Tennessee Bachelor Degree     845100   50633
-## 258            Tennessee Advanced Degree     503124   62832
-## 259                Texas           Total   18772550   40895
-## 260                Texas   &lt; High School    2882388   25282
-## 261                Texas     High School    4734422   31234
-## 262                Texas   Some Colleges    5379207   38121
-## 263                Texas Bachelor Degree    3750797   56853
-## 264                Texas Advanced Degree    2025736   72195
-## 265                 Utah           Total    1911592   41679
-## 266                 Utah   &lt; High School     133060   28028
-## 267                 Utah     High School     442206   34667
-## 268                 Utah   Some Colleges     671665   37247
-## 269                 Utah Bachelor Degree     448109   51611
-## 270                 Utah Advanced Degree     216552   76099
-## 271              Vermont           Total     445558   41496
-## 272              Vermont   &lt; High School      30858   27052
-## 273              Vermont     High School     129254   32425
-## 274              Vermont   Some Colleges     113174   39882
-## 275              Vermont Bachelor Degree     101015   47170
-## 276              Vermont Advanced Degree      71257   61617
-## 277             Virginia           Total    5872757   46873
-## 278             Virginia   &lt; High School     584712   23892
-## 279             Virginia     High School    1387610   32366
-## 280             Virginia   Some Colleges    1575365   40071
-## 281             Virginia Bachelor Degree    1312800   61529
-## 282             Virginia Advanced Degree    1012270   85582
-## 283           Washington           Total    5290324   48567
-## 284           Washington   &lt; High School     440074   30627
-## 285           Washington     High School    1167347   36441
-## 286           Washington   Some Colleges    1727271   42030
-## 287           Washington Bachelor Degree    1204728   62447
-## 288           Washington Advanced Degree     750904   86167
-## 289        West Virginia           Total    1281086   35440
-## 290        West Virginia   &lt; High School     164805   20200
-## 291        West Virginia     High School     515431   30573
-## 292        West Virginia   Some Colleges     331144   32380
-## 293        West Virginia Bachelor Degree     161686   45304
-## 294        West Virginia Advanced Degree     108020   58802
-## 295            Wisconsin           Total    4015285   42222
-## 296            Wisconsin   &lt; High School     290862   29561
-## 297            Wisconsin     High School    1223392   33547
-## 298            Wisconsin   Some Colleges    1242652   40482
-## 299            Wisconsin Bachelor Degree     829878   52425
-## 300            Wisconsin Advanced Degree     428501   67112
-## 301              Wyoming           Total     389847   40800
-## 302              Wyoming   &lt; High School      21250   29982
-## 303              Wyoming     High School     117501   36929
-## 304              Wyoming   Some Colleges     137539   36885
-## 305              Wyoming Bachelor Degree      73183   47962
-## 306              Wyoming Advanced Degree      40374   61288
-## 307          Puerto Rico           Total    2301735   18587
-## 308          Puerto Rico   &lt; High School     488408   11259
-## 309          Puerto Rico     High School     648146   15055
-## 310          Puerto Rico   Some Colleges     538601   17187
-## 311          Puerto Rico Bachelor Degree     443589   24668
-## 312          Puerto Rico Advanced Degree     182991   34649
-## 313        United States           Total  224898568   41801
-## 314        United States   &lt; High School   25618541   25876
-## 315        United States     High School   60482353   31956
-## 316        United States   Some Colleges   64296023   38125
-## 317        United States Bachelor Degree   45730479   56344
-## 318        United States Advanced Degree   28771172   75495</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data-cleaning.html#cb5-1"></a>birth &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/births.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;N/A&quot;</span>)</span>
-<span id="cb5-2"><a href="data-cleaning.html#cb5-2"></a></span>
-<span id="cb5-3"><a href="data-cleaning.html#cb5-3"></a>birth &lt;-<span class="st"> </span>birth <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span> ,<span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;Give_birth&quot;</span>,<span class="st">&quot;Marriage&quot;</span>,<span class="st">&quot;Education&quot;</span>),</span>
-<span id="cb5-4"><a href="data-cleaning.html#cb5-4"></a>    <span class="dt">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb5-5"><a href="data-cleaning.html#cb5-5"></a>    <span class="dt">values_to =</span> <span class="st">&quot;Estimate&quot;</span>)</span>
-<span id="cb5-6"><a href="data-cleaning.html#cb5-6"></a><span class="co"># Make character values more descriptive and succinct as possible</span></span>
-<span id="cb5-7"><a href="data-cleaning.html#cb5-7"></a><span class="co"># Need a note about the inclusion of each group specifically: </span></span>
-<span id="cb5-8"><a href="data-cleaning.html#cb5-8"></a><span class="co"># For example, high school = high school (including equivalency), advanced degree = graduate or professional degree</span></span>
-<span id="cb5-9"><a href="data-cleaning.html#cb5-9"></a>birth &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(birth)</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-cleaning.html#cb6-1"></a>birth</span></code></pre></div>
+<span id="cb2-13"><a href="data-cleaning.html#cb2-13"></a>states &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(states,<span class="dt">total =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## Warning: Unknown levels in `f`: &lt; High School</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="data-cleaning.html#cb4-1"></a>states</span></code></pre></div>
+<pre><code>##                    State             Education Population Earning
+## 1                Alabama                 Total    3360058   37217
+## 2                Alabama Less Than High School     433073   22395
+## 3                Alabama  High School Graduate    1039241   30845
+## 4                Alabama         Some Colleges    1002387   35107
+## 5                Alabama       Bachelor Degree     547975   50643
+## 6                Alabama       Advanced Degree     337382   60922
+## 7                 Alaska                 Total     484058   47809
+## 8                 Alaska Less Than High School      31090   23264
+## 9                 Alaska  High School Graduate     139156   36522
+## 10                Alaska         Some Colleges     167655   47878
+## 11                Alaska       Bachelor Degree      89583   53033
+## 12                Alaska       Advanced Degree      56574   71947
+## 13               Arizona                 Total    4944540   39956
+## 14               Arizona Less Than High School     612998   25701
+## 15               Arizona  High School Graduate    1170685   31371
+## 16               Arizona         Some Colleges    1668699   37016
+## 17               Arizona       Bachelor Degree     931038   52077
+## 18               Arizona       Advanced Degree     561120   69902
+## 19              Arkansas                 Total    2036456   35215
+## 20              Arkansas Less Than High School     254993   25695
+## 21              Arkansas  High School Graduate     710306   30057
+## 22              Arkansas         Some Colleges     595790   31778
+## 23              Arkansas       Bachelor Degree     307185   46964
+## 24              Arkansas       Advanced Degree     168182   62027
+## 25            California                 Total   26937872   45095
+## 26            California Less Than High School    4301513   25949
+## 27            California  High School Graduate    5546711   33494
+## 28            California         Some Colleges    7661164   41090
+## 29            California       Bachelor Degree    5889724   65078
+## 30            California       Advanced Degree    3538760   92334
+## 31              Colorado                 Total    3974943   46887
+## 32              Colorado Less Than High School     302220   30968
+## 33              Colorado  High School Graduate     836590   35537
+## 34              Colorado         Some Colleges    1140531   40819
+## 35              Colorado       Bachelor Degree    1057825   58229
+## 36              Colorado       Advanced Degree     637777   71616
+## 37           Connecticut                 Total    2496420   50788
+## 38           Connecticut Less Than High School     231839   24426
+## 39           Connecticut  High School Graduate     668361   37017
+## 40           Connecticut         Some Colleges     601672   42884
+## 41           Connecticut       Bachelor Degree     549166   64143
+## 42           Connecticut       Advanced Degree     445382   85175
+## 43              Delaware                 Total     687311   43164
+## 44              Delaware Less Than High School      66522   31024
+## 45              Delaware  High School Graduate     207642   33671
+## 46              Delaware         Some Colleges     184948   38048
+## 47              Delaware       Bachelor Degree     134287   56603
+## 48              Delaware       Advanced Degree      93912   70579
+## 49  District of Columbia                 Total     505145   71361
+## 50  District of Columbia Less Than High School      41168   30883
+## 51  District of Columbia  High School Graduate      79881   31768
+## 52  District of Columbia         Some Colleges      82667   44248
+## 53  District of Columbia       Bachelor Degree     129825   75222
+## 54  District of Columbia       Advanced Degree     171604  101956
+## 55               Florida                 Total   15484502   36021
+## 56               Florida Less Than High School    1794635   23292
+## 57               Florida  High School Graduate    4396122   30064
+## 58               Florida         Some Colleges    4540108   34752
+## 59               Florida       Bachelor Degree    2982643   47810
+## 60               Florida       Advanced Degree    1770994   62425
+## 61               Georgia                 Total    7080222   40312
+## 62               Georgia Less Than High School     856025   25479
+## 63               Georgia  High School Graduate    1939945   31184
+## 64               Georgia         Some Colleges    1982684   35846
+## 65               Georgia       Bachelor Degree    1410395   53662
+## 66               Georgia       Advanced Degree     891173   70027
+## 67                Hawaii                 Total     996668   44557
+## 68                Hawaii Less Than High School      75978   31620
+## 69                Hawaii  High School Graduate     273421   35573
+## 70                Hawaii         Some Colleges     312060   41842
+## 71                Hawaii       Bachelor Degree     219979   52183
+## 72                Hawaii       Advanced Degree     115230   72035
+## 73                 Idaho                 Total    1170997   36445
+## 74                 Idaho Less Than High School      99906   27667
+## 75                 Idaho  High School Graduate     305274   31395
+## 76                 Idaho         Some Colleges     429162   33984
+## 77                 Idaho       Bachelor Degree     220189   46364
+## 78                 Idaho       Advanced Degree     116466   60816
+## 79              Illinois                 Total    8694694   45015
+## 80              Illinois Less Than High School     882637   27186
+## 81              Illinois  High School Graduate    2255611   32304
+## 82              Illinois         Some Colleges    2447474   39400
+## 83              Illinois       Bachelor Degree    1886240   60357
+## 84              Illinois       Advanced Degree    1222732   76363
+## 85               Indiana                 Total    4502015   39833
+## 86               Indiana Less Than High School     468083   27765
+## 87               Indiana  High School Graduate    1526825   32101
+## 88               Indiana         Some Colleges    1294281   37154
+## 89               Indiana       Bachelor Degree     777771   50630
+## 90               Indiana       Advanced Degree     435055   65941
+## 91                  Iowa                 Total    2123004   41268
+## 92                  Iowa Less Than High School     156481   30381
+## 93                  Iowa  High School Graduate     658822   33066
+## 94                  Iowa         Some Colleges     685448   39073
+## 95                  Iowa       Bachelor Degree     420199   51751
+## 96                  Iowa       Advanced Degree     202054   66887
+## 97                Kansas                 Total    1918081   41181
+## 98                Kansas Less Than High School     157757   26549
+## 99                Kansas  High School Graduate     504035   32106
+## 100               Kansas         Some Colleges     603800   36994
+## 101               Kansas       Bachelor Degree     414851   51678
+## 102               Kansas       Advanced Degree     237638   62008
+## 103             Kentucky                 Total    3048442   37674
+## 104             Kentucky Less Than High School     390653   24631
+## 105             Kentucky  High School Graduate    1012643   31313
+## 106             Kentucky         Some Colleges     879223   35326
+## 107             Kentucky       Bachelor Degree     453040   50711
+## 108             Kentucky       Advanced Degree     312883   60270
+## 109            Louisiana                 Total    3140201   37599
+## 110            Louisiana Less Than High School     440844   22913
+## 111            Louisiana  High School Graduate    1066026   30786
+## 112            Louisiana         Some Colleges     849056   35064
+## 113            Louisiana       Bachelor Degree     503947   50699
+## 114            Louisiana       Advanced Degree     280328   60992
+## 115                Maine                 Total     991152   39550
+## 116                Maine Less Than High School      67314   25504
+## 117                Maine  High School Graduate     311108   31798
+## 118                Maine         Some Colleges     283731   36274
+## 119                Maine       Bachelor Degree     205722   47375
+## 120                Maine       Advanced Degree     123277   60347
+## 121             Maryland                 Total    4183858   52011
+## 122             Maryland Less Than High School     402152   30300
+## 123             Maryland  High School Graduate    1030636   36700
+## 124             Maryland         Some Colleges    1040840   44022
+## 125             Maryland       Bachelor Degree     911781   65193
+## 126             Maryland       Advanced Degree     798449   89066
+## 127        Massachusetts                 Total    4850576   52470
+## 128        Massachusetts Less Than High School     420941   30693
+## 129        Massachusetts  High School Graduate    1158066   39463
+## 130        Massachusetts         Some Colleges    1089826   42066
+## 131        Massachusetts       Bachelor Degree    1197208   65373
+## 132        Massachusetts       Advanced Degree     984535   85717
+## 133             Michigan                 Total    6894627   40450
+## 134             Michigan Less Than High School     596287   23192
+## 135             Michigan  High School Graduate    2005981   31028
+## 136             Michigan         Some Colleges    2221564   36272
+## 137             Michigan       Bachelor Degree    1252685   54634
+## 138             Michigan       Advanced Degree     818110   71623
+## 139            Minnesota                 Total    3847212   47050
+## 140            Minnesota Less Than High School     245690   28327
+## 141            Minnesota  High School Graduate     939997   35337
+## 142            Minnesota         Some Colleges    1228299   41858
+## 143            Minnesota       Bachelor Degree     942830   60316
+## 144            Minnesota       Advanced Degree     490396   75925
+## 145          Mississippi                 Total    1979664   32574
+## 146          Mississippi Less Than High School     290917   20764
+## 147          Mississippi  High School Graduate     598609   27158
+## 148          Mississippi         Some Colleges     648387   31459
+## 149          Mississippi       Bachelor Degree     270712   44148
+## 150          Mississippi       Advanced Degree     171039   56208
+## 151             Missouri                 Total    4206162   40078
+## 152             Missouri Less Than High School     391815   24831
+## 153             Missouri  High School Graduate    1308859   31297
+## 154             Missouri         Some Colleges    1234207   36127
+## 155             Missouri       Bachelor Degree     775808   51217
+## 156             Missouri       Advanced Degree     495473   63368
+## 157              Montana                 Total     741950   36953
+## 158              Montana Less Than High School      42682   27804
+## 159              Montana  High School Graduate     211079   30843
+## 160              Montana         Some Colleges     239041   33040
+## 161              Montana       Bachelor Degree     171309   42150
+## 162              Montana       Advanced Degree      77839   58287
+## 163             Nebraska                 Total    1271770   41488
+## 164             Nebraska Less Than High School     101272   30298
+## 165             Nebraska  High School Graduate     326389   32174
+## 166             Nebraska         Some Colleges     421522   38209
+## 167             Nebraska       Bachelor Degree     277159   50779
+## 168             Nebraska       Advanced Degree     145428   61853
+## 169               Nevada                 Total    2136466   39505
+## 170               Nevada Less Than High School     280915   29609
+## 171               Nevada  High School Graduate     593417   32879
+## 172               Nevada         Some Colleges     713215   40057
+## 173               Nevada       Bachelor Degree     355837   50293
+## 174               Nevada       Advanced Degree     193082   66105
+## 175        New Hampshire                 Total     979750   47392
+## 176        New Hampshire Less Than High School      65672   30119
+## 177        New Hampshire  High School Graduate     275105   37820
+## 178        New Hampshire         Some Colleges     270736   42368
+## 179        New Hampshire       Bachelor Degree     224636   60544
+## 180        New Hampshire       Advanced Degree     143601   71884
+## 181           New Jersey                 Total    6191229   51786
+## 182           New Jersey Less Than High School     599619   28427
+## 183           New Jersey  High School Graduate    1666321   35048
+## 184           New Jersey         Some Colleges    1373524   44983
+## 185           New Jersey       Bachelor Degree    1555781   67038
+## 186           New Jersey       Advanced Degree     995984   92098
+## 187           New Mexico                 Total    1425988   35284
+## 188           New Mexico Less Than High School     201328   21016
+## 189           New Mexico  High School Graduate     376390   29002
+## 190           New Mexico         Some Colleges     453672   32187
+## 191           New Mexico       Bachelor Degree     221281   45109
+## 192           New Mexico       Advanced Degree     173317   62501
+## 193             New York                 Total   13664734   47645
+## 194             New York Less Than High School    1694230   26036
+## 195             New York  High School Graduate    3524192   33491
+## 196             New York         Some Colleges    3280094   41421
+## 197             New York       Bachelor Degree    2898440   62699
+## 198             New York       Advanced Degree    2267778   81041
+## 199       North Carolina                 Total    7187077   38534
+## 200       North Carolina Less Than High School     818924   23976
+## 201       North Carolina  High School Graduate    1839042   30369
+## 202       North Carolina         Some Colleges    2207926   34861
+## 203       North Carolina       Bachelor Degree    1471420   50977
+## 204       North Carolina       Advanced Degree     849765   65620
+## 205         North Dakota                 Total     504375   43865
+## 206         North Dakota Less Than High School      33019   28756
+## 207         North Dakota  High School Graduate     134432   34343
+## 208         North Dakota         Some Colleges     183527   41818
+## 209         North Dakota       Bachelor Degree     108527   51854
+## 210         North Dakota       Advanced Degree      44870   61288
+## 211                 Ohio                 Total    8049805   40586
+## 212                 Ohio Less Than High School     740847   24836
+## 213                 Ohio  High School Graduate    2627758   31514
+## 214                 Ohio         Some Colleges    2324615   36821
+## 215                 Ohio       Bachelor Degree    1464945   53680
+## 216                 Ohio       Advanced Degree     891640   71180
+## 217             Oklahoma                 Total    2619244   38088
+## 218             Oklahoma Less Than High School     303266   24760
+## 219             Oklahoma  High School Graduate     825284   31766
+## 220             Oklahoma         Some Colleges     804185   35955
+## 221             Oklahoma       Bachelor Degree     447888   47828
+## 222             Oklahoma       Advanced Degree     238621   61092
+## 223               Oregon                 Total    2988118   40774
+## 224               Oregon Less Than High School     258399   27408
+## 225               Oregon  High School Graduate     687243   31451
+## 226               Oregon         Some Colleges    1010160   36817
+## 227               Oregon       Bachelor Degree     627911   52498
+## 228               Oregon       Advanced Degree     404405   70854
+## 229         Pennsylvania                 Total    9028036   42229
+## 230         Pennsylvania Less Than High School     811832   26343
+## 231         Pennsylvania  High School Graduate    3103046   32567
+## 232         Pennsylvania         Some Colleges    2195756   39075
+## 233         Pennsylvania       Bachelor Degree    1761627   55326
+## 234         Pennsylvania       Advanced Degree    1155775   73805
+## 235         Rhode Island                 Total     746952   46060
+## 236         Rhode Island Less Than High School      80207   31893
+## 237         Rhode Island  High School Graduate     212282   36883
+## 238         Rhode Island         Some Colleges     194188   40363
+## 239         Rhode Island       Bachelor Degree     156087   57398
+## 240         Rhode Island       Advanced Degree     104188   76827
+## 241       South Carolina                 Total    3563204   37727
+## 242       South Carolina Less Than High School     415678   23085
+## 243       South Carolina  High School Graduate    1015260   30592
+## 244       South Carolina         Some Colleges    1077707   35994
+## 245       South Carolina       Bachelor Degree     656496   50734
+## 246       South Carolina       Advanced Degree     398063   60788
+## 247         South Dakota                 Total     588029   38646
+## 248         South Dakota Less Than High School      46294   22131
+## 249         South Dakota  High School Graduate     176644   31306
+## 250         South Dakota         Some Colleges     190307   36732
+## 251         South Dakota       Bachelor Degree     121231   47630
+## 252         South Dakota       Advanced Degree      53553   57244
+## 253            Tennessee                 Total    4693962   37610
+## 254            Tennessee Less Than High School     562817   25365
+## 255            Tennessee  High School Graduate    1480753   30596
+## 256            Tennessee         Some Colleges    1302168   35518
+## 257            Tennessee       Bachelor Degree     845100   50633
+## 258            Tennessee       Advanced Degree     503124   62832
+## 259                Texas                 Total   18772550   40895
+## 260                Texas Less Than High School    2882388   25282
+## 261                Texas  High School Graduate    4734422   31234
+## 262                Texas         Some Colleges    5379207   38121
+## 263                Texas       Bachelor Degree    3750797   56853
+## 264                Texas       Advanced Degree    2025736   72195
+## 265                 Utah                 Total    1911592   41679
+## 266                 Utah Less Than High School     133060   28028
+## 267                 Utah  High School Graduate     442206   34667
+## 268                 Utah         Some Colleges     671665   37247
+## 269                 Utah       Bachelor Degree     448109   51611
+## 270                 Utah       Advanced Degree     216552   76099
+## 271              Vermont                 Total     445558   41496
+## 272              Vermont Less Than High School      30858   27052
+## 273              Vermont  High School Graduate     129254   32425
+## 274              Vermont         Some Colleges     113174   39882
+## 275              Vermont       Bachelor Degree     101015   47170
+## 276              Vermont       Advanced Degree      71257   61617
+## 277             Virginia                 Total    5872757   46873
+## 278             Virginia Less Than High School     584712   23892
+## 279             Virginia  High School Graduate    1387610   32366
+## 280             Virginia         Some Colleges    1575365   40071
+## 281             Virginia       Bachelor Degree    1312800   61529
+## 282             Virginia       Advanced Degree    1012270   85582
+## 283           Washington                 Total    5290324   48567
+## 284           Washington Less Than High School     440074   30627
+## 285           Washington  High School Graduate    1167347   36441
+## 286           Washington         Some Colleges    1727271   42030
+## 287           Washington       Bachelor Degree    1204728   62447
+## 288           Washington       Advanced Degree     750904   86167
+## 289        West Virginia                 Total    1281086   35440
+## 290        West Virginia Less Than High School     164805   20200
+## 291        West Virginia  High School Graduate     515431   30573
+## 292        West Virginia         Some Colleges     331144   32380
+## 293        West Virginia       Bachelor Degree     161686   45304
+## 294        West Virginia       Advanced Degree     108020   58802
+## 295            Wisconsin                 Total    4015285   42222
+## 296            Wisconsin Less Than High School     290862   29561
+## 297            Wisconsin  High School Graduate    1223392   33547
+## 298            Wisconsin         Some Colleges    1242652   40482
+## 299            Wisconsin       Bachelor Degree     829878   52425
+## 300            Wisconsin       Advanced Degree     428501   67112
+## 301              Wyoming                 Total     389847   40800
+## 302              Wyoming Less Than High School      21250   29982
+## 303              Wyoming  High School Graduate     117501   36929
+## 304              Wyoming         Some Colleges     137539   36885
+## 305              Wyoming       Bachelor Degree      73183   47962
+## 306              Wyoming       Advanced Degree      40374   61288
+## 307          Puerto Rico                 Total    2301735   18587
+## 308          Puerto Rico Less Than High School     488408   11259
+## 309          Puerto Rico  High School Graduate     648146   15055
+## 310          Puerto Rico         Some Colleges     538601   17187
+## 311          Puerto Rico       Bachelor Degree     443589   24668
+## 312          Puerto Rico       Advanced Degree     182991   34649</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-cleaning.html#cb6-1"></a>birth &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/births.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;N/A&quot;</span>)</span>
+<span id="cb6-2"><a href="data-cleaning.html#cb6-2"></a></span>
+<span id="cb6-3"><a href="data-cleaning.html#cb6-3"></a>birth &lt;-<span class="st"> </span>birth <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span> ,<span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;Give_birth&quot;</span>,<span class="st">&quot;Marriage&quot;</span>,<span class="st">&quot;Education&quot;</span>),</span>
+<span id="cb6-4"><a href="data-cleaning.html#cb6-4"></a>    <span class="dt">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
+<span id="cb6-5"><a href="data-cleaning.html#cb6-5"></a>    <span class="dt">values_to =</span> <span class="st">&quot;Estimate&quot;</span>)</span>
+<span id="cb6-6"><a href="data-cleaning.html#cb6-6"></a><span class="co"># Make character values more descriptive and succinct as possible</span></span>
+<span id="cb6-7"><a href="data-cleaning.html#cb6-7"></a><span class="co"># Need a note about the inclusion of each group specifically: </span></span>
+<span id="cb6-8"><a href="data-cleaning.html#cb6-8"></a><span class="co"># For example, high school = high school (including equivalency), advanced degree = graduate or professional degree</span></span>
+<span id="cb6-9"><a href="data-cleaning.html#cb6-9"></a>birth &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(birth)</span></code></pre></div>
+<pre><code>## Warning: Unknown levels in `f`: &lt; High School</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data-cleaning.html#cb8-1"></a>birth</span></code></pre></div>
 <pre><code>## # A tibble: 20 x 4
-##    Give_birth Marriage  Education       Estimate
-##    &lt;chr&gt;      &lt;chr&gt;     &lt;fct&gt;              &lt;int&gt;
-##  1 birth      Married   &lt; High School     202572
-##  2 birth      Married   High School       448750
-##  3 birth      Married   Some Colleges     715554
-##  4 birth      Married   Bachelor Degree   745148
-##  5 birth      Married   Advanced Degree   494817
-##  6 birth      Unmarried &lt; High School     220616
-##  7 birth      Unmarried High School       450356
-##  8 birth      Unmarried Some Colleges     460590
-##  9 birth      Unmarried Bachelor Degree   103445
-## 10 birth      Unmarried Advanced Degree    36034
-## 11 Nobirth    Married   &lt; High School    2686948
-## 12 Nobirth    Married   High School      5906857
-## 13 Nobirth    Married   Some Colleges    8802059
-## 14 Nobirth    Married   Bachelor Degree  7961510
-## 15 Nobirth    Married   Advanced Degree  5241343
-## 16 Nobirth    Unmarried &lt; High School    9244270
-## 17 Nobirth    Unmarried High School      9252305
-## 18 Nobirth    Unmarried Some Colleges   13748688
-## 19 Nobirth    Unmarried Bachelor Degree  7213809
-## 20 Nobirth    Unmarried Advanced Degree  2943900</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data-cleaning.html#cb8-1"></a><span class="co"># Function of combining some races into &#39;Other Races&#39; category</span></span>
-<span id="cb8-2"><a href="data-cleaning.html#cb8-2"></a>combine_races &lt;-<span class="st"> </span><span class="cf">function</span>(race, combine_list){</span>
-<span id="cb8-3"><a href="data-cleaning.html#cb8-3"></a>    race[race<span class="op">$</span>Race <span class="op">%in%</span><span class="st"> </span>combine_list, <span class="st">&quot;Race&quot;</span>] &lt;-<span class="st"> &quot;Other&quot;</span></span>
-<span id="cb8-4"><a href="data-cleaning.html#cb8-4"></a>    combine_race &lt;-<span class="st"> </span>race <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-5"><a href="data-cleaning.html#cb8-5"></a><span class="st">        </span><span class="kw">filter</span>(Race <span class="op">==</span><span class="st"> &quot;Other&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-6"><a href="data-cleaning.html#cb8-6"></a><span class="st">        </span><span class="kw">group_by</span>(Gender, Education) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-7"><a href="data-cleaning.html#cb8-7"></a><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">Estimate =</span> <span class="kw">sum</span>(Estimate), <span class="dt">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-8"><a href="data-cleaning.html#cb8-8"></a><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">Race =</span> <span class="st">&quot;Other&quot;</span>)</span>
-<span id="cb8-9"><a href="data-cleaning.html#cb8-9"></a>    race &lt;-<span class="st"> </span>race[<span class="op">!</span>race<span class="op">$</span>Race <span class="op">==</span><span class="st"> &quot;Other&quot;</span>, ]</span>
-<span id="cb8-10"><a href="data-cleaning.html#cb8-10"></a>    race &lt;-<span class="st"> </span><span class="kw">rbind</span>(race, combine_race)</span>
-<span id="cb8-11"><a href="data-cleaning.html#cb8-11"></a>    <span class="kw">return</span>(race)</span>
-<span id="cb8-12"><a href="data-cleaning.html#cb8-12"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="data-cleaning.html#cb9-1"></a>race &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/race.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;N/A&quot;</span>)</span>
-<span id="cb9-2"><a href="data-cleaning.html#cb9-2"></a>race&lt;-<span class="st"> </span>race <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">!</span>Gender ,<span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;Race&quot;</span>,<span class="st">&quot;Education&quot;</span>),</span>
-<span id="cb9-3"><a href="data-cleaning.html#cb9-3"></a>    <span class="dt">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb9-4"><a href="data-cleaning.html#cb9-4"></a>    <span class="dt">values_to =</span> <span class="st">&quot;Estimate&quot;</span>)</span>
-<span id="cb9-5"><a href="data-cleaning.html#cb9-5"></a></span>
-<span id="cb9-6"><a href="data-cleaning.html#cb9-6"></a>other_race_list =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Native.Hawaiian.and.Other.Pacific.Islander.alone&quot;</span>, <span class="st">&quot;American.Indian.or.Alaska.Native.alone&quot;</span>, <span class="st">&quot;Some.other.race.alone&quot;</span>, <span class="st">&quot;Two.or.more.races&quot;</span>)</span>
-<span id="cb9-7"><a href="data-cleaning.html#cb9-7"></a>race &lt;-<span class="st"> </span><span class="kw">combine_races</span>(race, other_race_list)</span>
-<span id="cb9-8"><a href="data-cleaning.html#cb9-8"></a></span>
-<span id="cb9-9"><a href="data-cleaning.html#cb9-9"></a><span class="co"># Make character values more descriptive and succinct as possible</span></span>
-<span id="cb9-10"><a href="data-cleaning.html#cb9-10"></a><span class="co"># Need a note that: white means white alone does not count Hispanic or Latino</span></span>
-<span id="cb9-11"><a href="data-cleaning.html#cb9-11"></a><span class="co"># Other races include: xxx</span></span>
-<span id="cb9-12"><a href="data-cleaning.html#cb9-12"></a>race &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(race, <span class="dt">race =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-cleaning.html#cb10-1"></a>race</span></code></pre></div>
+##    Give_birth Marriage  Education             Estimate
+##    &lt;chr&gt;      &lt;chr&gt;     &lt;fct&gt;                    &lt;int&gt;
+##  1 birth      Married   Less Than High School   202572
+##  2 birth      Married   High School Graduate    448750
+##  3 birth      Married   Some Colleges           715554
+##  4 birth      Married   Bachelor Degree         745148
+##  5 birth      Married   Advanced Degree         494817
+##  6 birth      Unmarried Less Than High School   220616
+##  7 birth      Unmarried High School Graduate    450356
+##  8 birth      Unmarried Some Colleges           460590
+##  9 birth      Unmarried Bachelor Degree         103445
+## 10 birth      Unmarried Advanced Degree          36034
+## 11 Nobirth    Married   Less Than High School  2686948
+## 12 Nobirth    Married   High School Graduate   5906857
+## 13 Nobirth    Married   Some Colleges          8802059
+## 14 Nobirth    Married   Bachelor Degree        7961510
+## 15 Nobirth    Married   Advanced Degree        5241343
+## 16 Nobirth    Unmarried Less Than High School  9244270
+## 17 Nobirth    Unmarried High School Graduate   9252305
+## 18 Nobirth    Unmarried Some Colleges         13748688
+## 19 Nobirth    Unmarried Bachelor Degree        7213809
+## 20 Nobirth    Unmarried Advanced Degree        2943900</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-cleaning.html#cb10-1"></a><span class="co"># Function of combining some races into &#39;Other Races&#39; category</span></span>
+<span id="cb10-2"><a href="data-cleaning.html#cb10-2"></a>combine_races &lt;-<span class="st"> </span><span class="cf">function</span>(race, combine_list){</span>
+<span id="cb10-3"><a href="data-cleaning.html#cb10-3"></a>    race[race<span class="op">$</span>Race <span class="op">%in%</span><span class="st"> </span>combine_list, <span class="st">&quot;Race&quot;</span>] &lt;-<span class="st"> &quot;Other&quot;</span></span>
+<span id="cb10-4"><a href="data-cleaning.html#cb10-4"></a>    combine_race &lt;-<span class="st"> </span>race <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-5"><a href="data-cleaning.html#cb10-5"></a><span class="st">        </span><span class="kw">filter</span>(Race <span class="op">==</span><span class="st"> &quot;Other&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-6"><a href="data-cleaning.html#cb10-6"></a><span class="st">        </span><span class="kw">group_by</span>(Gender, Education) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-7"><a href="data-cleaning.html#cb10-7"></a><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">Estimate =</span> <span class="kw">sum</span>(Estimate), <span class="dt">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-8"><a href="data-cleaning.html#cb10-8"></a><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">Race =</span> <span class="st">&quot;Other&quot;</span>)</span>
+<span id="cb10-9"><a href="data-cleaning.html#cb10-9"></a>    race &lt;-<span class="st"> </span>race[<span class="op">!</span>race<span class="op">$</span>Race <span class="op">==</span><span class="st"> &quot;Other&quot;</span>, ]</span>
+<span id="cb10-10"><a href="data-cleaning.html#cb10-10"></a>    race &lt;-<span class="st"> </span><span class="kw">rbind</span>(race, combine_race)</span>
+<span id="cb10-11"><a href="data-cleaning.html#cb10-11"></a>    <span class="kw">return</span>(race)</span>
+<span id="cb10-12"><a href="data-cleaning.html#cb10-12"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="data-cleaning.html#cb11-1"></a>race &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/race.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;N/A&quot;</span>)</span>
+<span id="cb11-2"><a href="data-cleaning.html#cb11-2"></a>race&lt;-<span class="st"> </span>race <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">!</span>Gender ,<span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;Race&quot;</span>,<span class="st">&quot;Education&quot;</span>),</span>
+<span id="cb11-3"><a href="data-cleaning.html#cb11-3"></a>    <span class="dt">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
+<span id="cb11-4"><a href="data-cleaning.html#cb11-4"></a>    <span class="dt">values_to =</span> <span class="st">&quot;Estimate&quot;</span>)</span>
+<span id="cb11-5"><a href="data-cleaning.html#cb11-5"></a></span>
+<span id="cb11-6"><a href="data-cleaning.html#cb11-6"></a>other_race_list =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Native.Hawaiian.and.Other.Pacific.Islander.alone&quot;</span>, <span class="st">&quot;American.Indian.or.Alaska.Native.alone&quot;</span>, <span class="st">&quot;Some.other.race.alone&quot;</span>, <span class="st">&quot;Two.or.more.races&quot;</span>)</span>
+<span id="cb11-7"><a href="data-cleaning.html#cb11-7"></a>race &lt;-<span class="st"> </span><span class="kw">combine_races</span>(race, other_race_list)</span>
+<span id="cb11-8"><a href="data-cleaning.html#cb11-8"></a></span>
+<span id="cb11-9"><a href="data-cleaning.html#cb11-9"></a><span class="co"># Make character values more descriptive and succinct as possible</span></span>
+<span id="cb11-10"><a href="data-cleaning.html#cb11-10"></a><span class="co"># Need a note that: white means white alone does not count Hispanic or Latino</span></span>
+<span id="cb11-11"><a href="data-cleaning.html#cb11-11"></a><span class="co"># Other races include: xxx</span></span>
+<span id="cb11-12"><a href="data-cleaning.html#cb11-12"></a>race &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(race, <span class="dt">race =</span> <span class="ot">TRUE</span>,)</span></code></pre></div>
+<pre><code>## Warning: Unknown levels in `f`: &gt;= High School, &gt;= Bachelor Degree</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="data-cleaning.html#cb13-1"></a>race</span></code></pre></div>
 <pre><code>## # A tibble: 45 x 4
-##    Gender Race                      Education           Estimate
-##    &lt;chr&gt;  &lt;chr&gt;                     &lt;fct&gt;                  &lt;int&gt;
-##  1 Total  White Alone               Total              144203068
-##  2 Total  White Alone               &gt;= High School     134556337
-##  3 Total  White Alone               &gt;= Bachelor Degree  53161917
-##  4 Total  Hispanic or Latino Origin Total               34949077
-##  5 Total  Hispanic or Latino Origin &gt;= High School      24623646
-##  6 Total  Hispanic or Latino Origin &gt;= Bachelor Degree   6164098
-##  7 Total  Black Alone               Total               27336967
-##  8 Total  Black Alone               &gt;= High School      23799881
-##  9 Total  Black Alone               &gt;= Bachelor Degree   6164066
-## 10 Total  Asian Alone               Total               13381406
+##    Gender Race                      Education                     Estimate
+##    &lt;chr&gt;  &lt;fct&gt;                     &lt;fct&gt;                            &lt;int&gt;
+##  1 Total  White Alone               Total                        144203068
+##  2 Total  White Alone               High School or higher        134556337
+##  3 Total  White Alone               &gt;= Bachelor Degree or higher  53161917
+##  4 Total  Hispanic or Latino Origin Total                         34949077
+##  5 Total  Hispanic or Latino Origin High School or higher         24623646
+##  6 Total  Hispanic or Latino Origin &gt;= Bachelor Degree or higher   6164098
+##  7 Total  Black Alone               Total                         27336967
+##  8 Total  Black Alone               High School or higher         23799881
+##  9 Total  Black Alone               &gt;= Bachelor Degree or higher   6164066
+## 10 Total  Asian Alone               Total                         13381406
 ## # … with 35 more rows</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="data-cleaning.html#cb12-1"></a>education &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/2015-2019Education.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;N/A&quot;</span>)</span>
-<span id="cb12-2"><a href="data-cleaning.html#cb12-2"></a>education&lt;-education <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">!</span>Gender ,<span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>,<span class="st">&quot;Education&quot;</span>),</span>
-<span id="cb12-3"><a href="data-cleaning.html#cb12-3"></a>    <span class="dt">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb12-4"><a href="data-cleaning.html#cb12-4"></a>    <span class="dt">values_to =</span> <span class="st">&quot;Estimate&quot;</span>)</span>
-<span id="cb12-5"><a href="data-cleaning.html#cb12-5"></a>education<span class="op">$</span>Year &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">gsub</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;&quot;</span>, education<span class="op">$</span>Year))</span>
-<span id="cb12-6"><a href="data-cleaning.html#cb12-6"></a></span>
-<span id="cb12-7"><a href="data-cleaning.html#cb12-7"></a><span class="co"># Make character values more descriptive and succinct as possible</span></span>
-<span id="cb12-8"><a href="data-cleaning.html#cb12-8"></a>education &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(education)</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="data-cleaning.html#cb13-1"></a>education</span></code></pre></div>
-<pre><code>## # A tibble: 50 x 4
-##    Gender  Year Education       Estimate
-##    &lt;chr&gt;  &lt;int&gt; &lt;fct&gt;              &lt;int&gt;
-##  1 Males   2015 &lt; High School   14181016
-##  2 Males   2015 High School     29620517
-##  3 Males   2015 Some Colleges   29027333
-##  4 Males   2015 Bachelor Degree 19615278
-##  5 Males   2015 Advanced Degree 12033250
-##  6 Males   2016 &lt; High School   14016654
-##  7 Males   2016 High School     29600138
-##  8 Males   2016 Some Colleges   29340080
-##  9 Males   2016 Bachelor Degree 20030807
-## 10 Males   2016 Advanced Degree 12478805
-## # … with 40 more rows</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="data-cleaning.html#cb15-1"></a>earning &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/2015-2019earnings.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;N/A&quot;</span>)</span>
-<span id="cb15-2"><a href="data-cleaning.html#cb15-2"></a>earning&lt;-earning <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">!</span>Gender ,<span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>,<span class="st">&quot;Education&quot;</span>),</span>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="data-cleaning.html#cb15-1"></a>education &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/2015-2019Education.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;N/A&quot;</span>)</span>
+<span id="cb15-2"><a href="data-cleaning.html#cb15-2"></a>education&lt;-education <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">!</span>Gender ,<span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>,<span class="st">&quot;Education&quot;</span>),</span>
 <span id="cb15-3"><a href="data-cleaning.html#cb15-3"></a>    <span class="dt">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb15-4"><a href="data-cleaning.html#cb15-4"></a>    <span class="dt">values_to =</span> <span class="st">&quot;Earning&quot;</span>)</span>
-<span id="cb15-5"><a href="data-cleaning.html#cb15-5"></a>earning<span class="op">$</span>Year &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">gsub</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;&quot;</span>, earning<span class="op">$</span>Year))</span>
-<span id="cb15-6"><a href="data-cleaning.html#cb15-6"></a>earning<span class="op">$</span>Education[<span class="kw">which</span>(earning<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Total.Population&quot;</span>)] &lt;-<span class="st"> &quot;Total Population&quot;</span></span>
-<span id="cb15-7"><a href="data-cleaning.html#cb15-7"></a>earning<span class="op">$</span>Education[<span class="kw">which</span>(earning<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Less.than.high.school.graduate&quot;</span>)] &lt;-<span class="st"> &quot;Less than High School&quot;</span></span>
-<span id="cb15-8"><a href="data-cleaning.html#cb15-8"></a>earning<span class="op">$</span>Education[<span class="kw">which</span>(earning<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;High.school.graduate..includes.equivalency.&quot;</span>)] &lt;-<span class="st"> &quot;High School or Equivalent&quot;</span></span>
-<span id="cb15-9"><a href="data-cleaning.html#cb15-9"></a>earning<span class="op">$</span>Education[<span class="kw">which</span>(earning<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Some.college.or.associate.s.degree&quot;</span>)] &lt;-<span class="st"> &quot;Some Colleges or Associate Degree&quot;</span></span>
-<span id="cb15-10"><a href="data-cleaning.html#cb15-10"></a>earning<span class="op">$</span>Education[<span class="kw">which</span>(earning<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Bachelor.s.degree&quot;</span>)] &lt;-<span class="st"> &quot;Bachelor Degree&quot;</span></span>
-<span id="cb15-11"><a href="data-cleaning.html#cb15-11"></a>    earning<span class="op">$</span>Education[<span class="kw">which</span>(earning<span class="op">$</span>Education <span class="op">==</span><span class="st"> &quot;Graduate.or.professional.degree&quot;</span>)] &lt;-<span class="st"> &quot;Advanced Degree&quot;</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data-cleaning.html#cb16-1"></a>earning</span></code></pre></div>
+<span id="cb15-4"><a href="data-cleaning.html#cb15-4"></a>    <span class="dt">values_to =</span> <span class="st">&quot;Estimate&quot;</span>)</span>
+<span id="cb15-5"><a href="data-cleaning.html#cb15-5"></a>education<span class="op">$</span>Year &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">gsub</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;&quot;</span>, education<span class="op">$</span>Year))</span>
+<span id="cb15-6"><a href="data-cleaning.html#cb15-6"></a></span>
+<span id="cb15-7"><a href="data-cleaning.html#cb15-7"></a><span class="co"># Make character values more descriptive and succinct as possible</span></span>
+<span id="cb15-8"><a href="data-cleaning.html#cb15-8"></a>education &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(education)</span></code></pre></div>
+<pre><code>## Warning: Unknown levels in `f`: &lt; High School</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="data-cleaning.html#cb17-1"></a>education</span></code></pre></div>
+<pre><code>## # A tibble: 50 x 4
+##    Gender  Year Education             Estimate
+##    &lt;chr&gt;  &lt;int&gt; &lt;fct&gt;                    &lt;int&gt;
+##  1 Males   2015 Less Than High School 14181016
+##  2 Males   2015 High School Graduate  29620517
+##  3 Males   2015 Some Colleges         29027333
+##  4 Males   2015 Bachelor Degree       19615278
+##  5 Males   2015 Advanced Degree       12033250
+##  6 Males   2016 Less Than High School 14016654
+##  7 Males   2016 High School Graduate  29600138
+##  8 Males   2016 Some Colleges         29340080
+##  9 Males   2016 Bachelor Degree       20030807
+## 10 Males   2016 Advanced Degree       12478805
+## # … with 40 more rows</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="data-cleaning.html#cb19-1"></a>earning &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/2015-2019earnings.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;N/A&quot;</span>)</span>
+<span id="cb19-2"><a href="data-cleaning.html#cb19-2"></a>earning&lt;-earning <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">!</span>Gender ,<span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>,<span class="st">&quot;Education&quot;</span>),</span>
+<span id="cb19-3"><a href="data-cleaning.html#cb19-3"></a>    <span class="dt">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
+<span id="cb19-4"><a href="data-cleaning.html#cb19-4"></a>    <span class="dt">values_to =</span> <span class="st">&quot;Earning&quot;</span>)</span>
+<span id="cb19-5"><a href="data-cleaning.html#cb19-5"></a>earning<span class="op">$</span>Year &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">gsub</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;&quot;</span>, earning<span class="op">$</span>Year))</span>
+<span id="cb19-6"><a href="data-cleaning.html#cb19-6"></a>earning &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(earning,<span class="dt">total=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## Warning: Unknown levels in `f`: &lt; High School</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="data-cleaning.html#cb21-1"></a>earning</span></code></pre></div>
 <pre><code>## # A tibble: 90 x 4
-##    Gender  Year Education                         Earning
-##    &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;                               &lt;int&gt;
-##  1 Total   2015 Total Population                    36860
-##  2 Total   2015 Less than High School               21320
-##  3 Total   2015 High School or Equivalent           29004
-##  4 Total   2015 Some Colleges or Associate Degree   34377
-##  5 Total   2015 Bachelor Degree                     50930
-##  6 Total   2015 Advanced Degree                     67286
-##  7 Total   2016 Total Population                    37842
-##  8 Total   2016 Less than High School               21839
-##  9 Total   2016 High School or Equivalent           29969
-## 10 Total   2016 Some Colleges or Associate Degree   35406
+##    Gender  Year Education             Earning
+##    &lt;chr&gt;  &lt;int&gt; &lt;fct&gt;                   &lt;int&gt;
+##  1 Total   2015 Total                   36860
+##  2 Total   2015 Less Than High School   21320
+##  3 Total   2015 High School Graduate    29004
+##  4 Total   2015 Some Colleges           34377
+##  5 Total   2015 Bachelor Degree         50930
+##  6 Total   2015 Advanced Degree         67286
+##  7 Total   2016 Total                   37842
+##  8 Total   2016 Less Than High School   21839
+##  9 Total   2016 High School Graduate    29969
+## 10 Total   2016 Some Colleges           35406
 ## # … with 80 more rows</code></pre>
 
 </div>

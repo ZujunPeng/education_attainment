@@ -1,24 +1,149 @@
 # Results
 ```{r}
 library(ggplot2)
+library(gridExtra)
+library(vcd)
+library(ggmosaic)
+library(usdata)
+```
+
+```{r}
+edu2019<- education[education$Year==2019,]
+edu2019%>%
+  group_by(Gender)%>%
+  mutate(total_pop = sum(Estimate))%>%
+  ungroup()%>%
+  ggplot()+
+  geom_col(aes(x = Education,y=Estimate/total_pop, fill = Gender), position="dodge" )+ 
+  xlab("Year in School") +
+  ylab("Proportion")+
+  ggtitle("Grouped Bar Chart of Education Attainment in 2019 Differed by Gender")
+```
+```{r}
+#mosaic plot!!! 
+#x education y gender
 ```
 
 
 ```{r}
-birth
+#科学计数法
+race_total <- race[race$Gender=="Total",]
+
+ggplot(race_total)+
+  geom_col(aes(x=Race,y=Estimate,fill=Education),position ="dodge")+
+  xlab("Race")+
+  ylab("Population")+
+  ggtitle("Group Bar Chart of 2019 Education Attainment by Race")+
+  theme(axis.text.x = element_text(angle=20, vjust=0.5))
+  
 ```
 ```{r}
-ggplot(birth) +
-  geom_col(aes(x = as.factor(Marriage), y = Estimate, fill = Education), position = "fill")+
-  coord_flip() +
+race_gender <- race[race$Gender !="Total",]
+#mosaic plot: x = race, y = gender, facet by education
+race_gender <- race_gender[race_gender$Education != "Total",]
+
+```
+
+```{r}
+race_gender
+```
+
+```{r}
+#男女比例
+#check value
+ggplot(race_gender) +
+  geom_col(aes(x = fct_rev(Race),y=Estimate, fill = Gender), position = "fill") + 
+  xlab("Race") +
   theme(legend.position = "bottom") +
-  #guides(fill = guide_legend(reverse = TRUE)) +
+  coord_flip()+
+  guides(fill = guide_legend(reverse = TRUE)) +
+  facet_wrap(~Education, ncol = 1) +
+  ylab("proportion") +
+  ggtitle("Proportional breakdown of Gender for each race, faceted on Education Attainment")
+
+
+
+```
+
+
+```{r}
+#add legend！！！
+earning2019 <- earning[earning$Year==2019,]
+earning_total<- earning2019$Earning[earning2019$Education=="Total"]
+earning2019 <- earning2019[earning2019$Education!= "Total",]
+earning2019%>%
+  group_by(Education)%>%
+  mutate(total_earn =earning_total )%>%
+  ungroup()%>%
+  ggplot()+
+  geom_col(aes(x=Education,y=Earning))+
+  geom_hline(aes(yintercept=total_earn),col="red")+
+  coord_flip()+
+  facet_wrap(~Gender, ncol = 1) +
+  ggtitle("Median Earning in 2019 based on Education Attainment and Gender")
+
+#earning_plot + facet_grid(rows = vars(Gender))
+```
+
+
+
+
+```{r}
+#change birth csv file
+#title
+#check value
+ggplot(birth) +
+  geom_col(aes(x = as.factor(Marriage), y = Estimate, fill = fct_rev(Education)), position = "fill")+
+  coord_flip() +
+  theme_light(15)+
+  theme(legend.position = "bottom") +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  scale_fill_discrete(name = "Education")+
+  theme(legend.title = element_text(size = 7),legend.text = element_text(size=7))+
   facet_wrap(~Give_birth, ncol = 1)+
   ylab("proportion") +
   xlab("Marriage Status")+
-  ggtitle("Proportional breakdown of Class for each level of UsuallyDrink,
-  faceted on Gender")
+  ggtitle("2019 Proportional breakdown of education attainment on \n marriage status,faceted on giving birth or not")
 
+
+
+```
+
+```{r}
+#one title 
+#y label too small
+new_states<-states %>%
+  group_by(State)%>%
+  mutate(bachelor_higher = (Population[Education=="Bachelor Degree"]+Population[Education=="Advanced Degree"])/Population[Education == "Total"])%>%
+  mutate(abb = state2abbr(State))%>%
+  mutate(median_earning = Earning[Education=="Total"])%>%
+  ungroup()
+
+new_states$abb[is.na(new_states$abb)]="PR"
+
+ba_rate<-ggplot(new_states)+
+  geom_point(aes(x=bachelor_higher, y=reorder(abb, bachelor_higher)), color = "blue") + 
+  xlab("Rate of Bachelor Degree or Higher")+
+  ylab("State")+
+  ggtitle("2019 Rate of Bachelor Degree or Higher for Each State")+
+  theme_light()
+
+earnings <- 
+  ggplot(new_states)+
+  geom_point(aes(x=median_earning, y=reorder(abb,bachelor_higher)), color = "red") +
+  xlab("Median Earning of the State")+
+  ylab("State")+
+  ggtitle("2019 Median Earning for Each State")+
+  theme_light()
+
+
+grid.arrange(ba_rate, earnings, ncol=2)
+
+  
+```
+
+
+```{r}
 
 
 ```
