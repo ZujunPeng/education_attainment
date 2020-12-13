@@ -17,8 +17,8 @@ abbreviate <- function(ds, total = FALSE, race = FALSE){
     }
     
     if (race){
-        ds$Education[which(ds$Education == "High.school.graduate.or.higher")] <- "High School or higher"
-        ds$Education[which(ds$Education == "Bachelor.s.degree.or.higher")] <- ">= Bachelor Degree or higher"
+        ds$Education[which(ds$Education == "High.school.graduate.or.higher")] <- "High School or Higher"
+        ds$Education[which(ds$Education == "Bachelor.s.degree.or.higher")] <- "Bachelor Degree or Higher"
         ds$Race[which(ds$Race == "White.alone..not.Hispanic.or.Latino" | ds$Race == "White.alone.not.Hispanic.or.Latino")] <- "White Alone"
         ds$Race[which(ds$Race == "Hispanic.or.Latino.Origin")] <- "Hispanic or Latino Origin"
         ds$Race[which(ds$Race == "Black.alone")] <- "Black Alone"
@@ -29,14 +29,14 @@ abbreviate <- function(ds, total = FALSE, race = FALSE){
     }
     ds$Education <- as.factor(ds$Education)
     if(total){
-      ds$Education <- fct_relevel(ds$Education,"< High School","High School Graduate","Some Colleges","Bachelor Degree", "Advanced Degree","Total")
+      ds$Education <- fct_relevel(ds$Education,"Less Than High School","High School Graduate","Some Colleges","Bachelor Degree", "Advanced Degree","Total")
     }
     if(!total&&!race){
-      ds$Education<-fct_relevel(ds$Education,"< High School","High School Graduate","Some Colleges","Bachelor Degree", "Advanced Degree")
+      ds$Education<-fct_relevel(ds$Education,"Less Than High School","High School Graduate","Some Colleges","Bachelor Degree", "Advanced Degree")
 
     }
     if(race){
-      ds$Education<-fct_relevel(ds$Education,"Total",">= High School",">= Bachelor Degree")
+      ds$Education<-fct_relevel(ds$Education,"Total","High School or Higher",">= Bachelor Degree or Higher")
     }
     return(ds)
 }
