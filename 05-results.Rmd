@@ -8,9 +8,9 @@ library(usdata)
 ```
 
 ```{r}
-edu2019<- education[education$Year==2019,]
-edu2019%>%
-  group_by(Gender)%>%
+edu2019 <- education[education$Year==2019,]
+edu2019 %>%
+  group_by(Gender) %>%
   mutate(total_pop = sum(Estimate))%>%
   ungroup()%>%
   ggplot()+
@@ -20,33 +20,50 @@ edu2019%>%
   ggtitle("Grouped Bar Chart of Education Attainment in 2019 Differed by Gender")
 ```
 ```{r}
-#mosaic plot!!! 
+#mosaic plot : done
 #x education y gender
+dt <- xtabs(Estimate ~ Education + Gender, data=edu2019)
+vcd::mosaic(dt, direction = c("v", "h"), labeling = labeling_border(rot_labels = c(45, 0), abbreviate_labs = c(2, 1)),)
 ```
 
 
 ```{r}
-#科学计数法
+#科学计数法: done 
 race_total <- race[race$Gender=="Total",]
-
+ylab <- c(0, 50, 100, 150)
 ggplot(race_total)+
   geom_col(aes(x=Race,y=Estimate,fill=Education),position ="dodge")+
   xlab("Race")+
   ylab("Population")+
   ggtitle("Group Bar Chart of 2019 Education Attainment by Race")+
+  scale_y_continuous(labels = paste0(ylab, "M"),
+                     breaks = 10^6 * ylab
+  )+
   theme(axis.text.x = element_text(angle=20, vjust=0.5))
-  
+
 ```
+```{r}
+# Function to change counts to cases
+# Source: http://www.cookbook-r.com/Manipulating_data/Converting_between_data_frames_and_contingency_tables/
+countsToCases <- function(x, countcol = "Estimate") {
+  idx <- rep.int(seq_len(nrow(x)), x[[countcol]])
+  x[[countcol]] <- NULL
+  x[idx, ]
+}
+```
+
+
 ```{r}
 race_gender <- race[race$Gender !="Total",]
 #mosaic plot: x = race, y = gender, facet by education
+
+#Two ways: use vcd mosaic plot (could not facet)
+# use ggplot, but it needs data frame type instead of contingency table (take long time)
+# exceeds time limit
 race_gender <- race_gender[race_gender$Education != "Total",]
 
 ```
 
-```{r}
-race_gender
-```
 
 ```{r}
 #男女比例
@@ -61,8 +78,6 @@ ggplot(race_gender) +
   ylab("proportion") +
   ggtitle("Proportional breakdown of Gender for each race, faceted on Education Attainment")
 
-
-
 ```
 
 
@@ -71,16 +86,16 @@ ggplot(race_gender) +
 earning2019 <- earning[earning$Year==2019,]
 earning_total<- earning2019$Earning[earning2019$Education=="Total"]
 earning2019 <- earning2019[earning2019$Education!= "Total",]
-earning2019%>%
-  group_by(Education)%>%
-  mutate(total_earn =earning_total )%>%
-  ungroup()%>%
-  ggplot()+
-  geom_col(aes(x=Education,y=Earning))+
-  geom_hline(aes(yintercept=total_earn),col="red")+
-  coord_flip()+
-  facet_wrap(~Gender, ncol = 1) +
-  ggtitle("Median Earning in 2019 based on Education Attainment and Gender")
+#earning2019%>%
+#  group_by(Education)%>%
+#  mutate(total_earn =earning_total )%>%
+#  ungroup()%>%
+#  ggplot()+
+#  geom_col(aes(x=Education,y=Earning))+
+#  geom_hline(aes(yintercept=total_earn),col="red")+
+#  coord_flip()+
+#  facet_wrap(~Gender, ncol = 1) +
+#  ggtitle("Median Earning in 2019 based on Education Attainment and Gender")
 
 #earning_plot + facet_grid(rows = vars(Gender))
 ```
