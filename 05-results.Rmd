@@ -61,7 +61,10 @@ race_gender <- race[race$Gender !="Total",]
 # use ggplot, but it needs data frame type instead of contingency table (take long time)
 # exceeds time limit
 race_gender <- race_gender[race_gender$Education != "Total",]
-
+#race_gender_df <- countsToCases(race_gender, countcol = "Estimate")
+#ggplot(race_gender_df) + 
+#  geom_mosaic(x = product(Race, Gender)) + 
+#  facet_grid(Education~.)
 ```
 
 
