@@ -1,1 +1,3 @@
 # Missing values
+
+There are no missing values in the data sets because we gain the count of the population with different education attainment and other backgrounds instead of the case data set. 

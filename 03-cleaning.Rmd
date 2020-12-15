@@ -1,12 +1,10 @@
 # Data Cleaning
-
 ```{r, include = FALSE}
 library(tidyverse)
 library(dplyr)
 ```
-
-```{r}
-# Abbreviate character values in the dataset 
+```{r, echo = FALSE}
+# Function of abbreviating character values in the data set 
 abbreviate <- function(ds, total = FALSE, race = FALSE){
     if (!race){
         ds$Education[which(ds$Education == "Less.than.high.school.graduate")] <- "Less Than High School"
@@ -42,7 +40,42 @@ abbreviate <- function(ds, total = FALSE, race = FALSE){
 }
 ```
 
+The data sets that we gained from the official census website are in the forms of csv files before the transformation. Because of the unique characteristic of the census data, which are all count values with long descriptions, we primarily focus on transforming and pre-processing the data set into the version that we could apply in visualizing and analysis. It mainly contains the following steps: 
+
+1. Read csv files as dataframes
+2. Transform the 'messy' data set into a 'tidy' one
+3. Formalize and abbreviate the categorical values 
+4. Combine some groups (with relatively few frequencies) into one group
+
+Let's use one of our data sets, 'states' as an example. After we read the csv files into data frame in R and extract the columns that we primarily focus on, the data contains multiple columns indicating education levels, with long and complicated names. 
 ```{r}
+states <- read.csv("./data/states.csv", na.strings = "N/A")
+#extract columns for education attainment
+states_education <- states[,1:7]
+```
+```{r, echo=FALSE}
+print(colnames(states_education))
+```
+
+
+To have a tidy data set, we transform those columns indicating the education levels into one column: 
+```{r}
+states_education <- states_education %>% pivot_longer(cols =!State ,names_to = "Education",values_to = "Population")
+```
+```{r, echo=FALSE}
+print(head(states_education, 5))
+```
+
+
+However, as we can see from the above subset of the dataset, some values in the 'Education' columns are long and complicated. It might create some issues for the following data visualization. Therefore, we abbreviate those values into shorter names. Their full names are indicated in the footnote of each graph using those abbreviations for clarification purpose. 
+```{r}
+states_education <- abbreviate(states_education,total = TRUE)
+head(states_education)
+```
+
+The above Step 1-3 are repeated for each data set we use. For some data sets containing multiple categories, some of which have relativel low frequencies, we combine those categories as one group. For instance, in the data set counting the number of people with different education attainments in various races, we combine the race groups like 'Native Hawaiian and Other Pacific Islander alone', 'American Indian or Alaska Native alone', and other race groups into one big group called 'Other'. 
+
+```{r, echo = FALSE, include=FALSE}
 states <- read.csv("./data/states.csv", na.strings = "N/A")
 
 #extract columns for education attainment
@@ -59,11 +92,7 @@ states <- abbreviate(states,total = TRUE)
 ```
 
 
-```{r}
-states
-```
-
-```{r}
+```{r, echo = FALSE, include=FALSE}
 birth <- read.csv("./data/births.csv", na.strings = "N/A")
 
 birth <- birth %>% pivot_longer(cols =1:20 ,names_to = c("Give_birth","Marriage","Education"),
@@ -75,11 +104,8 @@ birth <- birth %>% pivot_longer(cols =1:20 ,names_to = c("Give_birth","Marriage"
 birth <- abbreviate(birth)
 ```
 
-```{r}
-birth
-```
 
-```{r}
+```{r, echo = FALSE, include=FALSE}
 # Function of combining some races into 'Other Races' category
 combine_races <- function(race, combine_list){
     race[race$Race %in% combine_list, "Race"] <- "Other"
@@ -95,7 +121,7 @@ combine_races <- function(race, combine_list){
 ```
 
 
-```{r}
+```{r, echo = FALSE,include=FALSE}
 race <- read.csv("./data/race.csv", na.strings = "N/A")
 race<- race %>% pivot_longer(cols = !Gender ,names_to = c("Race","Education"),
     names_sep = "_",
@@ -111,12 +137,8 @@ race <- abbreviate(race, race = TRUE,)
 
 ```
 
-```{r}
-race
-```
 
-
-```{r}
+```{r, echo = FALSE,include=FALSE}
 education <- read.csv("./data/2015-2019Education.csv", na.strings = "N/A")
 education<-education %>% pivot_longer(cols = !Gender ,names_to = c("Year","Education"),
     names_sep = "_",
@@ -127,12 +149,8 @@ education$Year <- as.integer(gsub("X", "", education$Year))
 education <- abbreviate(education)
 ```
 
-```{r}
-education
-```
 
-
-```{r}
+```{r, echo = FALSE,include=FALSE}
 earning <- read.csv("./data/2015-2019earnings.csv", na.strings = "N/A")
 earning<-earning %>% pivot_longer(cols = !Gender ,names_to = c("Year","Education"),
     names_sep = "_",
@@ -141,9 +159,5 @@ earning$Year <- as.integer(gsub("X", "", earning$Year))
 earning <- abbreviate(earning,total=TRUE)
 
 
-```
-
-```{r}
-earning
 ```
 
