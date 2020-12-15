@@ -1,2 +1,9 @@
 # Data Sources
 
+Since every member in our group prefer to work on a dataset that has practical meaning and we are both interested in, we are all responsible for collecting the data. We first decide some topics that we think might be suitable for our final project and search for data set on this topics. After that, we compare data sets that we collect and finally decide to use the data on the topic of education attainment provided by US Census. 
+
+Data Source Link: https://data.census.gov/cedsci/table?q=Education&tid=ACSST1Y2019.S1501&moe=false&tp=false&hidePreview=true
+
+https://data.census.gov/cedsci/table?q=Education&tid=ACSDT1Y2019.B13014&moe=false&tp=false&hidePreview=false
+
+We use data sets mainly from two data files. 

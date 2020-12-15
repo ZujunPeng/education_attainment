@@ -5,6 +5,7 @@ library(gridExtra)
 library(vcd)
 library(ggmosaic)
 library(usdata)
+library(micromapST)
 ```
 
 ```{r}
@@ -164,7 +165,41 @@ grid.arrange(ba_rate, earnings, ncol=2)
   
 ```
 
+```{r}
+statesDFrame <-states %>%
+  group_by(State)%>%
+  mutate(bachelor_higher = (Population[Education=="Bachelor Degree"]+Population[Education=="Advanced Degree"])/Population[Education == "Total"])%>%
+  mutate(abb = state2abbr(State))%>%
+  ungroup()
 
+statesDFrame<-na.omit(statesDFrame)
+statesDF<- data.frame(unique(statesDFrame$bachelor_higher))
+
+row.names(statesDF) <- unique(statesDFrame$abb)
+```
+
+
+```{r}
+statesDFrame
+```
+
+
+
+
+
+```{r}
+panelDesc <- data.frame(                 
+    type=c("mapmedian","id","dot"),  
+    lab1=c("","","Rate of Bachelor Degree or Higher in 2019"),   
+    lab2=c("","","Rate of Bachelor Degree or Higher"), 
+    col1=c(NA,NA,1),                 
+    col2=c(NA,NA,NA)		
+    )
+ExTitle <- c( "Dot Plot for Rate of Bachelor Degree or Higher by States in 2019")
+
+pdf(file="EX4-Scatter-Dots.pdf",width=7.5,height=10)
+micromapST(statesDF,panelDesc,sortVar=1,ascend=FALSE,title=ExTitle)  
+```
 
 
 
