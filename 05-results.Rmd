@@ -14,10 +14,12 @@ edu2019 %>%
   mutate(total_pop = sum(Estimate))%>%
   ungroup()%>%
   ggplot()+
-  geom_col(aes(x = Education,y=Estimate/total_pop, fill = Gender), position="dodge" )+ 
+  geom_col(aes(x = Education,y=Estimate/total_pop, fill = Gender), position="dodge" )+
+  scale_fill_brewer(palette = 3)+ 
   xlab("Year in School") +
   ylab("Proportion")+
-  ggtitle("Grouped Bar Chart of Education Attainment in 2019 Differed by Gender")
+  ggtitle("Grouped Bar Chart of Education Attainment in 2019 Differed by Gender") + 
+  theme_light()
 ```
 ```{r}
 #mosaic plot : done
@@ -39,6 +41,7 @@ ggplot(race_total)+
   scale_y_continuous(labels = paste0(ylab, "M"),
                      breaks = 10^6 * ylab
   )+
+  scale_fill_brewer(palette = 1) + 
   theme(axis.text.x = element_text(angle=20, vjust=0.5))
 
 ```
@@ -79,6 +82,7 @@ ggplot(race_gender) +
   guides(fill = guide_legend(reverse = TRUE)) +
   facet_wrap(~Education, ncol = 1) +
   ylab("proportion") +
+  scale_fill_brewer(palette = "RdGy") + 
   ggtitle("Proportional breakdown of Gender for each race, faceted on Education Attainment")
 
 ```
@@ -116,7 +120,7 @@ ggplot(birth) +
   theme_light(15)+
   theme(legend.position = "bottom") +
   guides(fill = guide_legend(reverse = TRUE)) +
-  scale_fill_discrete(name = "Education")+
+  scale_fill_brewer(palette = "RdBu")+
   theme(legend.title = element_text(size = 7),legend.text = element_text(size=7))+
   facet_wrap(~Give_birth, ncol = 1)+
   ylab("proportion") +
@@ -160,11 +164,6 @@ grid.arrange(ba_rate, earnings, ncol=2)
   
 ```
 
-
-```{r}
-
-
-```
 
 
 
