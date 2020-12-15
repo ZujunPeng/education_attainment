@@ -146,4 +146,9 @@ earning <- abbreviate(earning,total=TRUE)
 ```{r}
 earning
 ```
+```{r}
+df <- data.frame(x = c("1990", "1995", "1998", "1999"),
+ y = c(34, 52, 156, 205))
+ggplot(df, aes(x, y)) + geom_col()
+```
 

@@ -6,4 +6,4 @@ site: bookdown::bookdown_site
 ---
 
 # Introduction
-
+Throughout the history, education is always a fundamental subject of the infrastructure for nations around the world since education attainment of citizens is closely related to people's economic and social life. Moreover, the level of education attainment may vary by country, race, and gender. In this project, we are interested in exploring the various level of education attainment in the United States and the influence on people's life and decision by different education attainment using the data collected by US Census. To be more specific, we will focus on the exploratory data analysis and data visualization on the data provided by US Census to research on how education attainment differ by gender, race and states as well as how education attainment influences females' choices of marriage status while giving birth and people's earning in the United States. The purpose of our project is to let the readers have an comprehensive understanding of the education attainment status in the United States and how pursuing higher education benefits people's earning and thus improve their social and economic life. 
