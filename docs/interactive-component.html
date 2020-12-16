@@ -255,7 +255,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         .append("path")
         .attr("d", mypath)
         .attr("fill", "none").attr("stroke", color)
-        .attr("stroke-width", "3");
+        .attr("stroke-width", "3")
+        .attr("stroke-dasharray","385 385")
+        .attr("stroke-dashoffset", "385")
+        .transition()
+        .duration(1500)
+        .attr('stroke-dashoffset', 0);
   }
   
   function add_legend(text, color,y,ID){
@@ -296,8 +301,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     };
     function update3(){
       if(d3.select("input#associate").property("checked")){
-            drawline(associate,"associated","#8c96c6",svg);
-            add_legend("Some College Degree","#8c96c6",75,"legend3");
+            drawline(associate,"associated","#6473bf",svg);
+            add_legend("Some College Degree","#6473bf",75,"legend3");
 
         }else{
         svg.select("#associated").remove();
