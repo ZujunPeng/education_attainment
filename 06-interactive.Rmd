@@ -122,8 +122,8 @@ attach(eduD3)
   }
 	function update1(){
 		  if(d3.select("input#lessHS").property("checked")){
-		    drawline(lessHS,"lesshs","#edf8fb",svg);
-		    add_legend("Less Than High School","#edf8fb",25,"legend1");
+		    drawline(lessHS,"lesshs","#c7f3ff",svg);
+		    add_legend("Less Than High School","#c7f3ff",25,"legend1");
 		  }else{
 		    svg.select("#lesshs").remove();
 		    svg.select("#legend1").remove();
@@ -154,8 +154,8 @@ attach(eduD3)
 	};
 	function update4(){
 	  if(d3.select("input#bachelor").property("checked")){
-		    drawline(bachelor,"bachelors","#8856a7",svg);
-		    add_legend("Bachelor's Degree","#8856a7",100,"legend4");
+		    drawline(bachelor,"bachelors","#9b6cb9",svg);
+		    add_legend("Bachelor's Degree","#9b6cb9",100,"legend4");
 
 		}else{
         svg.select("#bachelors").remove();
