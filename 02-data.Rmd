@@ -6,4 +6,28 @@ Data Source Link: https://data.census.gov/cedsci/table?q=Education&tid=ACSST1Y20
 
 https://data.census.gov/cedsci/table?q=Education&tid=ACSDT1Y2019.B13014&moe=false&tp=false&hidePreview=false
 
-We use data sets mainly from two data files. 
+From the data source above, we divide the data that we collect into 5 datasets. The first dataset called "2015-2019education" records the education attainment in the US from 2015 - 2019 and how education level differs by gender over these year. The second dataset called "2015-2019earning" contains data on the median earnings of people in different education levels. The third dataset called "race" covers information on how the level education attainment in the United States is varied by race and gender within each race. The fourth dataset call "states" contains data on education attainment and median earning differed by states. Finally the last data set called "births" has data on the education attainment of women from age 15 to 50 who gave birth and did not give birth in the last 12 months.
+
+The variables these datasets shown in R after reading file and data transformation are (some variables may only appear in some of the datasets and some variables may appear in all dataset):
+
+Year(numeric):Year from 2015 to 2019. 
+
+Estimate(numeric):Number of people in particular category. 
+
+Earning(numeric): Median earning of the populaiton in particular category.
+
+Population(numeric): Population
+
+Education(char): Education attainment.
+
+Gender(char): Gender.
+
+Race(char): Race.
+
+States(char): State names in the United States.
+
+Give_birth: Whether a women give birth or not in the past 12 months.
+
+Marriage:Marriage status.
+
+A problem with the data is that the form of the orginal dataset is reader friendly but not plotting-friendly using R. For example, the education attainment recorded in the data set may have different numbers of categories for race specific and the total population. To be more specific, there are five levels of education attainment for people in age 25 year of older, but there are two levels of education attainment reported when we want to focus on races to see how education attainment is differed by race. To fix it, we need to split orignal file into separate datasets and conduct data transformation to combine or split data to build data frames that are user-friendly in R. Please see the next section of data transformation to understand how data is clean and organized. 

@@ -166,22 +166,28 @@ grid.arrange(ba_rate, earnings, ncol=2)
 ```
 
 ```{r}
-statesDFrame <-states %>%
+new_states<-states %>%
   group_by(State)%>%
   mutate(bachelor_higher = (Population[Education=="Bachelor Degree"]+Population[Education=="Advanced Degree"])/Population[Education == "Total"])%>%
   mutate(abb = state2abbr(State))%>%
+  mutate(median_earning = Earning[Education=="Total"])%>%
   ungroup()
 
-statesDFrame<-na.omit(statesDFrame)
-statesDF<- data.frame(unique(statesDFrame$bachelor_higher))
+statesDFrame<-na.omit(new_states)
+
+rate <- unique(statesDFrame$bachelor_higher)
+earning <- unique(statesDFrame$median_earning)
+statesDF<- data.frame(cbind(rate,earning))
 
 row.names(statesDF) <- unique(statesDFrame$abb)
 ```
 
 
 ```{r}
-statesDFrame
+statesDF
 ```
+
+
 
 
 
@@ -189,16 +195,19 @@ statesDFrame
 
 ```{r}
 panelDesc <- data.frame(                 
-    type=c("mapmedian","id","dot"),  
-    lab1=c("","","Rate of Bachelor Degree or Higher in 2019"),   
-    lab2=c("","","Rate of Bachelor Degree or Higher"), 
-    col1=c(NA,NA,1),                 
-    col2=c(NA,NA,NA)		
+    type=c("mapmedian","id","dot","dot"),  
+    lab1=c("","","Rate of Bachelor Degree or Higher in 2019","Medain Earning in 2019"),   
+    lab3=c("","","Rate of Bachelor Degree or Higher","Median Earning"), 
+    col1=c(NA,NA,1,2)               
     )
 ExTitle <- c( "Dot Plot for Rate of Bachelor Degree or Higher by States in 2019")
-
+#quartz(width=7.5, height = 10, dpi = 72, pointsize = 10)
 pdf(file="EX4-Scatter-Dots.pdf",width=7.5,height=10)
 micromapST(statesDF,panelDesc,sortVar=1,ascend=FALSE,title=ExTitle)  
+```
+
+```{r,include=TRUE, out.width = "100%", fig.cap=c("your caption"), echo=FALSE}
+knitr::include_graphics("./plot.jpeg")
 ```
 
 
