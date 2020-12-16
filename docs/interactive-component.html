@@ -187,18 +187,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <input type="checkbox" id="HS" value="HS">
 <label for="vehicle2"> High School Graduate</label><br>
 <input type="checkbox" id ="associate" value="associate">
-<label for="vehicle3"> Some College or Associate Degree </label><br><br>
+<label for="vehicle3"> Some College or Associate Degree </label><br>
 <input type="checkbox" id="bachelor" value="bachelor">
-<label for="vehicle3"> Bachelor’s Degree</label><br><br>
+<label for="vehicle3"> Bachelor’s Degree</label><br>
 <input type="checkbox" id="advanced" value="advanced">
-<label for="vehicle3"> Graduate or Professional Degree</label><br><br></p>
+<label for="vehicle3"> Graduate or Professional Degree</label><br></p>
 <div id="plot">
 
 </div>
 <script>
-  var w = 530;
+  var w = 750;
   var h = 550;
-  var margin = {top: 25, right: 0, bottom: 25,left: 30};
+  var margin = {top: 25, right: 250, bottom: 25,left: 30};
   var innerWidth = w - margin.left - margin.right;
   var innerHeight = h - margin.top - margin.bottom;
   var lessHS = [[0.1285585,2015], [0.1254705,2016], [0.1201455,2017], [0.1167068,2018], [0.1139115,2019]];
@@ -257,42 +257,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         .attr("fill", "none").attr("stroke", color)
         .attr("stroke-width", "3");
   }
+  
+  function add_legend(text, color,y,ID){
+    svg.append("g")
+        .attr("id", ID)
+        .append("rect")
+        .attr("x","500")
+        .attr("y",y)
+        .attr("width","20")
+        .attr("height","20")
+        .attr("fill", color);
+    svg.append("text")
+        .attr("id",ID)
+        .attr("x","525")
+        .attr("y", y+20)
+        .text(text);
+  }
     function update1(){
           if(d3.select("input#lessHS").property("checked")){
             drawline(lessHS,"lesshs","#edf8fb",svg);
+            add_legend("Less Than High School","#edf8fb",25,"legend1");
           }else{
             svg.select("#lesshs").remove();
+            svg.select("#legend1").remove();
+            svg.select("text#legend1").remove();
           }
     };
     
     function update2(){
       if(d3.select("input#HS").property("checked")){
             drawline(HS,"hs","#b3cde3",svg);
+            add_legend("High School Graduate","#b3cde3",50,"legend2");
         }else{
             svg.select("#hs").remove();
+            svg.select("#legend2").remove();
+            svg.select("text#legend2").remove();
         }
     };
     function update3(){
       if(d3.select("input#associate").property("checked")){
             drawline(associate,"associated","#8c96c6",svg);
+            add_legend("Some College Degree","#8c96c6",75,"legend3");
+
         }else{
         svg.select("#associated").remove();
-        
+            svg.select("#legend3").remove();
+            svg.select("text#legend3").remove();
         }
     };
     function update4(){
       if(d3.select("input#bachelor").property("checked")){
             drawline(bachelor,"bachelors","#8856a7",svg);
+            add_legend("Bachelor's Degree","#8856a7",100,"legend4");
+
         }else{
         svg.select("#bachelors").remove();
-        
+            svg.select("#legend4").remove();
+            svg.select("text#legend4").remove();
         }
     };
     function update5(){
       if(d3.select("input#advanced").property("checked")){
             drawline(advanced,"advance","#810f7c",svg);
+            add_legend("Graduate/Professional Degree","#810f7c",125,"legend5");
+
         }else{
         svg.select("#advance").remove();
+        svg.select("#legend5").remove();
+            svg.select("text#legend5").remove();
         
         }
     };
