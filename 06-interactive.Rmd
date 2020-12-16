@@ -1,21 +1,149 @@
 # Interactive component
 
+```{r}
+new <-education %>%group_by(Year, Education) %>%
+  summarise(Estimate = sum(Estimate)) %>%
+  mutate(prop = Estimate/sum(Estimate))%>%
+  ungroup()
+
+```
+
+```{r}
+edu2015 <- new$prop[new$Year==2015]
+edu2016 <- new$prop[new$Year==2016]
+edu2017 <- new$prop[new$Year==2017]
+edu2018 <- new$prop[new$Year==2018]
+edu2019 <- new$prop[new$Year==2019]
+eduD3 <- data.frame(cbind(edu2015,edu2016,edu2017,edu2018,edu2019))
+#write.csv(eduD3,"./data/eduD3.csv")
+attach(eduD3)
+```
+
+
+
+
 
 <script src="https://d3js.org/d3.v6.js"></script>  <!-- link to D3 library -->
+
+
+
+  <input type="checkbox" id="lessHS" value="lessHS">
+  <label for="vehicle1"> Less than High School</label><br>
+  <input type="checkbox" id="HS" value="HS">
+  <label for="vehicle2"> High School Graduate</label><br>
+  <input type="checkbox" id ="associate" value="associate">
+  <label for="vehicle3"> Some College or Associate Degree </label><br><br>
+  <input type="checkbox" id="bachelor" value="bachelor">
+  <label for="vehicle3"> Bachelor's Degree</label><br><br>
+  <input type="checkbox" id="advanced" value="advanced">
+  <label for="vehicle3"> Graduate or Professional Degree</label><br><br>
+  
 
 
 <div id= "plot"></div>
 
 <script>
+  var w = 530;
+  var h = 550;
+  var margin = {top: 25, right: 0, bottom: 25,left: 30};
+  var innerWidth = w - margin.left - margin.right;
+  var innerHeight = h - margin.top - margin.bottom;
+  var lessHS = [[0.1285585,2015], [0.1254705,2016], [0.1201455,2017], [0.1167068,2018], [0.1139115,2019]];
+  var HS = [[0.2756469,2015], [0.2717640,2016], [0.2713289,2017], [0.2686960,2018], [0.2689317,2019]];
+  var associate = [[0.2897543,2015], [0.2899876,2016], [0.2886797,2017], [0.2885941,2018], [0.2858890,2019]];
+  var bachelor = [[0.1901267,2015], [0.1933507,2016], [0.1969944,2017], [0.1998540,2018], [0.2033382,2019]];
+  var advanced = [[0.1159136,2015], [0.1194270,2016], [0.1228514,2017], [0.1261490,2018], [0.1279295,2019]];
+  
+  var xScale = d3.scaleBand()
+      .domain(d3.range(2015,2020))
+      .range([0, innerWidth]);
+      
+  var yScale = d3.scaleLinear()
+      .domain([0.1, 0.3])
+      .range([innerHeight, 0])
+
+  var xAxis = d3.axisBottom()
+      .scale(xScale);
+
+  var yAxis = d3.axisLeft()
+      .scale(yScale);
   var svg =d3.select("div#plot")
       .append("svg")
-      .attr("width","400")
-      .attr("height","400");
-  svg.append("circle")
-    .attr("cx"."100")
-    .attr("cy","200")
-    .attr("r","50")
-    .attr("fill","red");
+      .attr("width",w)
+      .attr("height",h);
+      
+  var mylinegen = d3.line()
+  
+  mylinegen
+    .x(d => xScale(d[1])+50)
+    .y(d => yScale(d[0]));
+ 
+  svg.append("g")
+      .attr("class", "xAxis")
+      .attr("transform", `translate (${margin.left}, ${h - margin.bottom})`)
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "yAxis")
+      .attr("transform", `translate (${margin.left}, ${margin.top})`)
+      .call(yAxis);
+      
+	d3.select("#lessHS").on("change",update1);
+	d3.select("#HS").on("change",update2);
+	d3.select("#associate").on("change",update3);
+	d3.select("#bachelor").on("change",update4);
+	d3.select("#advanced").on("change",update5);
+  
+  function drawline(data,ID,color,svg_){
+  	var mypath = mylinegen(data);
+    svg_.append("g")
+				.attr("id",ID)
+        .attr("transform", `translate (${margin.left}, ${margin.top})`)
+        .append("path")
+        .attr("d", mypath)
+        .attr("fill", "none").attr("stroke", color)
+        .attr("stroke-width", "3");
+  }
+	function update1(){
+		  if(d3.select("input#lessHS").property("checked")){
+		    drawline(lessHS,"lesshs","#edf8fb",svg);
+		  }else{
+		    svg.select("#lesshs").remove();
+		  }
+	};
+	
+	function update2(){
+	  if(d3.select("input#HS").property("checked")){
+		    drawline(HS,"hs","#b3cde3",svg);
+		}else{
+		    svg.select("#hs").remove();
+		}
+	};
+	function update3(){
+	  if(d3.select("input#associate").property("checked")){
+		    drawline(associate,"associated","#8c96c6",svg);
+		}else{
+        svg.select("#associated").remove();
+		
+		}
+	};
+	function update4(){
+	  if(d3.select("input#bachelor").property("checked")){
+		    drawline(bachelor,"bachelors","#8856a7",svg);
+		}else{
+        svg.select("#bachelors").remove();
+		
+		}
+	};
+	function update5(){
+	  if(d3.select("input#advanced").property("checked")){
+		    drawline(advanced,"advance","#810f7c",svg);
+		}else{
+        svg.select("#advance").remove();
+		
+		}
+	};
+
 </script>
 
 

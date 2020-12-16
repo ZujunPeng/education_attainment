@@ -83,7 +83,7 @@ ggplot(race_gender) +
   guides(fill = guide_legend(reverse = TRUE)) +
   facet_wrap(~Education, ncol = 1) +
   ylab("proportion") +
-  scale_fill_brewer(palette = "RdGy") + 
+  scale_fill_brewer(palette = "BuPu") + 
   ggtitle("Proportional breakdown of Gender for each race, faceted on Education Attainment")
 
 ```
@@ -121,7 +121,7 @@ ggplot(birth) +
   theme_light(15)+
   theme(legend.position = "bottom") +
   guides(fill = guide_legend(reverse = TRUE)) +
-  scale_fill_brewer(palette = "RdBu")+
+  scale_fill_brewer(palette = 3,direction = -1)+
   theme(legend.title = element_text(size = 7),legend.text = element_text(size=7))+
   facet_wrap(~Give_birth, ncol = 1)+
   ylab("proportion") +
