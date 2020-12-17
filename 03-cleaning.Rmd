@@ -92,6 +92,10 @@ states <- cbind(states_education,states_earning[,3])
 states <- abbreviate(states,total = TRUE)
 ```
 
+```{r}
+states
+```
+
 
 ```{r, echo = FALSE, include=FALSE}
 birth <- read.csv("./data/births.csv", na.strings = "N/A")
@@ -158,8 +162,19 @@ earning<-earning %>% pivot_longer(cols = !Gender ,names_to = c("Year","Education
     values_to = "Earning")
 earning$Year <- as.integer(gsub("X", "", earning$Year))
 earning <- abbreviate(earning,total=TRUE)
+```
 
 
+```{r}
+new <-education %>%group_by(Year, Education) %>%
+  summarise(Estimate = sum(Estimate)) %>%
+  mutate(prop = Estimate/sum(Estimate))%>%
+  ungroup()
+edu2015 <- new$prop[new$Year==2015]
+edu2016 <- new$prop[new$Year==2016]
+edu2017 <- new$prop[new$Year==2017]
+edu2018 <- new$prop[new$Year==2018]
+edu2019 <- new$prop[new$Year==2019]
 ```
 
 

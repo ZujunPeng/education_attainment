@@ -1,32 +1,12 @@
 # Interactive component
 
-```{r}
-new <-education %>%group_by(Year, Education) %>%
-  summarise(Estimate = sum(Estimate)) %>%
-  mutate(prop = Estimate/sum(Estimate))%>%
-  ungroup()
-
-```
-
-```{r}
-edu2015 <- new$prop[new$Year==2015]
-edu2016 <- new$prop[new$Year==2016]
-edu2017 <- new$prop[new$Year==2017]
-edu2018 <- new$prop[new$Year==2018]
-edu2019 <- new$prop[new$Year==2019]
-eduD3 <- data.frame(cbind(edu2015,edu2016,edu2017,edu2018,edu2019))
-#write.csv(eduD3,"./data/eduD3.csv")
-attach(eduD3)
-```
-
-
-
+In this section, we will use D3 to construct interactive and animated line chart to show the percentage of each level of education attainment over the total population. In the below interactive line chart, readers are free to plot the line chart of the change of percentage from 2015 to 2019 of their chosen levels of education attainment. There are five levels to choose:Less than High School, High School Graduate, Some College or Associate Degree, Bachelor Degree, and Graduate or professional Degree. Each line are plotted from 2015 to 2019 animatedly to help the readers better detect the trend of percentage for each education level.
 
 
 <script src="https://d3js.org/d3.v6.js"></script>  <!-- link to D3 library -->
 
 
-
+  <h2>Interactive Line Chart for Education Attainment from 2015 to 2019</h2>
   <input type="checkbox" id="lessHS" value="lessHS">
   <label for="vehicle1"> Less than High School</label><br>
   <input type="checkbox" id="HS" value="HS">
@@ -37,7 +17,8 @@ attach(eduD3)
   <label for="vehicle3"> Bachelor's Degree</label><br>
   <input type="checkbox" id="advanced" value="advanced">
   <label for="vehicle3"> Graduate or Professional Degree</label><br>
-  
+
+
 
 
 <div id= "plot"></div>
@@ -87,6 +68,16 @@ attach(eduD3)
       .attr("class", "yAxis")
       .attr("transform", `translate (${margin.left}, ${margin.top})`)
       .call(yAxis);
+  svg.append("text")
+      .attr("x","10")
+      .attr("y","18")
+      .text("Proportion")
+      .style("font-size", "12px");
+  svg.append("text")
+      .attr("x","505")
+      .attr("y","530")
+      .text("Year")
+      .style("font-size", "12px");
       
 	d3.select("#lessHS").on("change",update1);
 	d3.select("#HS").on("change",update2);
@@ -183,4 +174,5 @@ attach(eduD3)
 
 </script>
 
+From the above line chart, we can observe an overall improvement of education attainment from 2015 to 2019 in the United States. Firstly, the line representing percentage of people who do not go to high school over the total population clearly goes down. Besides, even though the line for people with high school graduate degree the line for people with some college or associate degree look relatively flat, there's still a trend of decreasing from 2015 to 2019. Moreover, there are relatively large increases for the percentages people who obtain bachelor degree or higher. Therefore, there's a overall improvement of education attainment from 2015 tp 2019 in the United States. 
 

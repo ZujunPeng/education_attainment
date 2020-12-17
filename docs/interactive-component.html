@@ -24,7 +24,7 @@
 <meta name="author" content="Yifei Chen and Zujun Peng" />
 
 
-<meta name="date" content="2020-12-16" />
+<meta name="date" content="2020-12-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -140,7 +140,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data Sources</a></li>
 <li class="chapter" data-level="3" data-path="data-cleaning.html"><a href="data-cleaning.html"><i class="fa fa-check"></i><b>3</b> Data Cleaning</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#education-attainment-and-gender-in-2019"><i class="fa fa-check"></i><b>5.1</b> Education Attainment and Gender in 2019</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#different-levels-of-education-attainment-by-race-and-gender-together"><i class="fa fa-check"></i><b>5.2</b> Different Levels of Education Attainment by Race and Gender Together</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#median-earning-for-each-level-of-education-attainment-and-gender"><i class="fa fa-check"></i><b>5.3</b> Median Earning for each Level of Education Attainment and Gender</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#education-attainment-and-womens-marital-and-bearing-status"><i class="fa fa-check"></i><b>5.4</b> Education Attainment and Women’s Marital and Bearing Status</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#education-attainment-and-median-earning-by-states"><i class="fa fa-check"></i><b>5.5</b> Education Attainment and Median Earning by States</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclustion.html"><a href="conclustion.html"><i class="fa fa-check"></i><b>7</b> Conclustion</a></li>
 <li class="divider"></li>
@@ -164,24 +170,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="interactive-component" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="interactive-component.html#cb22-1"></a>new &lt;-education <span class="op">%&gt;%</span><span class="kw">group_by</span>(Year, Education) <span class="op">%&gt;%</span></span>
-<span id="cb22-2"><a href="interactive-component.html#cb22-2"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Estimate =</span> <span class="kw">sum</span>(Estimate)) <span class="op">%&gt;%</span></span>
-<span id="cb22-3"><a href="interactive-component.html#cb22-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> Estimate<span class="op">/</span><span class="kw">sum</span>(Estimate))<span class="op">%&gt;%</span></span>
-<span id="cb22-4"><a href="interactive-component.html#cb22-4"></a><span class="st">  </span><span class="kw">ungroup</span>()</span></code></pre></div>
-<pre><code>## `summarise()` regrouping output by &#39;Year&#39; (override with `.groups` argument)</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="interactive-component.html#cb24-1"></a>edu2015 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2015</span>]</span>
-<span id="cb24-2"><a href="interactive-component.html#cb24-2"></a>edu2016 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2016</span>]</span>
-<span id="cb24-3"><a href="interactive-component.html#cb24-3"></a>edu2017 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2017</span>]</span>
-<span id="cb24-4"><a href="interactive-component.html#cb24-4"></a>edu2018 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2018</span>]</span>
-<span id="cb24-5"><a href="interactive-component.html#cb24-5"></a>edu2019 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2019</span>]</span>
-<span id="cb24-6"><a href="interactive-component.html#cb24-6"></a>eduD3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(edu2015,edu2016,edu2017,edu2018,edu2019))</span>
-<span id="cb24-7"><a href="interactive-component.html#cb24-7"></a><span class="co">#write.csv(eduD3,&quot;./data/eduD3.csv&quot;)</span></span>
-<span id="cb24-8"><a href="interactive-component.html#cb24-8"></a><span class="kw">attach</span>(eduD3)</span></code></pre></div>
-<pre><code>## The following objects are masked _by_ .GlobalEnv:
-## 
-##     edu2015, edu2016, edu2017, edu2018, edu2019</code></pre>
+<p>In this section, we will use D3 to construct interactive and animated line chart to show the percentage of each level of education attainment over the total population. In the below interactive line chart, readers are free to plot the line chart of the change of percentage from 2015 to 2019 of their chosen levels of education attainment. There are five levels to choose:Less than High School, High School Graduate, Some College or Associate Degree, Bachelor Degree, and Graduate or professional Degree. Each line are plotted from 2015 to 2019 animatedly to help the readers better detect the trend of percentage for each education level.</p>
 <script src="https://d3js.org/d3.v6.js"></script>
 <p><!-- link to D3 library --></p>
+<h2>
+Interactive Line Chart for Education Attainment from 2015 to 2019
+</h2>
 <p><input type="checkbox" id="lessHS" value="lessHS">
 <label for="vehicle1"> Less than High School</label><br>
 <input type="checkbox" id="HS" value="HS">
@@ -240,6 +234,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       .attr("class", "yAxis")
       .attr("transform", `translate (${margin.left}, ${margin.top})`)
       .call(yAxis);
+  svg.append("text")
+      .attr("x","10")
+      .attr("y","18")
+      .text("Proportion")
+      .style("font-size", "12px");
+  svg.append("text")
+      .attr("x","505")
+      .attr("y","530")
+      .text("Year")
+      .style("font-size", "12px");
       
     d3.select("#lessHS").on("change",update1);
     d3.select("#HS").on("change",update2);
@@ -335,6 +339,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     };
 
 </script>
+<p>From the above line chart, we can observe an overall improvement of education attainment from 2015 to 2019 in the United States. Firstly, the line representing percentage of people who do not go to high school over the total population clearly goes down. Besides, even though the line for people with high school graduate degree the line for people with some college or associate degree look relatively flat, there’s still a trend of decreasing from 2015 to 2019. Moreover, there are relatively large increases for the percentages people who obtain bachelor degree or higher. Therefore, there’s a overall improvement of education attainment from 2015 tp 2019 in the United States.</p>
 
 </div>
             </section>
