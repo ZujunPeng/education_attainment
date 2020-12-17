@@ -2,6 +2,7 @@
 ```{r, include = FALSE}
 library(tidyverse)
 library(dplyr)
+library(knitr)
 ```
 
 ```{r, echo = FALSE}
@@ -51,11 +52,11 @@ The data sets that we gained from the official census website are in the forms o
 Let's use one of our data sets, 'states' as an example. After we read the csv files into data frame in R and extract the columns that we primarily focus on, the data contains multiple columns indicating education levels, with long and complicated names. 
 ```{r}
 states <- read.csv("./data/states.csv", na.strings = "N/A")
-#extract columns for education attainment
 states_education <- states[,1:7]
 ```
 ```{r, echo=FALSE}
-print(colnames(states_education))
+kable(colnames(states_education), caption = "Column Names of State Education Dataset", 
+      col.names = "Column Names")
 ```
 
 
@@ -64,14 +65,15 @@ To have a tidy data set, we transform those columns indicating the education lev
 states_education <- states_education %>% pivot_longer(cols =!State ,names_to = "Education",values_to = "Population")
 ```
 ```{r, echo=FALSE}
-print(head(states_education, 5))
+kable(head(states_education, 3))
 ```
+
 
 
 However, as we can see from the above subset of the dataset, some values in the 'Education' columns are long and complicated. It might create some issues for the following data visualization. Therefore, we abbreviate those values into shorter names. Their full names are indicated in the footnote of each graph using those abbreviations for clarification purpose. 
 ```{r}
 states_education <- abbreviate(states_education,total = TRUE)
-head(states_education)
+kable(head(states_education, 3))
 ```
 
 The above Step 1-3 are repeated for each data set we use. For some data sets containing multiple categories, some of which have relativel low frequencies, we combine those categories as one group. For instance, in the data set counting the number of people with different education attainments in various races, we combine the race groups like 'Native Hawaiian and Other Pacific Islander alone', 'American Indian or Alaska Native alone', and other race groups into one big group called 'Other'. 
@@ -90,10 +92,6 @@ states_earning <- states_earning %>% pivot_longer(cols =!State ,names_to = "Educ
 #combine data
 states <- cbind(states_education,states_earning[,3])
 states <- abbreviate(states,total = TRUE)
-```
-
-```{r}
-states
 ```
 
 
@@ -165,7 +163,7 @@ earning <- abbreviate(earning,total=TRUE)
 ```
 
 
-```{r}
+```{r, echo = FALSE, include = FALSE}
 new <-education %>%group_by(Year, Education) %>%
   summarise(Estimate = sum(Estimate)) %>%
   mutate(prop = Estimate/sum(Estimate))%>%

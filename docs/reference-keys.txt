@@ -1,12 +1,14 @@
+tab:unnamed-chunk-4
 introduction
 data-sources
 data-cleaning
 missing-values
 results
 education-attainment-and-gender-in-2019
+different-levels-of-education-attainment-by-race
 different-levels-of-education-attainment-by-race-and-gender-together
 median-earning-for-each-level-of-education-attainment-and-gender
-education-attainment-and-womens-marital-and-bearing-status
+education-attainment-and-womens-marital-and-fertility-status
 education-attainment-and-median-earning-by-states
 interactive-component
 conclustion
