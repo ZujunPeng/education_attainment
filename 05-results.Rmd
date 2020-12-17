@@ -23,10 +23,8 @@ edu2019 %>%
   theme_light()
 ```
 ```{r}
-#mosaic plot : done
-#x education y gender
 dt <- xtabs(Estimate ~ Education + Gender, data=edu2019)
-vcd::mosaic(dt, direction = c("v", "h"), labeling = labeling_border(rot_labels = c(45, 0), abbreviate_labs = c(2, 1)),)
+vcd::mosaic(dt, direction = c("v", "h"),highlighting_fill=c("#edf8fb","#b3cde3"), labeling = labeling_border(rot_labels = c(45, 0), abbreviate_labs = c(2, 1)),main= "Mosaic Plot of Educaton Attainment and Gender")
 ```
 
 
@@ -193,7 +191,7 @@ statesDF
 
 
 
-```{r}
+```{r,fig.width=7.5,fig.height=10}
 panelDesc <- data.frame(                 
     type=c("mapmedian","id","dot","dot"),  
     lab1=c("","","Rate of Bachelor Degree or Higher in 2019","Medain Earning in 2019"),   
@@ -202,7 +200,7 @@ panelDesc <- data.frame(
     )
 ExTitle <- c( "Dot Plot for Rate of Bachelor Degree or Higher by States in 2019")
 #quartz(width=7.5, height = 10, dpi = 72, pointsize = 10)
-pdf(file="EX4-Scatter-Dots.pdf",width=7.5,height=10)
+#pdf(file="EX4-Scatter-Dots.pdf",width=7.5,height=10)
 micromapST(statesDF,panelDesc,sortVar=1,ascend=FALSE,title=ExTitle)  
 ```
 
