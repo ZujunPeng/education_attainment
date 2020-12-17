@@ -164,19 +164,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="interactive-component" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="interactive-component.html#cb34-1"></a>new &lt;-education <span class="op">%&gt;%</span><span class="kw">group_by</span>(Year, Education) <span class="op">%&gt;%</span></span>
-<span id="cb34-2"><a href="interactive-component.html#cb34-2"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Estimate =</span> <span class="kw">sum</span>(Estimate)) <span class="op">%&gt;%</span></span>
-<span id="cb34-3"><a href="interactive-component.html#cb34-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> Estimate<span class="op">/</span><span class="kw">sum</span>(Estimate))<span class="op">%&gt;%</span></span>
-<span id="cb34-4"><a href="interactive-component.html#cb34-4"></a><span class="st">  </span><span class="kw">ungroup</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="interactive-component.html#cb22-1"></a>new &lt;-education <span class="op">%&gt;%</span><span class="kw">group_by</span>(Year, Education) <span class="op">%&gt;%</span></span>
+<span id="cb22-2"><a href="interactive-component.html#cb22-2"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Estimate =</span> <span class="kw">sum</span>(Estimate)) <span class="op">%&gt;%</span></span>
+<span id="cb22-3"><a href="interactive-component.html#cb22-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> Estimate<span class="op">/</span><span class="kw">sum</span>(Estimate))<span class="op">%&gt;%</span></span>
+<span id="cb22-4"><a href="interactive-component.html#cb22-4"></a><span class="st">  </span><span class="kw">ungroup</span>()</span></code></pre></div>
 <pre><code>## `summarise()` regrouping output by &#39;Year&#39; (override with `.groups` argument)</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="interactive-component.html#cb36-1"></a>edu2015 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2015</span>]</span>
-<span id="cb36-2"><a href="interactive-component.html#cb36-2"></a>edu2016 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2016</span>]</span>
-<span id="cb36-3"><a href="interactive-component.html#cb36-3"></a>edu2017 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2017</span>]</span>
-<span id="cb36-4"><a href="interactive-component.html#cb36-4"></a>edu2018 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2018</span>]</span>
-<span id="cb36-5"><a href="interactive-component.html#cb36-5"></a>edu2019 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2019</span>]</span>
-<span id="cb36-6"><a href="interactive-component.html#cb36-6"></a>eduD3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(edu2015,edu2016,edu2017,edu2018,edu2019))</span>
-<span id="cb36-7"><a href="interactive-component.html#cb36-7"></a><span class="co">#write.csv(eduD3,&quot;./data/eduD3.csv&quot;)</span></span>
-<span id="cb36-8"><a href="interactive-component.html#cb36-8"></a><span class="kw">attach</span>(eduD3)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="interactive-component.html#cb24-1"></a>edu2015 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2015</span>]</span>
+<span id="cb24-2"><a href="interactive-component.html#cb24-2"></a>edu2016 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2016</span>]</span>
+<span id="cb24-3"><a href="interactive-component.html#cb24-3"></a>edu2017 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2017</span>]</span>
+<span id="cb24-4"><a href="interactive-component.html#cb24-4"></a>edu2018 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2018</span>]</span>
+<span id="cb24-5"><a href="interactive-component.html#cb24-5"></a>edu2019 &lt;-<span class="st"> </span>new<span class="op">$</span>prop[new<span class="op">$</span>Year<span class="op">==</span><span class="dv">2019</span>]</span>
+<span id="cb24-6"><a href="interactive-component.html#cb24-6"></a>eduD3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(edu2015,edu2016,edu2017,edu2018,edu2019))</span>
+<span id="cb24-7"><a href="interactive-component.html#cb24-7"></a><span class="co">#write.csv(eduD3,&quot;./data/eduD3.csv&quot;)</span></span>
+<span id="cb24-8"><a href="interactive-component.html#cb24-8"></a><span class="kw">attach</span>(eduD3)</span></code></pre></div>
 <pre><code>## The following objects are masked _by_ .GlobalEnv:
 ## 
 ##     edu2015, edu2016, edu2017, edu2018, edu2019</code></pre>

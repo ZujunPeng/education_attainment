@@ -1,5 +1,5 @@
 # Results
-```{r}
+```{r, include = FALSE}
 library(ggplot2)
 library(gridExtra)
 library(vcd)
@@ -8,28 +8,18 @@ library(usdata)
 library(micromapST)
 ```
 
+
 ```{r}
 edu2019 <- education[education$Year==2019,]
-edu2019 %>%
-  group_by(Gender) %>%
-  mutate(total_pop = sum(Estimate))%>%
-  ungroup()%>%
-  ggplot()+
-  geom_col(aes(x = Education,y=Estimate/total_pop, fill = Gender), position="dodge" )+
-  scale_fill_brewer(palette = 3)+ 
-  xlab("Year in School") +
-  ylab("Proportion")+
-  ggtitle("Grouped Bar Chart of Education Attainment in 2019 Differed by Gender") + 
-  theme_light()
-```
-```{r}
 dt <- xtabs(Estimate ~ Education + Gender, data=edu2019)
-vcd::mosaic(dt, direction = c("v", "h"),highlighting_fill=c("#edf8fb","#b3cde3"), labeling = labeling_border(rot_labels = c(45, 0), abbreviate_labs = c(2, 1)),main= "Mosaic Plot of Educaton Attainment and Gender")
+vcd::mosaic(dt, direction = c("v", "h"),
+            gp=gpar(fill=c("#fbb4ae","#fbb4ae","#fbb4ae","#fbb4ae","#fbb4ae","#b3cde3","#b3cde3","#b3cde3","#b3cde3","#b3cde3")),
+            labeling = labeling_border(rot_labels = c(45, 0),abbreviate_labs = c(2, 1)),
+            main= "Mosaic Plot of Educaton Attainment and Gender")
 ```
 
 
 ```{r}
-#科学计数法: done 
 race_total <- race[race$Gender=="Total",]
 ylab <- c(0, 50, 100, 150)
 ggplot(race_total)+
@@ -38,11 +28,10 @@ ggplot(race_total)+
   ylab("Population")+
   ggtitle("Group Bar Chart of 2019 Education Attainment by Race")+
   scale_y_continuous(labels = paste0(ylab, "M"),
-                     breaks = 10^6 * ylab
-  )+
+                     breaks = 10^6 * ylab)+
   scale_fill_brewer(palette = 1) + 
+  theme_light(14)+
   theme(axis.text.x = element_text(angle=20, vjust=0.5))
-
 ```
 ```{r}
 # Function to change counts to cases
@@ -81,29 +70,29 @@ ggplot(race_gender) +
   guides(fill = guide_legend(reverse = TRUE)) +
   facet_wrap(~Education, ncol = 1) +
   ylab("proportion") +
-  scale_fill_brewer(palette = "BuPu") + 
+  scale_fill_brewer(palette = "Pastel1") + 
   ggtitle("Proportional breakdown of Gender for each race, faceted on Education Attainment")
 
 ```
-
 
 ```{r}
 #add legend！！！
 earning2019 <- earning[earning$Year==2019,]
 earning_total<- earning2019$Earning[earning2019$Education=="Total"]
 earning2019 <- earning2019[earning2019$Education!= "Total",]
-#earning2019%>%
-#  group_by(Education)%>%
-#  mutate(total_earn =earning_total )%>%
-#  ungroup()%>%
-#  ggplot()+
-#  geom_col(aes(x=Education,y=Earning))+
-#  geom_hline(aes(yintercept=total_earn),col="red")+
-#  coord_flip()+
-#  facet_wrap(~Gender, ncol = 1) +
-#  ggtitle("Median Earning in 2019 based on Education Attainment and Gender")
+earning2019%>%
+  group_by(Education)%>%
+  mutate(total_earn =earning_total )%>%
+  ungroup()%>%
+  ggplot()+
+  geom_col(aes(x=Education,y=Earning))+
+  geom_hline(aes(yintercept=total_earn),col="red")+
+  scale_fill_brewer(palette = 3,direction = -1)+
+  geom_text(aes(label ="Median Earning for all Population",x = 0.9, y = total_earn+22000),color= "red",label.size = 0.1)+
+  coord_flip()+
+  facet_wrap(~Gender, ncol = 1) +
+  ggtitle("Median Earning in 2019 based on Education Attainment and Gender")
 
-#earning_plot + facet_grid(rows = vars(Gender))
 ```
 
 
@@ -121,6 +110,7 @@ ggplot(birth) +
   guides(fill = guide_legend(reverse = TRUE)) +
   scale_fill_brewer(palette = 3,direction = -1)+
   theme(legend.title = element_text(size = 7),legend.text = element_text(size=7))+
+  labs(fill = "Education")+
   facet_wrap(~Give_birth, ncol = 1)+
   ylab("proportion") +
   xlab("Marriage Status")+
@@ -130,38 +120,6 @@ ggplot(birth) +
 
 ```
 
-```{r}
-#one title 
-#y label too small
-new_states<-states %>%
-  group_by(State)%>%
-  mutate(bachelor_higher = (Population[Education=="Bachelor Degree"]+Population[Education=="Advanced Degree"])/Population[Education == "Total"])%>%
-  mutate(abb = state2abbr(State))%>%
-  mutate(median_earning = Earning[Education=="Total"])%>%
-  ungroup()
-
-new_states$abb[is.na(new_states$abb)]="PR"
-
-ba_rate<-ggplot(new_states)+
-  geom_point(aes(x=bachelor_higher, y=reorder(abb, bachelor_higher)), color = "blue") + 
-  xlab("Rate of Bachelor Degree or Higher")+
-  ylab("State")+
-  ggtitle("2019 Rate of Bachelor Degree or Higher for Each State")+
-  theme_light()
-
-earnings <- 
-  ggplot(new_states)+
-  geom_point(aes(x=median_earning, y=reorder(abb,bachelor_higher)), color = "red") +
-  xlab("Median Earning of the State")+
-  ylab("State")+
-  ggtitle("2019 Median Earning for Each State")+
-  theme_light()
-
-
-grid.arrange(ba_rate, earnings, ncol=2)
-
-  
-```
 
 ```{r}
 new_states<-states %>%
@@ -179,15 +137,6 @@ statesDF<- data.frame(cbind(rate,earning))
 
 row.names(statesDF) <- unique(statesDFrame$abb)
 ```
-
-
-```{r}
-statesDF
-```
-
-
-
-
 
 
 

@@ -3,12 +3,13 @@
 library(tidyverse)
 library(dplyr)
 ```
+
 ```{r, echo = FALSE}
 # Function of abbreviating character values in the data set 
 abbreviate <- function(ds, total = FALSE, race = FALSE){
     if (!race){
         ds$Education[which(ds$Education == "Less.than.high.school.graduate")] <- "Less Than High School"
-        ds$Education[which(ds$Education == "High.school.graduate..includes.equivalency.")] <- "High School Graduate"
+        ds$Education[which(ds$Education == "High.school.graduate..includes.equivalency.")] <- "High School"
         ds$Education[which(ds$Education == "Some.college.or.associate.s.degree")] <- "Some Colleges"
         ds$Education[which(ds$Education == "Bachelor.s.degree")] <- "Bachelor Degree"
         ds$Education[which(ds$Education == "Graduate.or.professional.degree")] <- "Advanced Degree"
@@ -27,10 +28,10 @@ abbreviate <- function(ds, total = FALSE, race = FALSE){
     }
     ds$Education <- as.factor(ds$Education)
     if(total){
-      ds$Education <- fct_relevel(ds$Education,"Less Than High School","High School Graduate","Some Colleges","Bachelor Degree", "Advanced Degree","Total")
+      ds$Education <- fct_relevel(ds$Education,"Less Than High School","High School","Some Colleges","Bachelor Degree", "Advanced Degree","Total")
     }
     if(!total&&!race){
-      ds$Education<-fct_relevel(ds$Education,"Less Than High School","High School Graduate","Some Colleges","Bachelor Degree", "Advanced Degree")
+      ds$Education<-fct_relevel(ds$Education,"Less Than High School","High School","Some Colleges","Bachelor Degree", "Advanced Degree")
 
     }
     if(race){
