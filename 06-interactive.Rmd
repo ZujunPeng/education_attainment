@@ -1,6 +1,6 @@
 # Interactive component
 
-In this section, we will use D3 to construct interactive and animated line chart to show the percentage of each level of education attainment over the total population. In the below interactive line chart, readers are free to plot the line chart of the change of percentage from 2015 to 2019 of their chosen levels of education attainment. There are five levels to choose:Less than High School, High School Graduate, Some College or Associate Degree, Bachelor Degree, and Graduate or professional Degree. Each line are plotted from 2015 to 2019 animatedly to help the readers better detect the trend of percentage for each education level.
+In this section, we use D3 to construct an interactive and animated line chart to show the percentage of each level of educational attainment over the total population. In the below interactive line chart, readers are free to plot the line chart of the change of percentage from 2015 to 2019 of their chosen education attainment levels. There are five levels to choose from: Less than High School, High School Graduate, Some College or Associate Degree, Bachelor Degree, and Graduate or Professional Degree. Each line is plotted from 2015 to 2019 animatedly to help the readers better detect the trend of percentage for each education level.
 
 
 <script src="https://d3js.org/d3.v6.js"></script>  <!-- link to D3 library -->
@@ -174,5 +174,11 @@ In this section, we will use D3 to construct interactive and animated line chart
 
 </script>
 
-From the above line chart, we can observe an overall improvement of education attainment from 2015 to 2019 in the United States. Firstly, the line representing percentage of people who do not go to high school over the total population clearly goes down. Besides, even though the line for people with high school graduate degree the line for people with some college or associate degree look relatively flat, there's still a trend of decreasing from 2015 to 2019. Moreover, there are relatively large increases for the percentages people who obtain bachelor degree or higher. Therefore, there's a overall improvement of education attainment from 2015 tp 2019 in the United States. 
+From the above line chart, we can observe an overall improvement of educational attainment from 2015 to 2019 in the United States. 
+
+Firstly, after selecting only the line representing the percentage of people who do not have a high school diploma over the total population, it is clear to see that the line goes down. Then we select two more educational attainment levels, High School Graduate and Some College or Associate Degree; we gain two "flat" lines with a slight trend of decreasing from 2015 to 2019. Together with the first line, it is easy to detect a decrease in the percentage of the population who do not have a bachelor's degree or higher. 
+
+Besides, selecting only the lines for the levels, Bachelor's Degree and Advanced Degree, we can observe two approximately parallel lines going up. It indicates a large increase in the percentage of people who obtain a bachelor's or higher degree. 
+
+As a result, there is an overall improvement in educational attainment in the United States from 2015 to 2019. 
 
