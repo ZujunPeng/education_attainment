@@ -108,20 +108,21 @@
 <div id="data-sources" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Data Sources</h1>
 <p>Since both group members prefer to work on a data set that we are both interested in while having practical meaning simultaneously, we are all responsible for collecting the data. We first decide on some topics that we think might suit our final project and search for data set on this topic. After that, we compare data sets that we collect and finally decide to use the data on education attainment provided by the US Census.</p>
-<p>Data Source Link: <a href="https://data.census.gov/cedsci/table?q=Education&amp;tid=ACSST1Y2019.S1501&amp;moe=false&amp;tp=false&amp;hidePreview=true" class="uri">https://data.census.gov/cedsci/table?q=Education&amp;tid=ACSST1Y2019.S1501&amp;moe=false&amp;tp=false&amp;hidePreview=true</a></p>
+<p>Data Source Link:</p>
+<p><a href="https://data.census.gov/cedsci/table?q=Education&amp;tid=ACSST1Y2019.S1501&amp;moe=false&amp;tp=false&amp;hidePreview=true" class="uri">https://data.census.gov/cedsci/table?q=Education&amp;tid=ACSST1Y2019.S1501&amp;moe=false&amp;tp=false&amp;hidePreview=true</a></p>
 <p><a href="https://data.census.gov/cedsci/table?q=Education&amp;tid=ACSDT1Y2019.B13014&amp;moe=false&amp;tp=false&amp;hidePreview=false" class="uri">https://data.census.gov/cedsci/table?q=Education&amp;tid=ACSDT1Y2019.B13014&amp;moe=false&amp;tp=false&amp;hidePreview=false</a></p>
 <p>From the data source above, we divide the data that we collect into 5 data sets. The first data set called “2015-2019education” records the education attainment in the US from 2015 - 2019 and how education level differs by gender over these year. The second data set called “2015-2019earning” contains data on the median earnings of people in different education levels. The third dataset called “race” covers information on how the level education attainment in the United States is varied by race and gender within each race. The fourth data set call “states” contains data on education attainment and median earning differed by states. Finally the last data set called “births” has data on the education attainment of women from age 15 to 50 who gave birth and did not give birth in the last 12 months.</p>
 <p>The variables shown in those datasets in R after reading file and data transformation are (some variables may only appear in some of the data sets, and some variables may appear in all data sets):</p>
-<p>Year(numeric): Year from 2015 to 2019</p>
-<p>Estimate(numeric): Number of people in particular category</p>
-<p>Earning(numeric): Median earning of the population in particular category</p>
-<p>Population(numeric): Population</p>
-<p>Education(char): Education attainment</p>
-<p>Gender(char): Gender</p>
-<p>Race(char): Race</p>
-<p>States(char): State names in the United States</p>
-<p>Give_birth: Whether a woman gives birth or not in the past 12 months</p>
-<p>Marriage: Marriage status.</p>
+<p><code>Year</code>(numeric): Year from 2015 to 2019</p>
+<p><code>Estimate</code>(numeric): Number of people in particular category</p>
+<p><code>Earning</code>(numeric): Median earning of the population in particular category</p>
+<p><code>Population</code>(numeric): Population</p>
+<p><code>Education</code>(char): Education attainment</p>
+<p><code>Gender</code>(char): Gender</p>
+<p><code>Race</code>(char): Race</p>
+<p><code>States</code>(char): State names in the United States</p>
+<p><code>Give_birth</code>(char): Whether a woman gives birth or not in the past 12 months</p>
+<p><code>Marriage</code>(char): Marriage status.</p>
 <p>A problem with the data is that the original dataset is reader-friendly but not plotting-friendly using R. For example, the education attainment recorded in the data set may have different numbers of categories for race and the total population. To be more specific, there are five educational attainment levels for people aged 25 years or older, but there are two levels of education attainment reported when we want to focus on races to see how education attainment differs by race. To fix it, we need to split the original file into separate datasets and conduct data transformation to combine or split data to build data frames that are user-friendly in R. Please see the next section of data transformation to understand how data is clean and organized.</p>
 
 </div>
