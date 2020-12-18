@@ -55,70 +55,6 @@
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
-<style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -180,50 +116,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="different-levels-of-education-attainment-by-race" class="section level2">
 <h2><span class="header-section-number">5.2</span> Different Levels of Education Attainment by Race</h2>
-<p>Now, let us look at the different levels of education attainment by race in the United States. Different from the previous plot, in this plot, the levels of educational attainment are “Higher School or Higher” and “Bachelor Degree or Higher”, which represent people have a high school graduate or higher degree and people with a bachelor or higher degree respectively.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="results.html#cb2-1"></a><span class="kw">ggplot</span>(race_total)<span class="op">+</span></span>
-<span id="cb2-2"><a href="results.html#cb2-2"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Race,<span class="dt">y=</span>rate,<span class="dt">fill=</span>Education),<span class="dt">position =</span><span class="st">&quot;dodge&quot;</span>)<span class="op">+</span></span>
-<span id="cb2-3"><a href="results.html#cb2-3"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Race&quot;</span>)<span class="op">+</span></span>
-<span id="cb2-4"><a href="results.html#cb2-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Rate of Particular Education Attainment&quot;</span>)<span class="op">+</span></span>
-<span id="cb2-5"><a href="results.html#cb2-5"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Group Bar Chart of Rate of Education Attainment by Race&quot;</span>)<span class="op">+</span></span>
-<span id="cb2-6"><a href="results.html#cb2-6"></a><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb2-7"><a href="results.html#cb2-7"></a><span class="st">  </span><span class="kw">theme_light</span>(<span class="dv">12</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb2-8"><a href="results.html#cb2-8"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<p>Now, let us look at the different levels of education attainment by race in the United States. Unlike the previous plot, in this plot, educational attainment levels are “Higher School or Higher” and “Bachelor Degree or Higher”, which represent people with a high school graduate or higher degree and people with a bachelor or higher degree, respectively.</p>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-<p>From the above grouped bar chart, we can observe that for White people, who occupy the largest population in the United States, have the highest rate of high school graduate or higher than other races since the height of the bar representing the rate of white people who have a high school graduate or higher degree is the highest. Moreover, Hispanic or Latino people have the lowest rate of high school or higher and bachelor or higher degree than other races, since the bars representing these two levels are the shortest.</p>
-<p>Notice that even though the group <code>Other</code> has a larger total population than the group <code>Asian Alone</code>, we plot the bars for <code>Asian Alone</code> first because the group <code>Other</code> is an aggregation of races including native Hawaiian and American Indian and so on, and each race itself has a smaller population than Asian American. Moreover, if we look at the group of Asian American alone, we can notice Asian Americans generally have high education attainment with a relatively high rate of high school graduate or higher and the highest rate of bachelor degree or high among all races.</p>
+<p>From the above group bar chart, we can observe that White people, who occupy the largest population in the United States, have the highest percentage of people with a high school diploma or higher degree than other races, followed by Asian Americans and Black people. Hispanic or Latino people have the lowest percentage of people with higher educational attainment than other races.</p>
+<p>Moreover, if we look at the Asian American group, we can notice that in general, Asian Americans have high education attainment with both a relatively high rate of high school graduate or higher and the highest rate of bachelor degree or higher among all races.</p>
 </div>
 <div id="different-levels-of-education-attainment-by-race-and-gender-together" class="section level2">
 <h2><span class="header-section-number">5.3</span> Different Levels of Education Attainment by Race and Gender Together</h2>
-<p>In this section, we look at how levels of educational attainment vary by gender for each race by plotting a horizontal stacked bar chart faceted by 2 educational levels, namely higher school graduate or higher and bachelor’s degree or higher.</p>
+<p>In this section, we look at how educational attainment levels vary by gender for each race by plotting a horizontal stacked bar chart faceted by 2 educational levels, namely higher school graduate or higher and bachelor’s degree or higher.</p>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-<p>One interesting finding from the above horizontal stacked bar chart is that for both facets, more than 50% of the population who obtain high school or higher degrees or bachelor or higher degrees are females. This slightly unbalanced proportion of education attainment within gender becomes more trivial when we focus on the plot of <code>Bachelor Degree or Higher</code> alone, or when we focus on black people alone. Clearly, the proportion of females among all population who obtain high school or higher degree is larger than the proportion of males, and this higher proportion keep increasing when it goes to the group of people with bachelor or higher degrees.</p>
-<p>Moreover, among all races, black females clearly have the highest proportion compared to black males among all black people who obtain higher school or higher degrees or bachelor or higher degrees. Besides, the two proportional breakdowns of gender for people who have degrees of high school or higher or degrees of bachelor or higher remain almost unchanged for white people and Asian Americans.</p>
+<p>One interesting finding from the above horizontal stacked bar chart is that more than 50% of the population who obtain a high school diploma or higher or a bachelor’s degree or higher are females. This unbalanced proportion of educational attainment within gender becomes even more apparent when we focus only on the plot of <code>Bachelor Degree or Higher</code> or only focus on black people. In general, the proportion of females among all population who obtain a high school or higher degree is larger than the proportion of males, and this difference becomes larger when it goes to the group of people with a bachelor’s degree or higher.</p>
+<p>Moreover, among all races, the contrast in the percentages of black females and black males among all black people who obtain higher educational attainments are the largest. Besides, the two proportional breakdowns of gender remain almost unchanged for white people and Asian Americans with a high school diploma or higher and with a bachelor’s degree or higher.</p>
 </div>
 <div id="median-earning-for-each-level-of-education-attainment-and-gender" class="section level2">
 <h2><span class="header-section-number">5.4</span> Median Earning for each Level of Education Attainment and Gender</h2>
-<p>After exploring the proportional break down of education attainment by gender and race, we now focus on the possible influences of different levels of education attainment. In this section, we use bar chart faceted by gender to show how the median earning differs in population with different education attainments and how these differences appear in genders.</p>
+<p>After exploring the proportional breakdown of education attainment by gender and race, we now focus on the possible influences of different educational attainment levels. In this section, we use bar chart faceted by gender to show how the median earning differs in population with different education attainments and how these differences appear in genders.</p>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<p>We can observe from the plot that people’s earnings increase as they obtain higher degrees of education. Moreover, we can find that for all genders and the total population, median earnings for people who obtain bachelor’s degrees or higher are higher than the overall median earning for all populations. If we explore more on the bars’ lengths, we can observe a considerable increase in earnings for people obtaining bachelor’s degrees compared to the ones attending some colleges. The earnings for people with advanced degrees increase even more. This finding reveals the positive influence of higher education on people’s earnings and the high return rate of higher education investment regarding future earning.</p>
+<p>We can observe from the plot that people’s earnings increase as they obtain higher degrees of education. Moreover, we can find that for all genders and the total population, median earnings for people who obtain bachelor’s degrees or higher are higher than the overall median earning for all populations. If we explore more on the bars’ lengths, we can observe a considerable increase in earnings for people obtaining bachelor’s degrees compared to those attending some colleges. The earnings for people with advanced degrees increase even more. This finding reveals the positive influence of higher education on people’s earnings and the high return rate of higher education investment regarding future earning.</p>
 <p>If we look closer to genders, females’ median earnings are lower than males and the total population regardless of educational attainment levels. Males with advanced degrees, namely graduate or professional degree, have the highest median earnings, and females with education attainment that is less than high school earn at least among all groups.</p>
 </div>
 <div id="education-attainment-and-womens-marital-and-fertility-status" class="section level2">
 <h2><span class="header-section-number">5.5</span> Education Attainment and Women’s Marital and Fertility Status</h2>
 <p>In the last section, we notice that though high education attainment increases people’s earnings, the earnings among males and females are unequal for all education attainment levels. To explore the influence of educational attainment on women’s lives, we use a new data set with information on marital status for women who give birth or not in 2019 in different education levels. Then, we plot a horizontal stacked bar chart to visualize women’s distribution with different marriage statuses, fertility statuses, and education levels.</p>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<p>Clearly, women who finished their high schools or obtained some college degrees take up the largest proportion of the whole women population, so they still occupy the largest proportion of women who gave birth or not. Moreover, the proportional breakdown of education attainment for women giving birth of not in 2019 remained unchanged for married women. However, the proportion of women who obtained some college degree or higher is larger for unmarried women who did not give births than who gave births in 2019.</p>
-<p>One interesting finding is that for women who gave birth to babies in 2019, the proportional breakdown of education attainment was different for women who were married or not. More than 50% of unmarried women who gave birth to babies in 2019 status had a high school graduate degree or lower. However, approximately 75% of married women who gave birth to babies in 2019 had some college degree or higher. From this, we can observe some relationship between education attainment and the unmarried birth and women’s choices of marital status while giving birth.</p>
+<p>Women who finish high school or obtain some college degrees take up the largest proportion of the whole women population, so they still occupy the largest proportion of women who give birth or not. Moreover, the proportional breakdown of education attainment for women giving birth or not in 2019 remained unchanged for married women. However, the percentage of females that obtain some college degrees or higher is larger for unmarried women who do not give births than the one for females who give birth in 2019.</p>
+<p>One interesting finding is that for women who give birth to babies in 2019, the proportional breakdown of education attainment was different with various marital statuses. More than 50% of unmarried women who gave birth to babies in 2019 had a high school graduate degree or lower. However, approximately 75% of married women who gave birth to babies in 2019 had some college degrees or higher. From this, we can observe that educational attainment might be a factor of unmarried birth.</p>
 </div>
 <div id="education-attainment-and-median-earning-by-states" class="section level2">
 <h2><span class="header-section-number">5.6</span> Education Attainment and Median Earning by States</h2>
-<p>In this section, we conduct a linked micromap to see how education attainment and median earning differ in states in the United states in 2019 and explore the potential relationship among education attainment, median earning, and states. To visualize the data, we plot a linked micromap, including a Cleveland dot plot for bachelor’s degree or higher rate for each state, a Cleveland dot plot for the median earning for the total population in each state, and a map indicating the state corresponding the dot in the cleveland dot plot. Notice that both cleveland dot plot are sorted by the rate of bachelor’s degree or higher for each state. Even though Washington D.C. is not a state in the United States, it is an important factor to be considered. Therefore, we put it in the plot as well.</p>
+<p>In this section, we conduct a linked micromap to see how education attainment and median earning differ in states in the United States in 2019 and explore the potential relationship among educational attainment, median earning, and states. To visualize the data, we plot a linked micromap, including a Cleveland dot plot for bachelor’s degree or higher rate for each state, a Cleveland dot plot for the median earning for the total population in each state, and a map indicating the state corresponding the dot in the Cleveland dot plot. Notice that both Cleveland dot plots are sorted by the rate of bachelor’s degree or higher for each state. Even though Washington D.C. is not a state in the United States, it is an essential factor to be considered. Therefore, we put it in the plot as well.</p>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-25-1.png" width="720" /></p>
 <pre><code>## [1] &quot;micromapST Ends&quot;</code></pre>
-<p>From the plot, it is clear to notice that Washington DC has the highest bachelor’s degree or higher education attainment rate and also the highest median earnings. It is reasonable because it is the capital city of the United States with fewer population compared to other states. Therefore, we regard it as an outlier. Looking at the micromap on the left side of the plot, we can see that the states with greater higher education attainment rates than the medium are generally locally on East as well as West coast and on the Northern part in the United States. The states with relatively low higher education rates are mostly located on the Central and Southern part in the country.</p>
-<p>In the plot, there is no a significant positive linear relationship between higher education attainment rate and median earning for each state. This is reasonable because the medium earning of a state is affected by multiple factors, including policy, geographic location, resources, and so on. However, we can still observe a slight trend of a higher median earning with a higher rate of population with bachelor degrees or higher for states.</p>
-<p>There are two states, Alaska and Montana, which worth further research.</p>
-<p>Alaska has a relatively low rate of population with bachelor degrees or higher compared to the medium. However, it has a higher median earning, close with $50,000, compared to states with similar or even greater higher education attainment rates. The contrast might due to Alaska’s rich mineral resources, developed tourism, and relatively small size of population.</p>
-<p>On the contrast, Montana has a great higher education attainment rates but low median earning, less than $40,000. It median earning is lower than the ones for most other states. The reduction of natural resources, closure of miner, and late adoption of technology are some possible reasons lying behind it.</p>
+<p>From the plot, it is clear to notice that Washington DC has the highest bachelor’s degree or higher education attainment rate and also the highest median earnings. It is reasonable because it is the United States’ capital city with fewer population compared to other states. Therefore, we regard it as an outlier. Looking at the micromap on the left side of the plot, we can see that the states with better higher education attainment rates than the medium are generally locally on the East and West coast and the Northern part of the United States. The states with relatively low higher education rates are mostly located in the Central and Southern parts of the country.</p>
+<p>There is no significant positive linear relationship between higher education attainment rate and median earning for each state in the plot. It is reasonable because the medium earning of a state is affected by multiple factors, including policy, geographic location, resources, etc. However, we can still observe a slight trend of a higher median earning with a higher population rate with bachelor degrees or higher for states.</p>
+<p>There are two states, Alaska and Montana, which require further research.</p>
+<p>Alaska has a relatively low rate of population with bachelor’s degrees or higher compared to the medium. However, it has a higher median earning, close to $50,000, compared to states with similar or even greater higher education attainment rates. The contrast might be due to Alaska’s rich mineral resources, developed tourism, and relatively small population.</p>
+<p>In contrast, Montana has a great higher education attainment rates but low median earning, less than $40,000. Its median earning is lower than the ones for most other states. The reduction of natural resources, closure of miners, and late technology adoption are some possible reasons lying behind it.</p>
 
 </div>
 </div>

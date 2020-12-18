@@ -61,7 +61,7 @@ kable(colnames(states_education), caption = "Column Names of State Education Dat
 
 
 To have a tidy data set, we transform those columns indicating the education levels into one column: 
-```{r}
+```{r, echo = FALSE}
 states_education <- states_education %>% pivot_longer(cols =!State ,names_to = "Education",values_to = "Population")
 ```
 ```{r, echo=FALSE}
