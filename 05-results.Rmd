@@ -11,6 +11,8 @@ In this section, we look at data on the different levels of education attainment
 
 ## Education Attainment and Gender in 2019
 We first focus on the level of educational attainment and how it differed by gender in 2019. We plot a mosaic plot to show the relation between these two variables. Notice that since the variable `Education` has five levels and long names, it is hard to display them appropriately and clearly in the label of mosaic plot. Therefore, we abbreviate the variable names by converting "Less than High School" to "<HS", "High School Graduate" to "HSG", "Some College or Associate Degree" to "SC", "Bachelor Degree" to "BD","Advanced Degree" to "AD".
+
+
 ```{r, echo = FALSE}
 edu2019 <- education[education$Year==2019,]
 dt <- xtabs(Estimate ~ Education + Gender, data=edu2019)
@@ -82,8 +84,8 @@ ggplot(race_gender) +
   labs(x = "Race", y = "Proportion", title = "Proportional Breakdown of Gender for Each Race", subtitle = "Faceted by Education Attainment") +
   theme_light(12)+
   theme(legend.position = "bottom", 
-        plot.title=element_text(hjust=0.5),
-        plot.subtitle=element_text(hjust=0.5))
+        plot.title=element_text(hjust=0.5, size = 15),
+        plot.subtitle=element_text(hjust=0.5, size = 15))
 
 ```
 
@@ -121,8 +123,8 @@ earning2019%>%
   geom_text(aes(label ="Median Earning for all Population",x = 0.9, y = total_earn+25000),size = 3.5,color= "#7c8790")+
   theme_light(12)+
   theme(legend.position = "None",
-        plot.title=element_text(hjust=0.5),
-        plot.subtitle=element_text(hjust=0.5))
+        plot.title=element_text(hjust=0.5, size = 15),
+        plot.subtitle=element_text(hjust=0.5, size = 15))
 ```
 
 We can observe from the plot that people's earnings increase as they obtain higher degrees of education. Moreover, we can find that for all genders and the total population, median earnings for people who obtain bachelor's degrees or higher are higher than the overall median earning for all populations. If we explore more on the bars' lengths, we can observe a considerable increase in earnings for people obtaining bachelor's degrees compared to those attending some colleges. The earnings for people with advanced degrees increase even more. This finding reveals the positive influence of higher education on people's earnings and the high return rate of higher education investment regarding future earning.
@@ -151,8 +153,8 @@ ggplot(birth) +
   theme(legend.title = element_text(size = 7),
         legend.text = element_text(size=7),
         legend.position = "bottom", 
-        plot.title = element_text(hjust = 0.5), 
-        plot.subtitle = element_text(hjust = 0.5))
+        plot.title = element_text(hjust = 0.5, size = 15), 
+        plot.subtitle = element_text(hjust = 0.5, size = 15))
 ```
 
 Women who finish high school or obtain some college degrees take up the largest proportion of the whole women population, so they still occupy the largest proportion of women who give birth or not. Moreover, the proportional breakdown of education attainment for women giving birth or not in 2019 remained unchanged for married women. However, the percentage of females that obtain some college degrees or higher is larger for unmarried women who do not give births than the one for females who give birth in 2019.
