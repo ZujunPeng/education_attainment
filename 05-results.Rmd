@@ -24,26 +24,33 @@ From the mosaic plot, we can first observe that over the United States, people h
 
 
 ## Different Levels of Education Attainment by Race
-Now, let us look at the different levels of education attainment by race in the United States. Different from the previous plot, in this plot, the levels of educational attainment are "Total", "Higher School or Higher", and "Bachelor Degree or Higher", represent the total population, people have a high school or higher degree, and people with a bachelor or higher degree respectively.
-```{r, echo = FALSE}
+Now, let us look at the different levels of education attainment by race in the United States. Different from the previous plot, in this plot, the levels of educational attainment are "Higher School or Higher" and "Bachelor Degree or Higher", which represent people have a high school graduate or higher degree and people with a bachelor or higher degree respectively.
+
+```{r, include = FALSE}
 race_total <- race[race$Gender=="Total",]
 levels(race_total$Race) <- gsub(" ", "\n", levels(race_total$Race))
-ylab <- c(0, 50, 100, 150)
+race_total<-race_total%>%
+  group_by(Race)%>%
+  mutate(rate = Estimate/Estimate[Education == "Total"])%>%
+  ungroup()
+race_total <- race_total[race_total$Education!= "Total",]
+
+```
+
+```{r}
 ggplot(race_total)+
-  geom_col(aes(x=Race,y=Estimate,fill=Education),position ="dodge")+
+  geom_col(aes(x=Race,y=rate,fill=Education),position ="dodge")+
   xlab("Race")+
-  ylab("Population")+
-  ggtitle("Group Bar Chart of 2019 Education Attainment by Race")+
-  scale_y_continuous(labels = paste0(ylab, "M"),
-                     breaks = 10^6 * ylab) +
+  ylab("Rate of Particular Education Attainment")+
+  ggtitle("Group Bar Chart of Rate of Education Attainment by Race")+
   scale_fill_brewer(palette = 1) + 
   theme_light(12) + 
   theme(plot.title=element_text(hjust=0.5))
 ```
 
-From the above grouped bar chart, we can observe that for White people, who occupy the largest population in the United States, generally have higher level of education attainment than other races since the height of the bar representing the population of white people who have high school graduate or higher degree is closed to the bar representing the total white population. Moreover, Hispanic or Latino people have relative lower high school or higher graduation rate that other races, since the bars representing total population and population for people who obtain higher school graduate or higher degree have the largest gap among all group bars. 
+From the above grouped bar chart, we can observe that for White people, who occupy the largest population in the United States, have the highest rate of high school graduate or higher than other races since the height of the bar representing the rate of white people who have a high school graduate or higher degree is the highest. Moreover, Hispanic or Latino people have the lowest rate of high school or higher and bachelor or higher degree than other races, since the bars representing these two levels are the shortest. 
 
-Notice that even though the group `Other` has a larger total population than the group `Asian Alone`, we plot the bar for `Asian Alone` first because the group `Other` is an aggregation of races including native Hawaiian and American Indian and so on, and each race itself has a smaller population than Asian American. Moreover, if we look at the group of Asian American alone, we can notice that the heights of bars representing total population and two levels of educational attainment are pretty closed, which reveals that Asian American has a relatively high rate of people obtain high school graduate or higher degree or even bachelor or higher degree.
+Notice that even though the group `Other` has a larger total population than the group `Asian Alone`, we plot the bars for `Asian Alone` first because the group `Other` is an aggregation of races including native Hawaiian and American Indian and so on, and each race itself has a smaller population than Asian American. Moreover, if we look at the group of Asian American alone, we can notice Asian Americans generally have high education attainment with a relatively high rate of high school graduate or higher and the highest rate of bachelor degree or high among all races.
 
 
 ## Different Levels of Education Attainment by Race and Gender Together
