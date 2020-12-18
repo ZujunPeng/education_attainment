@@ -48,7 +48,7 @@ Notice that even though the group `Other` has a larger total population than the
 
 ## Different Levels of Education Attainment by Race and Gender Together
 
-In this section, we look at how levels of education attainment vary by gender for each race by plotting a horizontal stacked bar chart faceted by 2 educational levels, namely higher school graduate or higher and bachelor's degree or higher. 
+In this section, we look at how levels of educational attainment vary by gender for each race by plotting a horizontal stacked bar chart faceted by 2 educational levels, namely higher school graduate or higher and bachelor's degree or higher. 
 ```{r,include= FALSE}
 # Function to change counts to cases
 # Source: http://www.cookbook-r.com/Manipulating_data/Converting_between_data_frames_and_contingency_tables/
@@ -82,7 +82,7 @@ ggplot(race_gender) +
 
 One interesting finding from the above horizontal stacked bar chart is that for both facets, more than 50% of the population who obtain high school or higher degrees or bachelor or higher degrees are females. This slightly unbalanced proportion of education attainment within gender becomes more trivial when we focus on the plot of `Bachelor Degree or Higher` alone, or when we focus on black people alone. Clearly, the proportion of females among all population who obtain high school or higher degree is larger than the proportion of males, and this higher proportion keep increasing when it goes to the group of people with bachelor or higher degrees. 
 
-Moreover, among all races, black females clearly have the highest proportion compared to black males among all black people who obtain higher school or higher degrees or bachelor or higher degrees. Besides, the two proportional breakdowns of gender for people who have degrees of high school or higher or degrees of bachelor or higher remain unchanged for white people and Asian American. 
+Moreover, among all races, black females clearly have the highest proportion compared to black males among all black people who obtain higher school or higher degrees or bachelor or higher degrees. Besides, the two proportional breakdowns of gender for people who have degrees of high school or higher or degrees of bachelor or higher remain almost unchanged for white people and Asian Americans. 
 
 
 ## Median Earning for each Level of Education Attainment and Gender
@@ -118,13 +118,13 @@ earning2019%>%
         plot.subtitle=element_text(hjust=0.5))
 ```
 
-Clearly, we can observe from the plot that people's earnings increase as they obtain higher degrees of education. Moreover, we can find that for all genders and the total population, median earning for people who obtain bachelor's degrees or higher is higher than the overall median earning for all population. If we explore more on the lengths of the bars, we can observe that there is a huge increase in earnings for people obtaining bachelor's degrees compared to the ones attending some colleges. The earnings for people with advanced degrees increase even more. This finding reveals the positive influence of higher education on people's earnings and the high rate of return of higher education investment regarding to future earning.
+We can observe from the plot that people's earnings increase as they obtain higher degrees of education. Moreover, we can find that for all genders and the total population, median earnings for people who obtain bachelor's degrees or higher are higher than the overall median earning for all populations. If we explore more on the bars' lengths, we can observe a considerable increase in earnings for people obtaining bachelor's degrees compared to the ones attending some colleges. The earnings for people with advanced degrees increase even more. This finding reveals the positive influence of higher education on people's earnings and the high return rate of higher education investment regarding future earning.
 
-If we look closer to genders, median earnings for females are lower than males as well as the total population regardless of education attainment levels. Males with advanced degrees, namely graduate or professional degree, have the highest median earnings and females with education attainment that is less than high school earn at least among all groups. 
+If we look closer to genders, females' median earnings are lower than males and the total population regardless of educational attainment levels. Males with advanced degrees, namely graduate or professional degree, have the highest median earnings, and females with education attainment that is less than high school earn at least among all groups.
 
 ## Education Attainment and Women's Marital and Fertility Status
 
-In last section, we notice that though high education attainment largely increases people's earnings, the earnings among males and females are unequal for all levels of education attainment. To explore more on influence of education attainment on women's life, we use a new data set with information on marriage status for women who give birth or not in 2019 in different education levels. Then, we plot a horizontal stacked bar chart to visualize the distribution of women with different marriage statuses, fertility statuses, and education levels. 
+In the last section, we notice that though high education attainment increases people's earnings, the earnings among males and females are unequal for all education attainment levels. To explore the influence of educational attainment on women's lives, we use a new data set with information on marital status for women who give birth or not in 2019 in different education levels. Then, we plot a horizontal stacked bar chart to visualize women's distribution with different marriage statuses, fertility statuses, and education levels. 
 
 ```{r, echo = FALSE}
 ggplot(birth) +
