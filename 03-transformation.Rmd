@@ -1,4 +1,4 @@
-# Data Cleaning
+# Data Transformation
 ```{r, include = FALSE}
 library(tidyverse)
 library(dplyr)
@@ -50,7 +50,7 @@ The data sets that we gained from the official census website are in the forms o
 4. Combine some groups (with relatively few frequencies) into one group
 
 Let's use one of our data sets, 'states' as an example. After we read the csv files into data frame in R and extract the columns that we primarily focus on, the data contains multiple columns indicating education levels, with long and complicated names. 
-```{r}
+```{r, echo = FALSE}
 states <- read.csv("./data/states.csv", na.strings = "N/A")
 states_education <- states[,1:7]
 ```
@@ -70,13 +70,9 @@ kable(head(states_education, 3))
 
 
 
-However, as we can see from the above subset of the dataset, some values in the 'Education' columns are long and complicated. It might create some issues for the following data visualization. Therefore, we abbreviate those values into shorter names. Their full names are indicated in the footnote of each graph using those abbreviations for clarification purpose. 
-```{r}
-states_education <- abbreviate(states_education,total = TRUE)
-kable(head(states_education, 3))
-```
+However, as we can see from the above subset of the dataset, some values in the 'Education' columns are long and complicated. It might create some issues for the following data visualization. Therefore, we abbreviate those values into shorter names. Their full names are indicated in the footnote of each graph using those abbreviations for clarification purpose.
 
-The above Step 1-3 are repeated for each data set we use. For some data sets containing multiple categories, some of which have relativel low frequencies, we combine those categories as one group. For instance, in the data set counting the number of people with different education attainments in various races, we combine the race groups like 'Native Hawaiian and Other Pacific Islander alone', 'American Indian or Alaska Native alone', and other race groups into one big group called 'Other'. 
+The above step 1-3 are repeated for each data set we use. For some data sets containing multiple categories, some of which have relatively low frequencies, we combine those categories as one group. For instance, in the data set counting the number of people with different education attainments in various races, we combine the race groups like 'Native Hawaiian and Other Pacific Islander alone', 'American Indian or Alaska Native alone', and other race groups into one big group called 'Other'. 
 
 ```{r, echo = FALSE, include=FALSE}
 states <- read.csv("./data/states.csv", na.strings = "N/A")

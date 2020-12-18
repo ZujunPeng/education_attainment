@@ -1,33 +1,33 @@
 # Data Sources
 
-Since every member in our group prefer to work on a dataset that has practical meaning and we are both interested in, we are all responsible for collecting the data. We first decide some topics that we think might be suitable for our final project and search for data set on this topics. After that, we compare data sets that we collect and finally decide to use the data on the topic of education attainment provided by US Census. 
+Since both group members prefer to work on a data set that we are both interested in while having practical meaning simultaneously, we are all responsible for collecting the data. We first decide on some topics that we think might suit our final project and search for data set on this topic. After that, we compare data sets that we collect and finally decide to use the data on education attainment provided by the US Census. 
 
 Data Source Link: https://data.census.gov/cedsci/table?q=Education&tid=ACSST1Y2019.S1501&moe=false&tp=false&hidePreview=true
 
 https://data.census.gov/cedsci/table?q=Education&tid=ACSDT1Y2019.B13014&moe=false&tp=false&hidePreview=false
 
-From the data source above, we divide the data that we collect into 5 datasets. The first dataset called "2015-2019education" records the education attainment in the US from 2015 - 2019 and how education level differs by gender over these year. The second dataset called "2015-2019earning" contains data on the median earnings of people in different education levels. The third dataset called "race" covers information on how the level education attainment in the United States is varied by race and gender within each race. The fourth dataset call "states" contains data on education attainment and median earning differed by states. Finally the last data set called "births" has data on the education attainment of women from age 15 to 50 who gave birth and did not give birth in the last 12 months.
+From the data source above, we divide the data that we collect into 5 data sets. The first data set called "2015-2019education" records the education attainment in the US from 2015 - 2019 and how education level differs by gender over these year. The second data set called "2015-2019earning" contains data on the median earnings of people in different education levels. The third dataset called "race" covers information on how the level education attainment in the United States is varied by race and gender within each race. The fourth data set call "states" contains data on education attainment and median earning differed by states. Finally the last data set called "births" has data on the education attainment of women from age 15 to 50 who gave birth and did not give birth in the last 12 months.
 
-The variables these datasets shown in R after reading file and data transformation are (some variables may only appear in some of the datasets and some variables may appear in all dataset):
+The variables shown in those datasets in R after reading file and data transformation are (some variables may only appear in some of the data sets, and some variables may appear in all data sets):
 
-Year(numeric):Year from 2015 to 2019. 
+Year(numeric): Year from 2015 to 2019 
 
-Estimate(numeric):Number of people in particular category. 
+Estimate(numeric): Number of people in particular category
 
-Earning(numeric): Median earning of the populaiton in particular category.
+Earning(numeric): Median earning of the population in particular category
 
 Population(numeric): Population
 
-Education(char): Education attainment.
+Education(char): Education attainment
 
-Gender(char): Gender.
+Gender(char): Gender
 
-Race(char): Race.
+Race(char): Race
 
-States(char): State names in the United States.
+States(char): State names in the United States
 
-Give_birth: Whether a women give birth or not in the past 12 months.
+Give_birth: Whether a woman gives birth or not in the past 12 months
 
-Marriage:Marriage status.
+Marriage: Marriage status.
 
-A problem with the data is that the form of the orginal dataset is reader friendly but not plotting-friendly using R. For example, the education attainment recorded in the data set may have different numbers of categories for race specific and the total population. To be more specific, there are five levels of education attainment for people in age 25 year of older, but there are two levels of education attainment reported when we want to focus on races to see how education attainment is differed by race. To fix it, we need to split orignal file into separate datasets and conduct data transformation to combine or split data to build data frames that are user-friendly in R. Please see the next section of data transformation to understand how data is clean and organized. 
+A problem with the data is that the original dataset is reader-friendly but not plotting-friendly using R. For example, the education attainment recorded in the data set may have different numbers of categories for race and the total population. To be more specific, there are five educational attainment levels for people aged 25 years or older, but there are two levels of education attainment reported when we want to focus on races to see how education attainment differs by race. To fix it, we need to split the original file into separate datasets and conduct data transformation to combine or split data to build data frames that are user-friendly in R. Please see the next section of data transformation to understand how data is clean and organized. 

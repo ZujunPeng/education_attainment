@@ -1,5 +1,5 @@
 # Missing values
 
-There are no missing values in the original data sets because we gain the count of the population with different education attainment and other backgrounds instead of the case data set. 
+There are no missing values in the original data sets because we gain the population counts with different education attainments and other backgrounds instead of the case data set. 
 
-While we are dealing with data on different level of education attainment by states in the United States, we need to convert the states' name to their abbreviate. However, the R package `usdata` would convert Puerto Rico to NA. Since Puerto Rico is an unincorporated territory of the United States but not strictly a state in the United State, we decide to remove data related to puerto Rico in order to plot spatial data in a US map. 
+While we are dealing with data on different education attainment levels by states in the United States, we need to convert the states' names to their abbreviate. However, the R package `usdata` would convert Puerto Rico to NA. Since Puerto Rico is an unincorporated territory of the United States but not strictly a state in the United States, we decide to remove the data related to Puerto Rico to plot spatial data in a US map. 

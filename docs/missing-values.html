@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-cleaning.html"/>
+<link rel="prev" href="data-transformation.html"/>
 <link rel="next" href="results.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data Sources</a></li>
-<li class="chapter" data-level="3" data-path="data-cleaning.html"><a href="data-cleaning.html"><i class="fa fa-check"></i><b>3</b> Data Cleaning</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data Transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#education-attainment-and-gender-in-2019"><i class="fa fa-check"></i><b>5.1</b> Education Attainment and Gender in 2019</a></li>
@@ -171,8 +171,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="missing-values" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
-<p>There are no missing values in the original data sets because we gain the count of the population with different education attainment and other backgrounds instead of the case data set.</p>
-<p>While we are dealing with data on different level of education attainment by states in the United States, we need to convert the states’ name to their abbreviate. However, the R package <code>usdata</code> would convert Puerto Rico to NA. Since Puerto Rico is an unincorporated territory of the United States but not strictly a state in the United State, we decide to remove data related to puerto Rico in order to plot spatial data in a US map.</p>
+<p>There are no missing values in the original data sets because we gain the population counts with different education attainments and other backgrounds instead of the case data set.</p>
+<p>While we are dealing with data on different education attainment levels by states in the United States, we need to convert the states’ names to their abbreviate. However, the R package <code>usdata</code> would convert Puerto Rico to NA. Since Puerto Rico is an unincorporated territory of the United States but not strictly a state in the United States, we decide to remove the data related to Puerto Rico to plot spatial data in a US map.</p>
 
 </div>
             </section>
@@ -180,7 +180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="data-cleaning.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-transformation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

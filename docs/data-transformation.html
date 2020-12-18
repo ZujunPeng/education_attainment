@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Conclustion | Education Attainment in the US</title>
-  <meta name="description" content="Chapter 7 Conclustion | Education Attainment in the US" />
+  <title>Chapter 3 Data Transformation | Education Attainment in the US</title>
+  <meta name="description" content="Chapter 3 Data Transformation | Education Attainment in the US" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Conclustion | Education Attainment in the US" />
+  <meta property="og:title" content="Chapter 3 Data Transformation | Education Attainment in the US" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Conclustion | Education Attainment in the US" />
+  <meta name="twitter:title" content="Chapter 3 Data Transformation | Education Attainment in the US" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="interactive-component.html"/>
-
+<link rel="prev" href="data-sources.html"/>
+<link rel="next" href="missing-values.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -169,11 +169,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="conclustion" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Conclustion</h1>
-<p>Although our data sets gained from census official website provide us with reliable and summarized data, they also create a limitation for our data visualization. Since each data set from census contains essential information on the focused topic, they normally do not have a large number of variables in each data set. in order to fully explore our topic, we need to browse multiple data sets and collect the relevant information. However, because each data set is specific to one topic, the consistency of data among different data sets is hard to determined. This characteristic of our data source limits the amount of data with consistency and the interaction among multiple variables for our project.</p>
-<p>In the future, if we could gain more variables with corresponding counts related to education attainment, we could explore the current stage of education attainment in the United States further more. Besides, after observing the contrast between the proportion of female attaining higher education degrees and the median earning of female population in the United States, we would like to investigate further on the current education attainment stage of female and their median earnings with the interaction with more variables and/or factors.</p>
-<p>In general, even though the uniqueness of our source’s data type creates some limits and difficulties in the visualization process, it also gives us the chance of transforming those data into the form we want and applying the plotting techniques on count data. Moreover, the time-consuming procedure of exploring the data set that we are interested in and has reliability makes us realize the importance of data source in data visualization. Having an accurate and reliable data set is the key and cornerstone of data visualization and further processes.</p>
+<div id="data-transformation" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Data Transformation</h1>
+<p>The data sets that we gained from the official census website are in the forms of csv files before the transformation. Because of the unique characteristic of the census data, which are all count values with long descriptions, we primarily focus on transforming and pre-processing the data set into the version that we could apply in visualizing and analysis. It mainly contains the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>Read csv files as dataframes</li>
+<li>Transform the ‘messy’ data set into a ‘tidy’ one</li>
+<li>Formalize and abbreviate the categorical values</li>
+<li>Combine some groups (with relatively few frequencies) into one group</li>
+</ol>
+<p>Let’s use one of our data sets, ‘states’ as an example. After we read the csv files into data frame in R and extract the columns that we primarily focus on, the data contains multiple columns indicating education levels, with long and complicated names.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-4">Table 3.1: </span>Column Names of State Education Dataset</caption>
+<thead>
+<tr class="header">
+<th align="left">Column Names</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">State</td>
+</tr>
+<tr class="even">
+<td align="left">Total</td>
+</tr>
+<tr class="odd">
+<td align="left">Less.than.high.school.graduate</td>
+</tr>
+<tr class="even">
+<td align="left">High.school.graduate..includes.equivalency.</td>
+</tr>
+<tr class="odd">
+<td align="left">Some.college.or.associate.s.degree</td>
+</tr>
+<tr class="even">
+<td align="left">Bachelor.s.degree</td>
+</tr>
+<tr class="odd">
+<td align="left">Graduate.or.professional.degree</td>
+</tr>
+</tbody>
+</table>
+<p>To have a tidy data set, we transform those columns indicating the education levels into one column:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-transformation.html#cb1-1"></a>states_education &lt;-<span class="st"> </span>states_education <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span><span class="op">!</span>State ,<span class="dt">names_to =</span> <span class="st">&quot;Education&quot;</span>,<span class="dt">values_to =</span> <span class="st">&quot;Population&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">State</th>
+<th align="left">Education</th>
+<th align="right">Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Alabama</td>
+<td align="left">Total</td>
+<td align="right">3360058</td>
+</tr>
+<tr class="even">
+<td align="left">Alabama</td>
+<td align="left">Less.than.high.school.graduate</td>
+<td align="right">433073</td>
+</tr>
+<tr class="odd">
+<td align="left">Alabama</td>
+<td align="left">High.school.graduate..includes.equivalency.</td>
+<td align="right">1039241</td>
+</tr>
+</tbody>
+</table>
+<p>However, as we can see from the above subset of the dataset, some values in the ‘Education’ columns are long and complicated. It might create some issues for the following data visualization. Therefore, we abbreviate those values into shorter names. Their full names are indicated in the footnote of each graph using those abbreviations for clarification purpose.</p>
+<p>The above step 1-3 are repeated for each data set we use. For some data sets containing multiple categories, some of which have relatively low frequencies, we combine those categories as one group. For instance, in the data set counting the number of people with different education attainments in various races, we combine the race groups like ‘Native Hawaiian and Other Pacific Islander alone’, ‘American Indian or Alaska Native alone’, and other race groups into one big group called ‘Other’.</p>
 
 </div>
             </section>
@@ -181,8 +247,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="interactive-component.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="data-sources.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="missing-values.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -213,7 +279,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ZujunPeng/Education_attainment/edit/master/07-conclusion.Rmd",
+"link": "https://github.com/ZujunPeng/Education_attainment/edit/master/03-transformation.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -221,7 +287,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/ZujunPeng/Education_attainment/blob/master/07-conclusion.Rmd",
+"link": "https://github.com/ZujunPeng/Education_attainment/blob/master/03-transformation.Rmd",
 "text": null
 },
 "download": null,

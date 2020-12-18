@@ -7,10 +7,10 @@ library(ggmosaic)
 library(usdata)
 library(micromapST)
 ```
-In this section, we will look at the data on the different levels of education attainment by gender, race, states and possible influence of education attainment on people's earning and women's marriage and fertility status in 2019 in the United States.
+In this section, we look at data on the different levels of education attainment by gender, race, states and the possible influence of educational attainment on median earnings of the population and women's marriage and fertility status in 2019 in the United States.
 
 ## Education Attainment and Gender in 2019
-We first focus on the level of education attainment and how it differs by gender in 2019. We plot a mosaic plot to show the relation between these two variables. Notice that since the variable `Education` has five levels and long names, it's hard to display them appropriately and clearly in the label of mosaic plot. Therefore, we abbreviate the variable names by converting "Less than High School" to "<HS", "High School Graduate" to "HSG", "Some College or Associate Degree" to "SC", "Bachelor Degree" to "BD","Advanced Degree" to "AD".
+We first focus on the level of educational attainment and how it differed by gender in 2019. We plot a mosaic plot to show the relation between these two variables. Notice that since the variable `Education` has five levels and long names, it is hard to display them appropriately and clearly in the label of mosaic plot. Therefore, we abbreviate the variable names by converting "Less than High School" to "<HS", "High School Graduate" to "HSG", "Some College or Associate Degree" to "SC", "Bachelor Degree" to "BD","Advanced Degree" to "AD".
 ```{r, echo = FALSE}
 edu2019 <- education[education$Year==2019,]
 dt <- xtabs(Estimate ~ Education + Gender, data=edu2019)
@@ -20,11 +20,11 @@ vcd::mosaic(dt, direction = c("v", "h"),
             main= "Mosaic Plot of Educaton Attainment and Gender in 2019")
 ```
 
-From the mosaic plot, we can first observe that over the United States, people have high school graduate degree and some college or associate degree occupy the two largest proportions of the whole population and people who do not go to high school or obtain advanced degree, namely graduate degree or professional degree, occupy the two smallest proportion. Moreover, if we explore more on the relationship between gender and Education, we can observe that females generally obtain higher level of education than males since in the group of less than higher school and high school, female occupy a smaller proportion than male, while in the group of some college or associate degree, bachelor's degree, or advanced degree, female occupy a larger proportion than male. However, if we look at the whole population, approximately more that 85% percents of the population have graduated from high school, which is a relatively high rate of high school graduate.
+From the mosaic plot, we can first observe that over the United States, people have high school graduate degree and some college or associate degree occupy the two largest proportions of the whole population and people who do not go to high school or obtain advanced degrees (graduate or professional degrees), occupy the two smallest proportions. Moreover, let us explore more about the relationship between gender and education. We can observe that more females generally obtain a higher level of education than males since in the group of less than higher school and high school, female occupy a smaller proportion than male, while in the group of some college or associate degree, bachelor's degree, or advanced degree, female occupy a larger proportion than male. However, if we look at the whole population, approximately more than 85% of the population have graduated from high school, which is relatively high. 
 
 
 ## Different Levels of Education Attainment by Race
-Now we look at the different levels of education attainment by race in the United States. Different from the previous plot, in this plot, the levels of education attainment are "Total", "Higher School or Higher", and "Bachelor Degree or Higher", represent the total population, people have high school or higher degree, and people with bachelor or higher degree respectively.
+Now, let us look at the different levels of education attainment by race in the United States. Different from the previous plot, in this plot, the levels of educational attainment are "Total", "Higher School or Higher", and "Bachelor Degree or Higher", represent the total population, people have a high school or higher degree, and people with a bachelor or higher degree respectively.
 ```{r, echo = FALSE}
 race_total <- race[race$Gender=="Total",]
 levels(race_total$Race) <- gsub(" ", "\n", levels(race_total$Race))
